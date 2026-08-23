@@ -212,7 +212,7 @@ async function buildGuidelineSpecimens(): Promise<CardEntry[]> {
       subtitle: card.subtitle,
       w,
       h,
-      href: `/guidelines/${slug}.card.html`,
+      href: `guidelines/${slug}.card.html`,
       key: `guidelines/${slug}`,
       padding: card.padding ?? '18px',
     });
@@ -313,7 +313,7 @@ async function buildComponentSpecimens(): Promise<CardEntry[]> {
       subtitle: card.subtitle,
       w,
       h,
-      href: `/components/${category}/${slug}.card.html`,
+      href: `components/${category}/${slug}.card.html`,
       key: `components/${category}/${slug}`,
       padding: card.padding ?? '20px',
       prompts,
@@ -424,7 +424,7 @@ async function readDsCard(file: string): Promise<Omit<CardEntry, 'category' | 'k
   if (!m) return null;
   const [, group, viewport, name, subtitle] = m;
   const [w, h] = viewport.split('x').map(Number);
-  return { group, name, subtitle, w, h, href: '/' + path.relative(root, file).split(path.sep).join('/') };
+  return { group, name, subtitle, w, h, href: path.relative(root, file).split(path.sep).join('/') };
 }
 
 async function collectDsCards(dir: string, ext: string): Promise<CardEntry[]> {
