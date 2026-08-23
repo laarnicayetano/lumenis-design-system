@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Corporate page" description="Lumenis corporate page: header, split hero, proof band, product grid, accent band, footer" -->
+<helmet>
+<script src="./ds-base.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css">
+<style>body{margin:0;font-family:"ABC Arizona Sans",Arial,sans-serif;color:#000;background:#fff}</style>
+</helmet>
+<div style="min-height:100vh">
+<header style="display:flex;align-items:center;gap:56px;padding:0 56px;height:88px;border-bottom:1px solid rgba(0,0,0,.16)">
+<img src="../../assets/logo-wordmark-black.svg" alt="Lumenis" style="width:132px;display:block">
+<nav style="display:flex;gap:32px;margin-left:auto;font-size:14px;letter-spacing:.02em;text-transform:uppercase">
+<a href="#" style="color:#000;text-decoration:none">Aesthetics</a>
+<a href="#" style="color:#000;text-decoration:none;opacity:.55">Vision</a>
+<a href="#" style="color:#000;text-decoration:none;opacity:.55">Resources</a>
+<a href="#" style="color:#000;text-decoration:none;opacity:.55">About</a>
+<a href="#" style="color:#000;text-decoration:none;opacity:.55">Contact</a>
+</nav>
+</header>
+<section style="display:grid;grid-template-columns:6fr 6fr;min-height:560px">
+<div style="display:flex;flex-direction:column;justify-content:space-between;padding:80px 56px">
+<p style="margin:0;font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:#404040">60 years pushing boundaries</p>
+<div style="display:flex;flex-direction:column;gap:32px">
+<h1 style="margin:0;font-size:80px;line-height:.9;text-transform:uppercase;text-wrap:balance">Empowering you, <span style="font-family:'ABC Arizona Mix',Georgia,serif">your way</span></h1>
+<p style="margin:0;font-size:28px;line-height:1.16;max-width:30ch">Minimally invasive, energy-based solutions for the Aesthetic and Vision markets.</p>
+<div style="display:flex;gap:16px;margin-top:16px">
+<a href="#" style="display:inline-flex;align-items:center;padding:18px 40px;background:#000;color:#fff;border:1px solid #000;font-size:18px;text-transform:uppercase;text-decoration:none">Discover more</a>
+<a href="#" style="display:inline-flex;align-items:center;padding:18px 40px;color:#000;border:1px solid #000;font-size:18px;text-transform:uppercase;text-decoration:none">Talk to us</a>
+</div>
+</div>
+</div>
+<div style="background:#f2f2f2;display:grid;place-items:center;font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:#404040;opacity:.7">Hero photography</div>
+</section>
+<section style="background:#000;color:#fff;padding:80px 56px;display:grid;grid-template-columns:repeat(4,1fr) 1.4fr;gap:56px;align-items:start">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:40px;line-height:.92">88+</span><span style="font-size:14px;letter-spacing:.02em;text-transform:uppercase">Countries</span><span style="font-size:16px;opacity:.7">Worldwide</span></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:40px;line-height:.92">90k+</span><span style="font-size:14px;letter-spacing:.02em;text-transform:uppercase">Devices</span><span style="font-size:16px;opacity:.7">Installed worldwide</span></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:40px;line-height:.92">60+</span><span style="font-size:14px;letter-spacing:.02em;text-transform:uppercase">Years</span><span style="font-size:16px;opacity:.7">Of industry leadership</span></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:40px;line-height:.92">500+</span><span style="font-size:14px;letter-spacing:.02em;text-transform:uppercase">Clinical</span><span style="font-size:16px;opacity:.7">Publications</span></div>
+<p style="margin:0;font-size:16px;line-height:1.4;opacity:.8">Lumenis develops life-changing, minimally invasive solutions for the Aesthetic and Vision markets. We are BeautyTech pioneers, empowering people by broadening the horizons of health.</p>
+</section>
+<section style="padding:120px 56px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;padding-bottom:32px;margin-bottom:56px;border-bottom:1px solid rgba(0,0,0,.16)">
+<h2 style="margin:0;font-size:40px;line-height:.92;text-transform:uppercase">Our products</h2>
+<a href="#" style="font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:#000;text-decoration:none">View all products</a>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+<sc-for list="{{ products }}" as="product" hint-placeholder-count="4">
+<a href="#" style="display:flex;flex-direction:column;gap:16px;text-decoration:none;color:#000">
+<span style="aspect-ratio:252/391;background:#f2f2f2;display:grid;place-items:center;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:#404040;opacity:.55">Device image</span>
+<span style="font-size:28px;line-height:1.1;text-transform:uppercase">{{ product.name }}</span>
+<span style="font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:#404040">{{ product.market }}</span>
+</a>
+</sc-for>
+</div>
+</section>
+<section style="display:grid;grid-template-columns:6fr 6fr;min-height:420px">
+<div style="background:#578fff;color:#fff;padding:80px 56px;display:flex;flex-direction:column;justify-content:space-between">
+<i class="ph-thin ph-eye" style="font-size:72px"></i>
+<div style="display:flex;flex-direction:column;gap:24px">
+<h2 style="margin:0;font-size:56px;line-height:.92;text-transform:uppercase">A <span style="font-family:'ABC Arizona Mix',Georgia,serif">bright</span> solution for dry eyes</h2>
+<a href="#" style="display:inline-flex;align-self:flex-start;padding:13px 28px;background:#fff;color:#000;font-size:16px;text-transform:uppercase;text-decoration:none">Learn more</a>
+</div>
+</div>
+<div style="padding:80px 56px;display:flex;flex-direction:column;justify-content:space-between">
+<blockquote style="margin:0;display:flex;flex-direction:column;gap:24px;max-width:46ch">
+<p style="margin:0;font-size:28px;line-height:1.16">Lumenis products have been such a success in my clinic, achieving amazing results with my clients and are extremely cost effective.</p>
+<span style="width:48px;height:1px;background:rgba(0,0,0,.4)"></span>
+<span style="font-size:14px;letter-spacing:.02em;text-transform:uppercase">Evie Rose — Aesthetic Clinic, London</span>
+</blockquote>
+</div>
+</section>
+<footer style="background:#000;color:#fff;padding:80px 56px 32px;display:flex;flex-direction:column;gap:80px">
+<div style="display:flex;gap:80px">
+<img src="../../assets/logo-wordmark-white.svg" alt="Lumenis" style="width:168px;display:block">
+<div style="display:flex;gap:80px;margin-left:auto;font-size:16px">
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;letter-spacing:.02em;text-transform:uppercase;opacity:.55">Company</span><a href="#" style="color:#fff;text-decoration:none;opacity:.85">About Lumenis</a><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Leadership</a><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Careers</a></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;letter-spacing:.02em;text-transform:uppercase;opacity:.55">Aesthetics</span><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Skin</a><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Body</a><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Hair removal</a></div>
+<div style="display:flex;flex-direction:column;gap:12px"><span style="font-size:13px;letter-spacing:.02em;text-transform:uppercase;opacity:.55">Vision</span><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Dry eye</a><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Glaucoma</a><a href="#" style="color:#fff;text-decoration:none;opacity:.85">Retina</a></div>
+</div>
+</div>
+<div style="display:flex;gap:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.25);font-size:13px;letter-spacing:.02em;text-transform:uppercase;opacity:.55">
+<span>Copyright © 2010- Lumenis Be Ltd. All Rights Reserved</span>
+<span style="margin-left:auto">Privacy statement · Terms of use</span>
+</div>
+</footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;products&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;{name:string;market:string}[]&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      products: this.props.products ?? [
+        { name: 'FoLix\u2122', market: 'Aesthetics · Hair loss' },
+        { name: 'triLift', market: 'Aesthetics · Facial stimulation' },
+        { name: 'Stellar M22\u2122', market: 'Aesthetics · IPL platform' },
+        { name: 'OptiLIGHT', market: 'Vision · Dry eye' },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

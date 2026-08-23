@@ -1,0 +1,1609 @@
+{
+  "namespace": "LumenisDesignSystem_f2c14a",
+  "components": [
+    {
+      "name": "Button",
+      "sourcePath": "components/actions/Button/Button.jsx"
+    },
+    {
+      "name": "TextLink",
+      "sourcePath": "components/actions/TextLink/TextLink.jsx"
+    },
+    {
+      "name": "HeroL",
+      "sourcePath": "components/brand/HeroL/HeroL.jsx"
+    },
+    {
+      "name": "Logotype",
+      "sourcePath": "components/brand/Logotype/Logotype.jsx"
+    },
+    {
+      "name": "InsightCard",
+      "sourcePath": "components/content/InsightCard/InsightCard.jsx"
+    },
+    {
+      "name": "ProductCard",
+      "sourcePath": "components/content/ProductCard/ProductCard.jsx"
+    },
+    {
+      "name": "Quote",
+      "sourcePath": "components/content/Quote/Quote.jsx"
+    },
+    {
+      "name": "StatBlock",
+      "sourcePath": "components/content/StatBlock/StatBlock.jsx"
+    },
+    {
+      "name": "NewsletterSignup",
+      "sourcePath": "components/forms/NewsletterSignup/NewsletterSignup.jsx"
+    },
+    {
+      "name": "TextField",
+      "sourcePath": "components/forms/TextField/TextField.jsx"
+    },
+    {
+      "name": "Icon",
+      "sourcePath": "components/icons/Icon/Icon.jsx"
+    },
+    {
+      "name": "SplitLayout",
+      "sourcePath": "components/layout/SplitLayout/SplitLayout.jsx"
+    },
+    {
+      "name": "SplitPanel",
+      "sourcePath": "components/layout/SplitLayout/SplitLayout.jsx"
+    },
+    {
+      "name": "SiteFooter",
+      "sourcePath": "components/navigation/SiteFooter/SiteFooter.jsx"
+    },
+    {
+      "name": "SiteHeader",
+      "sourcePath": "components/navigation/SiteHeader/SiteHeader.jsx"
+    },
+    {
+      "name": "Eyebrow",
+      "sourcePath": "components/typography/Eyebrow/Eyebrow.jsx"
+    },
+    {
+      "name": "Headline",
+      "sourcePath": "components/typography/Headline/Headline.jsx"
+    },
+    {
+      "name": "HighlightBox",
+      "sourcePath": "components/typography/HighlightBox/HighlightBox.jsx"
+    },
+    {
+      "name": "Prose",
+      "sourcePath": "components/typography/Prose/Prose.jsx"
+    }
+  ],
+  "startingPoints": [],
+  "cards": [
+    {
+      "path": "guidelines/brand-marks.card.html",
+      "group": "Brand",
+      "viewport": "700x190",
+      "subtitle": "Wordmark and Hero L, positive and negative",
+      "name": "Marks"
+    },
+    {
+      "path": "guidelines/brand-motion.card.html",
+      "group": "Brand",
+      "viewport": "700x200",
+      "subtitle": "Hover fades to 60%, press to 40% \u2014 no scale, no colour shift (inferred)",
+      "name": "States & motion"
+    },
+    {
+      "path": "guidelines/brand-surfaces.card.html",
+      "group": "Brand",
+      "viewport": "700x220",
+      "subtitle": "Squared, flat, hairline rules \u2014 scrim over photography, never a blur capsule",
+      "name": "Surfaces & protection"
+    },
+    {
+      "path": "guidelines/colors-neutral.card.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Shine grey, photography ground, organic tone",
+      "name": "Neutrals & grounds"
+    },
+    {
+      "path": "guidelines/colors-primary.card.html",
+      "group": "Colors",
+      "viewport": "700x150",
+      "subtitle": "Black and white carry every Lumenis surface",
+      "name": "Primary palette"
+    },
+    {
+      "path": "guidelines/colors-purple.card.html",
+      "group": "Colors",
+      "viewport": "700x160",
+      "subtitle": "ULTRApulse, AcuPulse, FemTouch, LegendPro, NuEra, FoLix",
+      "name": "Aesthetics \u00b7 purples & reds"
+    },
+    {
+      "path": "guidelines/colors-rose.card.html",
+      "group": "Colors",
+      "viewport": "700x160",
+      "subtitle": "Stellar M22, triLift, LegendPro, NuEra",
+      "name": "Aesthetics \u00b7 roses"
+    },
+    {
+      "path": "guidelines/colors-skin.card.html",
+      "group": "Colors",
+      "viewport": "700x160",
+      "subtitle": "LightSheer and SPLENDOR X hair-removal family",
+      "name": "Aesthetics \u00b7 skin tones"
+    },
+    {
+      "path": "guidelines/colors-usage.card.html",
+      "group": "Colors",
+      "viewport": "700x230",
+      "subtitle": "One accent at a time, never more than a fifth of the format",
+      "name": "The 20% rule"
+    },
+    {
+      "path": "guidelines/colors-vision.card.html",
+      "group": "Colors",
+      "viewport": "700x160",
+      "subtitle": "OptiLIGHT, OptiPLUS, OptiLIFT, Digital Duet / Trio",
+      "name": "Vision accents"
+    },
+    {
+      "path": "components/actions/buttons.card.html",
+      "group": "Components",
+      "viewport": "700x230",
+      "subtitle": "CTA variants, sizes, states, and the text link",
+      "name": "Buttons & links"
+    },
+    {
+      "path": "components/brand/logo.card.html",
+      "group": "Components",
+      "viewport": "700x210",
+      "subtitle": "Wordmark and symbol, positive and negative",
+      "name": "Logotype & Hero L"
+    },
+    {
+      "path": "components/content/content.card.html",
+      "group": "Components",
+      "viewport": "700x330",
+      "subtitle": "Content blocks from the corporate site",
+      "name": "Product, insight, quote & stat"
+    },
+    {
+      "path": "components/forms/forms.card.html",
+      "group": "Components",
+      "viewport": "700x300",
+      "subtitle": "Underlined inputs, light and inverse",
+      "name": "Fields & sign-up"
+    },
+    {
+      "path": "components/icons/icons.card.html",
+      "group": "Components",
+      "viewport": "700x200",
+      "subtitle": "Substituted line set \u2014 small 1pt and large 2pt scale",
+      "name": "Icons"
+    },
+    {
+      "path": "components/layout/split.card.html",
+      "group": "Components",
+      "viewport": "700x300",
+      "subtitle": "The base composition: type half, image half",
+      "name": "Split layout"
+    },
+    {
+      "path": "components/navigation/chrome.card.html",
+      "group": "Components",
+      "viewport": "700x360",
+      "subtitle": "Corporate site chrome",
+      "name": "Header & footer"
+    },
+    {
+      "path": "components/typography/type.card.html",
+      "group": "Components",
+      "viewport": "700x320",
+      "subtitle": "Hero L and Arizona Mix emphasis, body sizes, box highlight",
+      "name": "Headline, prose & highlight"
+    },
+    {
+      "path": "ui_kits/corporate-website/index.html",
+      "group": "Corporate website",
+      "viewport": "1280x900",
+      "subtitle": "Home, product detail and contact \u2014 click-through",
+      "name": "Corporate website"
+    },
+    {
+      "path": "ui_kits/email/index.html",
+      "group": "Email",
+      "viewport": "700x900",
+      "subtitle": "Table-based, Arial system typeface per guidelines p.32",
+      "name": "Email template"
+    },
+    {
+      "path": "ui_kits/slides/01-title.html",
+      "group": "Slides",
+      "viewport": "1280x720",
+      "subtitle": "Full-bleed black, Hero L headline",
+      "name": "Title slide"
+    },
+    {
+      "path": "ui_kits/slides/02-section.html",
+      "group": "Slides",
+      "viewport": "1280x720",
+      "subtitle": "Single sub-brand accent field",
+      "name": "Section divider"
+    },
+    {
+      "path": "ui_kits/slides/03-split.html",
+      "group": "Slides",
+      "viewport": "1280x720",
+      "subtitle": "Type half, photography half",
+      "name": "Split content slide"
+    },
+    {
+      "path": "ui_kits/slides/04-stats.html",
+      "group": "Slides",
+      "viewport": "1280x720",
+      "subtitle": "Four figures on hairline rules",
+      "name": "Proof points"
+    },
+    {
+      "path": "ui_kits/slides/05-quote.html",
+      "group": "Slides",
+      "viewport": "1280x720",
+      "subtitle": "Practitioner testimonial, black field",
+      "name": "Quote slide"
+    },
+    {
+      "path": "ui_kits/slides/06-products.html",
+      "group": "Slides",
+      "viewport": "1280x720",
+      "subtitle": "Portfolio overview on the photography ground",
+      "name": "Product grid"
+    },
+    {
+      "path": "ui_kits/slides/07-closing.html",
+      "group": "Slides",
+      "viewport": "1280x720",
+      "subtitle": "Right-aligned sign-off",
+      "name": "Closing slide"
+    },
+    {
+      "path": "ui_kits/social/index.html",
+      "group": "Social",
+      "viewport": "1280x420",
+      "subtitle": "1080\u00b2 formats: functional, inspirational, colour field, statement",
+      "name": "Instagram posts"
+    },
+    {
+      "path": "guidelines/spacing-clearance.card.html",
+      "group": "Spacing",
+      "viewport": "700x230",
+      "subtitle": "Wordmark safety = x on all sides \u00b7 CTA = x vertical, 2x horizontal",
+      "name": "Logo & CTA clear space"
+    },
+    {
+      "path": "guidelines/spacing-scale.card.html",
+      "group": "Spacing",
+      "viewport": "700x180",
+      "subtitle": "4 \u2192 160, with 56 as the social-format margin",
+      "name": "Spacing scale"
+    },
+    {
+      "path": "guidelines/spacing-social.card.html",
+      "group": "Spacing",
+      "viewport": "700x260",
+      "subtitle": "1080\u00b2 \u00b7 6\u00d76 squares \u00b7 56px margins \u00b7 wordmark = 2 columns",
+      "name": "Social grid"
+    },
+    {
+      "path": "guidelines/type-body.card.html",
+      "group": "Type",
+      "viewport": "700x230",
+      "subtitle": "Subtitle 28/1.16 \u00b7 paragraph 18/1.39 \u00b7 form 16/1.4",
+      "name": "Body scale"
+    },
+    {
+      "path": "guidelines/type-caption.card.html",
+      "group": "Type",
+      "viewport": "700x150",
+      "subtitle": "All caps: kickers, specs, nav, CTAs",
+      "name": "Captions & buttons"
+    },
+    {
+      "path": "guidelines/type-casing.card.html",
+      "group": "Type",
+      "viewport": "700x180",
+      "subtitle": "Never mix caps and sentence case in one block; left or right, not both",
+      "name": "Casing & alignment"
+    },
+    {
+      "path": "guidelines/type-display.card.html",
+      "group": "Type",
+      "viewport": "700x230",
+      "subtitle": "Titles all caps, leading 88\u201392%, tracking 0",
+      "name": "Display scale"
+    },
+    {
+      "path": "guidelines/type-emphasis.card.html",
+      "group": "Type",
+      "viewport": "700x230",
+      "subtitle": "Hero L or Arizona Mix, never both, never repeated",
+      "name": "Emphasis \u2014 one device only"
+    },
+    {
+      "path": "guidelines/type-families.card.html",
+      "group": "Type",
+      "viewport": "700x200",
+      "subtitle": "Arizona Sans is the workhorse; Arizona Mix highlights 1\u20132 words",
+      "name": "Families"
+    },
+    {
+      "path": "guidelines/type-system.card.html",
+      "group": "Type",
+      "viewport": "700x150",
+      "subtitle": "Arial when Arizona is unavailable; Noto for Hebrew and Chinese",
+      "name": "System & regional typefaces"
+    }
+  ],
+  "templates": [
+    {
+      "name": "Corporate page",
+      "description": "Lumenis corporate page: header, split hero, proof band, product grid, accent band, footer",
+      "folder": "templates/corporate-page",
+      "entryPath": "templates/corporate-page/CorporatePage.dc.html",
+      "thumbnail": {
+        "path": "templates/corporate-page/.thumbnail",
+        "kind": "captured"
+      }
+    },
+    {
+      "name": "Slide deck",
+      "description": "Lumenis 16:9 deck: title, section divider, split content, proof points, quote, product grid, closing",
+      "folder": "templates/slide-deck",
+      "entryPath": "templates/slide-deck/SlideDeck.dc.html",
+      "thumbnail": {
+        "path": "templates/slide-deck/.thumbnail",
+        "kind": "captured"
+      }
+    }
+  ],
+  "hasThumbnailHtml": true,
+  "globalCssPaths": [
+    "tokens/fonts.css",
+    "tokens/colors.css",
+    "tokens/subbrands.css",
+    "tokens/typography.css",
+    "tokens/spacing.css",
+    "tokens/surfaces.css",
+    "tokens/motion.css",
+    "tokens/base.css",
+    "styles.css"
+  ],
+  "tokens": [
+    {
+      "name": "--lum-black",
+      "value": "#000000",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-white",
+      "value": "#ffffff",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-shine-grey",
+      "value": "#404040",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-image-grey",
+      "value": "#f2f2f2",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-organic-tone",
+      "value": "#f9f0e8",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-dark-brown",
+      "value": "#834436",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-light-brown",
+      "value": "#a27369",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-brown",
+      "value": "#c69275",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-soft-brown",
+      "value": "#e5c9a8",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-pastel-brown",
+      "value": "#f2e3d4",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-turquoise",
+      "value": "#00c0af",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-light-purple",
+      "value": "#bc9aff",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-orchid-purple",
+      "value": "#d690ff",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-purple",
+      "value": "#6c62f9",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-silken-rose",
+      "value": "#ba6d81",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-peach-beige",
+      "value": "#deaa9b",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-rose-beige",
+      "value": "#cf9684",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-red",
+      "value": "#ed124a",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-peach-red",
+      "value": "#ff5532",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-gradient-yellow",
+      "value": "#ffbc6e",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-rose-gold",
+      "value": "#fabcad",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-rose-gold-light",
+      "value": "#ffd1ca",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-green",
+      "value": "#00a37b",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-light-green",
+      "value": "#3dd47a",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-blue",
+      "value": "#578fff",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-violet",
+      "value": "#6f20d2",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--lum-magenta",
+      "value": "#d23460",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--text-primary",
+      "value": "var(--lum-black)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--text-inverse",
+      "value": "var(--lum-white)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--text-muted",
+      "value": "var(--lum-shine-grey)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--text-accent",
+      "value": "var(--lum-black)",
+      "kind": "font",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-page",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-inverse",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-image",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--surface-accent",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--border-hairline",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--border-subtle",
+      "value": "rgba(0,0,0,.16)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--border-hairline-inverse",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--link-color",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--link-color-hover",
+      "value": "var(--lum-shine-grey)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/colors.css"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"corporate\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"corporate\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"corporate\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-silken-rose)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"stellar-m22\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"stellar-m22\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-peach-beige)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"stellar-m22\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-rose-gold)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"trilift\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"trilift\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-rose-gold-light)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"trilift\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-red)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"legendpro\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"legendpro\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-pastel-brown)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"legendpro\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-peach-red)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"nuera\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"nuera\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-gradient-yellow)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"nuera\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-orchid-purple)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"ultrapulse\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"ultrapulse\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-light-purple)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"ultrapulse\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-purple)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"acupulse\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"acupulse\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-light-purple)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"acupulse\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-purple)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"femtouch\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"femtouch\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-light-purple)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"femtouch\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-turquoise)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"folix\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"folix\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-organic-tone)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"folix\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-dark-brown)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"splendorx\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"splendorx\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-soft-brown)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"splendorx\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-light-brown)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"lightsheer\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"lightsheer\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-pastel-brown)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"lightsheer\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-blue)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optilight\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optilight\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optilight\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-magenta)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optiplus\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optiplus\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optiplus\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-violet)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optilift\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optilift\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"optilift\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-light-green)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"digital-duet\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-black)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"digital-duet\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"digital-duet\"]"
+    },
+    {
+      "name": "--accent",
+      "value": "var(--lum-green)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"digital-trio\"]"
+    },
+    {
+      "name": "--accent-contrast",
+      "value": "var(--lum-white)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"digital-trio\"]"
+    },
+    {
+      "name": "--accent-soft",
+      "value": "var(--lum-image-grey)",
+      "kind": "color",
+      "definedIn": "tokens/subbrands.css",
+      "scope": "[data-subbrand=\"digital-trio\"]"
+    },
+    {
+      "name": "--font-sans",
+      "value": "\"ABC Arizona Sans\",\"Lumenis Arial\",Arial,Helvetica,sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-mix",
+      "value": "\"ABC Arizona Mix\",Georgia,\"Times New Roman\",serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-system",
+      "value": "\"Lumenis Arial\",Arial,Helvetica,sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-hebrew",
+      "value": "\"Noto Sans Hebrew\",\"ABC Arizona Sans\",sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-cjk",
+      "value": "\"Noto Sans TC\",sans-serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--font-cjk-serif",
+      "value": "\"Noto Serif SC\",serif",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-light",
+      "value": "300",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--weight-regular",
+      "value": "400",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-display",
+      "value": "80px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-title",
+      "value": "56px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-title-sm",
+      "value": "40px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-subtitle",
+      "value": "28px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-button",
+      "value": "18px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-body",
+      "value": "18px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-form",
+      "value": "16px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--text-caption",
+      "value": "14px",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-display",
+      "value": "0.9",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-title",
+      "value": "0.92",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-subtitle",
+      "value": "1.16",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-body",
+      "value": "1.39",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-form",
+      "value": "1.4",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-caption",
+      "value": "1.14",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--leading-button",
+      "value": "1.0",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-title",
+      "value": "0",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-body",
+      "value": "0",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--tracking-caption",
+      "value": "0.02em",
+      "kind": "font",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--social-headline-min",
+      "value": "52px",
+      "kind": "spacing",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--social-subhead-min",
+      "value": "40px",
+      "kind": "spacing",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--social-caption-min",
+      "value": "24px",
+      "kind": "spacing",
+      "definedIn": "tokens/typography.css"
+    },
+    {
+      "name": "--case-title",
+      "value": "uppercase",
+      "kind": "other",
+      "definedIn": "tokens/typography.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--case-caption",
+      "value": "uppercase",
+      "kind": "other",
+      "definedIn": "tokens/typography.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--space-0",
+      "value": "0px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-1",
+      "value": "4px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-2",
+      "value": "8px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-3",
+      "value": "12px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-4",
+      "value": "16px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-5",
+      "value": "24px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-6",
+      "value": "32px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-7",
+      "value": "40px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-8",
+      "value": "56px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-9",
+      "value": "80px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-10",
+      "value": "120px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--space-11",
+      "value": "160px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--social-size",
+      "value": "1080px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--social-margin",
+      "value": "56px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--social-cols",
+      "value": "6",
+      "kind": "other",
+      "definedIn": "tokens/spacing.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--social-square",
+      "value": "161.33px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--social-logo-width",
+      "value": "322.67px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--page-max",
+      "value": "1440px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--page-gutter",
+      "value": "56px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--page-gutter-sm",
+      "value": "24px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--section-gap",
+      "value": "120px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--logo-safety",
+      "value": "1em",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--logo-min-width",
+      "value": "50px",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--cta-clear-x",
+      "value": "1em",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--cta-clear-2x",
+      "value": "2em",
+      "kind": "spacing",
+      "definedIn": "tokens/spacing.css"
+    },
+    {
+      "name": "--radius-none",
+      "value": "0px",
+      "kind": "radius",
+      "definedIn": "tokens/surfaces.css"
+    },
+    {
+      "name": "--radius-pill",
+      "value": "999px",
+      "kind": "radius",
+      "definedIn": "tokens/surfaces.css"
+    },
+    {
+      "name": "--border-width-hairline",
+      "value": "1px",
+      "kind": "spacing",
+      "definedIn": "tokens/surfaces.css"
+    },
+    {
+      "name": "--border-width-icon-sm",
+      "value": "1px",
+      "kind": "spacing",
+      "definedIn": "tokens/surfaces.css"
+    },
+    {
+      "name": "--border-width-icon-lg",
+      "value": "2px",
+      "kind": "spacing",
+      "definedIn": "tokens/surfaces.css"
+    },
+    {
+      "name": "--shadow-none",
+      "value": "none",
+      "kind": "shadow",
+      "definedIn": "tokens/surfaces.css"
+    },
+    {
+      "name": "--shadow-media",
+      "value": "0 1px 0 0 rgba(0,0,0,.08)",
+      "kind": "shadow",
+      "definedIn": "tokens/surfaces.css"
+    },
+    {
+      "name": "--scrim-image",
+      "value": "linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,0) 55%)",
+      "kind": "color",
+      "definedIn": "tokens/surfaces.css",
+      "annotation": "color"
+    },
+    {
+      "name": "--scrim-image-bottom",
+      "value": "linear-gradient(0deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 60%)",
+      "kind": "color",
+      "definedIn": "tokens/surfaces.css",
+      "annotation": "color"
+    },
+    {
+      "name": "--overlay-glass",
+      "value": "rgba(255,255,255,.88)",
+      "kind": "color",
+      "definedIn": "tokens/surfaces.css",
+      "annotation": "color"
+    },
+    {
+      "name": "--blur-glass",
+      "value": "blur(12px)",
+      "kind": "other",
+      "definedIn": "tokens/surfaces.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--dur-fast",
+      "value": "160ms",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--dur-base",
+      "value": "320ms",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--dur-slow",
+      "value": "600ms",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--dur-reveal",
+      "value": "900ms",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--ease-brand",
+      "value": "cubic-bezier(.22,1,.36,1)",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--ease-linear",
+      "value": "linear",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--hover-opacity",
+      "value": "0.6",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    },
+    {
+      "name": "--press-opacity",
+      "value": "0.4",
+      "kind": "other",
+      "definedIn": "tokens/motion.css",
+      "annotation": "other"
+    }
+  ],
+  "themes": [
+    {
+      "selector": "[data-subbrand=\"corporate\"]",
+      "label": "Subbrand Corporate"
+    },
+    {
+      "selector": "[data-subbrand=\"stellar-m22\"]",
+      "label": "Subbrand Stellar M22"
+    },
+    {
+      "selector": "[data-subbrand=\"trilift\"]",
+      "label": "Subbrand Trilift"
+    },
+    {
+      "selector": "[data-subbrand=\"legendpro\"]",
+      "label": "Subbrand Legendpro"
+    },
+    {
+      "selector": "[data-subbrand=\"nuera\"]",
+      "label": "Subbrand Nuera"
+    },
+    {
+      "selector": "[data-subbrand=\"ultrapulse\"]",
+      "label": "Subbrand Ultrapulse"
+    },
+    {
+      "selector": "[data-subbrand=\"acupulse\"]",
+      "label": "Subbrand Acupulse"
+    },
+    {
+      "selector": "[data-subbrand=\"femtouch\"]",
+      "label": "Subbrand Femtouch"
+    },
+    {
+      "selector": "[data-subbrand=\"folix\"]",
+      "label": "Subbrand Folix"
+    },
+    {
+      "selector": "[data-subbrand=\"splendorx\"]",
+      "label": "Subbrand Splendorx"
+    },
+    {
+      "selector": "[data-subbrand=\"lightsheer\"]",
+      "label": "Subbrand Lightsheer"
+    },
+    {
+      "selector": "[data-subbrand=\"optilight\"]",
+      "label": "Subbrand Optilight"
+    },
+    {
+      "selector": "[data-subbrand=\"optiplus\"]",
+      "label": "Subbrand Optiplus"
+    },
+    {
+      "selector": "[data-subbrand=\"optilift\"]",
+      "label": "Subbrand Optilift"
+    },
+    {
+      "selector": "[data-subbrand=\"digital-duet\"]",
+      "label": "Subbrand Digital Duet"
+    },
+    {
+      "selector": "[data-subbrand=\"digital-trio\"]",
+      "label": "Subbrand Digital Trio"
+    }
+  ],
+  "fonts": [
+    {
+      "family": "ABC Arizona Sans",
+      "weight": "400",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/ABCArizonaSans-Regular.otf"
+      ]
+    },
+    {
+      "family": "ABC Arizona Sans",
+      "weight": "300",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/ABCArizonaSans-Light.otf"
+      ]
+    },
+    {
+      "family": "ABC Arizona Mix",
+      "weight": "400",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/ABCArizonaMix-Regular.otf"
+      ]
+    },
+    {
+      "family": "ABC Arizona Mix",
+      "weight": "400",
+      "style": "italic",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/ABCArizonaMix-RegularItalic.otf"
+      ]
+    },
+    {
+      "family": "Lumenis Arial",
+      "weight": "400",
+      "style": "normal",
+      "cssPath": "tokens/fonts.css",
+      "files": [
+        "assets/fonts/Arial.ttf"
+      ]
+    }
+  ],
+  "brandFonts": [
+    {
+      "family": "ABC Arizona Sans",
+      "status": "ok",
+      "tokens": [
+        "--font-sans"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "ABC Arizona Mix",
+      "status": "ok",
+      "tokens": [
+        "--font-mix"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Lumenis Arial",
+      "status": "ok",
+      "tokens": [
+        "--font-system"
+      ],
+      "path": "tokens/fonts.css"
+    },
+    {
+      "family": "Noto Sans Hebrew",
+      "status": "ok",
+      "tokens": [
+        "--font-hebrew"
+      ],
+      "path": "tokens/typography.css"
+    },
+    {
+      "family": "Noto Sans TC",
+      "status": "ok",
+      "tokens": [
+        "--font-cjk"
+      ],
+      "path": "tokens/typography.css"
+    },
+    {
+      "family": "Noto Serif SC",
+      "status": "ok",
+      "tokens": [
+        "--font-cjk-serif"
+      ],
+      "path": "tokens/typography.css"
+    }
+  ],
+  "source": "spa"
+}
