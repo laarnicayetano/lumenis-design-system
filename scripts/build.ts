@@ -188,10 +188,13 @@ function dsCardComment(card: SpecimenCard, w: number, h: number): string {
   return `<!-- @dsCard group="${card.group}" viewport="${w}x${h}" name="${card.name}" subtitle="${card.subtitle}" -->`;
 }
 
-function standalonePage(card: SpecimenCard, w: number, h: number, cssHref: string, extraHead: string, html: string): string {
+function standalonePage(card: SpecimenCard, w: number, h: number, baseHref: string, extraHead: string, html: string): string {
   const padding = card.padding ?? '18px';
+  // <base> lets specimen source use the same root-relative paths (e.g.
+  // "assets/x.svg") whether SSR'd here at some nested depth or live-mounted
+  // at dist/index.html by the specimens client bundle.
   return `${dsCardComment(card, w, h)}
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="${cssHref}">${extraHead}</head><body style="margin:0;padding:${padding};background:var(--surface-page);overflow:hidden;font-family:var(--font-sans)">${html}</body></html>`;
+<!doctype html><html><head><meta charset="utf-8"><base href="${baseHref}"><link rel="stylesheet" href="styles.css">${extraHead}</head><body style="margin:0;padding:${padding};background:var(--surface-page);overflow:hidden;font-family:var(--font-sans)">${html}</body></html>`;
 }
 
 async function buildGuidelineSpecimens(): Promise<CardEntry[]> {
@@ -201,7 +204,7 @@ async function buildGuidelineSpecimens(): Promise<CardEntry[]> {
     const slug = path.basename(file, '.tsx');
     const { html, card } = await renderSpecimen(file);
     const [w, h] = card.viewport;
-    const page = standalonePage(card, w, h, '../styles.css', '', html);
+    const page = standalonePage(card, w, h, '../', '', html);
     const outFile = path.join(dist, 'guidelines', `${slug}.card.html`);
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, page);
@@ -277,7 +280,7 @@ async function buildComponentSpecimens(): Promise<CardEntry[]> {
     const slug = path.basename(file, '.specimen.tsx');
     const { html, card } = await renderSpecimen(file);
     const [w, h] = card.viewport;
-    const page = standalonePage(card, w, h, '../../styles.css', phosphor, html);
+    const page = standalonePage(card, w, h, '../../', phosphor, html);
     const outFile = path.join(dist, 'components', category, `${slug}.card.html`);
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, page);

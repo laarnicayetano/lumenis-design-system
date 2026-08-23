@@ -1,7 +1,5 @@
 import { Logotype, HeroL } from "../index";
 
-Logotype.assetBase = "../../assets";
-
 export const card = {
   group: "Components",
   viewport: [700, 210] as [number, number],

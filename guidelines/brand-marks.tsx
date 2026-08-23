@@ -24,8 +24,8 @@ export default function BrandMarks() {
             gap: "22px",
           }}
         >
-          <img src="../assets/logo-wordmark-black.svg" style={{ width: "170px" }} />
-          <img src="../assets/logo-symbol-black.svg" style={{ height: "40px" }} />
+          <img src="assets/logo-wordmark-black.svg" style={{ width: "170px" }} />
+          <img src="assets/logo-symbol-black.svg" style={{ height: "40px" }} />
         </div>
         <div
           style={{
@@ -36,8 +36,8 @@ export default function BrandMarks() {
             gap: "22px",
           }}
         >
-          <img src="../assets/logo-wordmark-white.svg" style={{ width: "170px" }} />
-          <img src="../assets/logo-symbol-white.svg" style={{ height: "40px" }} />
+          <img src="assets/logo-wordmark-white.svg" style={{ width: "170px" }} />
+          <img src="assets/logo-symbol-white.svg" style={{ height: "40px" }} />
         </div>
       </div>
     </>
