@@ -17,7 +17,8 @@ export interface ProductCardProps {
 }
 
 /* Product tile from the OUR PRODUCTS grid: device shot on the photography
-   grey, name beneath in caps. No card fill, no radius, no shadow. */
+   grey, name beneath in caps. Image tile rounds softly and lifts on hover
+   (tokens/surfaces.css); no fill on the tile itself. */
 export function ProductCard({ name, market, image, href = '#', onClick, style, ...rest }: ProductCardProps) {
   const [hover, setHover] = React.useState(false);
   return (
@@ -29,7 +30,7 @@ export function ProductCard({ name, market, image, href = '#', onClick, style, .
       style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', textDecoration: 'none', color: 'inherit', ...style }}
       {...rest}
     >
-      <div style={{ position: 'relative', aspectRatio: '252 / 391', background: 'var(--surface-image)', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', aspectRatio: '252 / 391', background: 'var(--surface-image)', overflow: 'hidden', borderRadius: 'var(--radius-md)', boxShadow: hover ? 'var(--shadow-md)' : 'var(--shadow-none)', transition: 'box-shadow var(--dur-base) var(--ease-brand)' }}>
         {image
           ? <img src={image} alt={name} style={{ width: '100%', height: '100%', objectFit: 'contain', transform: hover ? 'scale(1.03)' : 'none', transition: 'transform var(--dur-base) var(--ease-brand)' }} />
           : <span style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', fontSize: 'var(--text-caption)', letterSpacing: 'var(--tracking-caption)', textTransform: 'uppercase', color: 'var(--text-muted)', opacity: 0.5 }}>Device image</span>}

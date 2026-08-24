@@ -28,8 +28,17 @@ export interface HeadlineProps {
    heroL — swap the L of the chosen word for the Hero "L", or
    mix   — set the chosen word in Arizona Mix.
    Never both (p.28). */
+/* Flattens children to plain text for the emphasis match below. Only string/
+   number leaves count — a child that's itself an element (e.g. <br/>) can't
+   be sliced into, so it's skipped rather than crashing the lookup. */
+function childrenToText(children: React.ReactNode): string {
+  return React.Children.toArray(children)
+    .map((child) => (typeof child === 'string' || typeof child === 'number' ? String(child) : ''))
+    .join('');
+}
+
 export function Headline({ children, as: Tag = 'h1', size = 'display', align = 'left', heroL, mix, tone = 'inherit', style, ...rest }: HeadlineProps) {
-  const text = typeof children === 'string' ? children.toUpperCase() : '';
+  const text = childrenToText(children).toUpperCase();
   const target = (heroL || mix || '').toUpperCase();
   let content: React.ReactNode = children;
 

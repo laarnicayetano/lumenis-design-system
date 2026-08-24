@@ -1,0 +1,10 @@
+# Image assets go through Git LFS — keeps the repo's git history light as
+# more sub-brand photography/renders/logos get added. Fonts are excluded:
+# assets/fonts/ is gitignored entirely (licensed, never committed — see
+# README.md "Fonts"), so tracking .otf/.ttf here would be dead config.
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.svg filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text

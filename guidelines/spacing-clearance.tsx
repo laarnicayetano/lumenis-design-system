@@ -24,7 +24,7 @@ export default function SpacingClearance() {
             }}
           >
             <img
-              src="assets/logo-wordmark-black.svg"
+              src="assets/logo/wordmark-black.svg"
               style={{ width: "150px", display: "block" }}
             />
           </div>

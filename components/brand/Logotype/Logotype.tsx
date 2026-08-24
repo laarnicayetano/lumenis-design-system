@@ -12,15 +12,20 @@ export interface LogotypeProps extends React.ImgHTMLAttributes<HTMLImageElement>
   width?: number;
   /** Reserve the guideline safety zone as padding. */
   safety?: boolean;
+  /** Path to the copied `assets/` directory, relative to the consuming page. Defaults to `Logotype.assetBase`. */
+  assetBase?: string;
   alt?: string;
   style?: React.CSSProperties;
 }
 
 /* The Lumenis wordmark. Never recoloured, never restyled — only positive
-   (black) or negative (white). Safety zone on all four sides = x (p.12). */
-export function Logotype({ tone = 'black', variant = 'wordmark', width, safety = false, alt = 'Lumenis', style, ...rest }: LogotypeProps) {
-  const base = variant === 'symbol' ? 'logo-symbol' : 'logo-wordmark';
-  const src = Logotype.assetBase + '/' + base + '-' + tone + '.svg';
+   (black) or negative (white). Safety zone on all four sides = x (p.12).
+   `assetBase` is a prop (not just the static default below) so pages that
+   mount Logotype at more than one relative depth aren't stuck sharing a
+   single global path. */
+export function Logotype({ tone = 'black', variant = 'wordmark', width, safety = false, assetBase = Logotype.assetBase, alt = 'Lumenis', style, ...rest }: LogotypeProps) {
+  const base = variant === 'symbol' ? 'symbol' : 'wordmark';
+  const src = assetBase + '/logo/' + base + '-' + tone + '.svg';
   const w = width || (variant === 'symbol' ? 48 : 180);
   return (
     <img
