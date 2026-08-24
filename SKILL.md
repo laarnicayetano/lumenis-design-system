@@ -1,5 +1,5 @@
 ---
-name: design-system
+name: lumenis-design-system
 description: The company-wide Lumenis design system — color tokens, typography, spacing, and core component conventions. Use when creating or reviewing any visual output (landing pages, slides, graphics, UI), when a task asks about brand colors, fonts, or component styling, or when checking a design matches Lumenis standards. For product-specific visual rules that differ from the company default, use that product's design skill, which overrides these values.
 user-invocable: true
 ---
@@ -7,6 +7,11 @@ user-invocable: true
 # Lumenis design system
 
 Global baseline. If a product-specific design skill is loaded, its overrides win — apply only the deltas it lists, inherit everything else from here.
+
+## Product-specific overrides
+
+- [OptiLIFT.md](OptiLIFT.md) — OptiLIFT (non-invasive facial/neck contouring): violet accent, sunburst motif.
+- [OptiLIGHT.md](OptiLIGHT.md) — OptiLIGHT (IPL dry-eye therapy): blue accent, the rays-of-light system, prism imagery.
 
 ## Color
 
@@ -25,17 +30,19 @@ ABC Arizona (Dinamo) throughout — **not bundled in this repo** (licensed). `--
 - Titles: ALL CAPS, "as big as can be", leading 88–92%, tracking 0
 - Subtitle: 20–40% of title size, leading 106–116%
 - Paragraph: 50–65% of subtitle, leading 120–130%
-- Exactly one emphasis device per headline — Hero "L" *or* Mix, never both
+- Exactly one emphasis device per headline — Hero "L" _or_ Mix, never both
+- **Neither Arizona cut ships a bold weight**, so emphasis comes from **colour**, not weight: the operative phrase in a headline, key terms/figures in body, eyebrows, links, or table header rows. One accent per composition, one to four words per highlight — never a large fill.
+- **Gamma decks/slides**: the theme exposes only one heading-transform for the whole scale, so setting H1 uppercase makes H2–H4 uppercase too. This usually reads fine (Gamma's H4s are typically smart-layout labels, already brand-uppercase); if a card genuinely needs a sentence-case subhead, set that line as body text instead of forcing the heading style.
 
 Full scale (sizes, weights, leading): `tokens/typography.css`.
 
 ## Spacing & layout
 
-8px-ish scale: `--space-1 4px` … `--space-11 160px`. Page gutter `56px`, section gap `120px`. Everything derives from a **split**: format divides horizontally or vertically, type on one half, photography on the other. Type is left- *or* right-aligned, never both in one composition. Full scale: `tokens/spacing.css`.
+8px-ish scale: `--space-1 4px` … `--space-11 160px`. Page gutter `56px`, section gap `120px`. Everything derives from a **split**: format divides horizontally or vertically, type on one half, photography on the other. Type is left- _or_ right-aligned, never both in one composition. Full scale: `tokens/spacing.css`.
 
 ## Surfaces
 
-Squared and flat — `--radius-none: 0` everywhere, including buttons. No cards-with-shadows; content sits behind hairline rules (1px black) and whitespace. No blur/frosted-glass devices — use a plain black scrim over photography for legibility.
+Print/photography stays squared and flat (`--radius-none`, no shadow) — but digital UI deliberately departs from that: buttons, form controls, chips, and cards round softly (`--radius-sm/md/lg/pill`) and carry light diffuse shadows (`--shadow-sm/md/lg`), tinted from the corporate ink. `--shadow-accent` is a colored glow reserved for the one primary/accent CTA on screen — echoes the one-accent rule instead of breaking it. Use `Card` (`components/content/Card/`) for a generic bordered/rounded surface. No blur/frosted-glass devices elsewhere — use a plain black scrim over photography for legibility. Full reasoning: `tokens/surfaces.css`.
 
 ## The five rules that break things if missed
 

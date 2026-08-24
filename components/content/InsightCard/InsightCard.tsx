@@ -16,11 +16,12 @@ export interface InsightCardProps {
 }
 
 /* Resource-hub article tile: image, topic tags in caps, sentence-case title,
-   READ MORE link. Hairline rule above; no card fill. */
+   READ MORE link. Image tile rounds softly (tokens/surfaces.css); no fill on
+   the tile itself. */
 export function InsightCard({ title, topics = [], image, href = '#', style, ...rest }: InsightCardProps) {
   return (
     <article style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)', ...style }} {...rest}>
-      <div style={{ position: 'relative', aspectRatio: '16 / 9', background: 'var(--surface-image)', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', aspectRatio: '16 / 9', background: 'var(--surface-image)', overflow: 'hidden', borderRadius: 'var(--radius-md)' }}>
         {image
           ? <img src={image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           : <span style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', fontSize: 'var(--text-caption)', letterSpacing: 'var(--tracking-caption)', textTransform: 'uppercase', color: 'var(--text-muted)', opacity: 0.5 }}>Article image</span>}

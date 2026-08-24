@@ -71,11 +71,11 @@ export default function SpacingSocial() {
             <div style={{ border: ".5px solid rgba(0,0,0,.14)" }}></div>
           </div>
           <img
-            src="assets/logo-wordmark-black.svg"
+            src="assets/logo/wordmark-black.svg"
             style={{ position: "absolute", left: "11px", bottom: "11px", width: "64px" }}
           />
           <img
-            src="assets/logo-symbol-black.svg"
+            src="assets/logo/symbol-black.svg"
             style={{ position: "absolute", right: "11px", top: "11px", height: "32px" }}
           />
         </div>

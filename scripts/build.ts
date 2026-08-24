@@ -111,6 +111,12 @@ function titleCase(slug: string): string {
   return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
+// Interactive ui_kits — each has an App.tsx entry precompiled to bundle.js
+// and an index.html following the same CDN-script convention (see
+// buildUiKitHtml below). Static-only kits (social/email/slides) don't need
+// an entry here — see copyUiKitStatics.
+const INTERACTIVE_UI_KITS = ['corporate-website', 'optilift-website', 'optilight-website'];
+
 async function buildBundles() {
   const common = {
     bundle: true,
@@ -127,12 +133,14 @@ async function buildBundles() {
     globalName: 'LumenisDesignSystem',
   });
 
-  await esbuild.build({
-    ...common,
-    entryPoints: [path.join(root, 'ui_kits/corporate-website/App.tsx')],
-    outfile: path.join(dist, 'ui_kits/corporate-website/bundle.js'),
-    format: 'iife',
-  });
+  for (const kit of INTERACTIVE_UI_KITS) {
+    await esbuild.build({
+      ...common,
+      entryPoints: [path.join(root, 'ui_kits', kit, 'App.tsx')],
+      outfile: path.join(dist, 'ui_kits', kit, 'bundle.js'),
+      format: 'iife',
+    });
+  }
 }
 
 async function copyStaticAssets() {
@@ -393,24 +401,26 @@ async function copyUiKitStatics() {
   }
 }
 
-async function buildCorporateWebsiteHtml() {
-  const from = path.join(root, 'ui_kits/corporate-website/index.html');
+async function buildUiKitHtml(kit: string) {
+  const from = path.join(root, 'ui_kits', kit, 'index.html');
   let html = await fs.readFile(from, 'utf8');
-  // Strip the old CDN React/ReactDOM/Babel scripts and inline App script —
-  // App.tsx is now precompiled into bundle.js.
+  // Strip the old CDN React/ReactDOM/Babel scripts and any per-file inline
+  // babel scripts — App.tsx is now precompiled into bundle.js. Generic
+  // (not per-filename) so this works for any kit following the convention.
   html = html
     .replace(/<script src="https:\/\/unpkg\.com\/react@[^"]*"[^>]*><\/script>\n?/, '')
     .replace(/<script src="https:\/\/unpkg\.com\/react-dom@[^"]*"[^>]*><\/script>\n?/, '')
     .replace(/<script src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[^>]*><\/script>\n?/, '')
     .replace(/<script src="\.\.\/\.\.\/_ds_bundle\.js"><\/script>\n?/, '')
-    .replace(/<script type="text\/babel" src="shared\.jsx"><\/script>\n?/, '')
-    .replace(/<script type="text\/babel" src="Home\.jsx"><\/script>\n?/, '')
-    .replace(/<script type="text\/babel" src="ProductDetail\.jsx"><\/script>\n?/, '')
-    .replace(/<script type="text\/babel" src="Contact\.jsx"><\/script>\n?/, '')
-    .replace(/<script type="text\/babel" data-presets="react">[\s\S]*?<\/script>/, '<script src="./bundle.js"></script>');
-  const to = path.join(dist, 'ui_kits/corporate-website/index.html');
+    .replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, '')
+    .replace(/<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/, '<script src="./bundle.js"></script>');
+  const to = path.join(dist, 'ui_kits', kit, 'index.html');
   await fs.mkdir(path.dirname(to), { recursive: true });
   await fs.writeFile(to, html);
+}
+
+async function buildUiKitHtmls() {
+  for (const kit of INTERACTIVE_UI_KITS) await buildUiKitHtml(kit);
 }
 
 async function buildLandingPage() {
@@ -689,7 +699,7 @@ export async function build() {
     buildBundles(),
     copyStaticAssets(),
     copyUiKitStatics(),
-    buildCorporateWebsiteHtml(),
+    buildUiKitHtmls(),
     buildLandingPage(),
     buildGuidelineSpecimens(),
     buildComponentSpecimens(),
