@@ -52,13 +52,13 @@ Same ABC Arizona family as the root system (Mix for display/Hero-L, Sans for bod
 - `tokens/subbrands.css` → `[data-subbrand="optilight"]`, `tokens/colors.css` → `--lum-blue`, `guidelines/colors-vision.tsx` already documents the accent alongside OptiLIFT's.
 - `components/brand/Rays/` — the rays-of-light system as a real shared component (not inline SVG), carrying the "never cross live text" masking rule (`clear="center"/"left"/"right"`).
 - `guidelines/brand-optilight-rays.tsx`, `-prism.tsx` — migrated specimen cards; `guidelines/brand-photography.tsx` covers photography for both OptiLIFT and OptiLIGHT together.
-- `assets/photography/` — prism-on-eye portraits, warm close-ups, nature/sky imagery (shared with OptiLIFT's photography, no per-subbrand split — see `plan.md`).
+- `assets/photography/` — prism-on-eye portraits, warm close-ups, nature/sky imagery (shared with OptiLIFT's photography, no per-subbrand split).
 - `assets/optilight/product/` — device renders (cart, tabletop, handpiece).
 - `ui_kits/optilight-website/` — the full 11-section marketing site, built from this system's real components.
 
 ## Shipping to HubSpot
 
-The original standalone system pointed to a `../HubSpot Landing Pages/` skill as the authority on HubSpot-side mechanics — naming, page architecture, the shared image library, lead forms, and portal quirks (form fields added by double-click not drag; the forms API returns the *published* form so it reads stale after edits; "Create new contacts for new email addresses" defaults **off**, silently dropping net-new leads). **That skill does not exist in this repo** and wasn't found elsewhere on this machine as of the migration (open question in `plan.md`). Until it's located or rebuilt, treat HubSpot build mechanics as undocumented here — the rules above under "Calculator/form specifics" are as far as this file goes.
+The original standalone system pointed to a `../HubSpot Landing Pages/` skill as the authority on HubSpot-side mechanics — naming, page architecture, the shared image library, lead forms, and portal quirks (form fields added by double-click not drag; the forms API returns the *published* form so it reads stale after edits; "Create new contacts for new email addresses" defaults **off**, silently dropping net-new leads). **That skill does not exist in this repo** and wasn't found elsewhere on this machine as of the migration. Until it's located or rebuilt, treat HubSpot build mechanics as undocumented here — the rules above under "Calculator/form specifics" are as far as this file goes.
 
 ## Caveats (carried over from the original system, still unresolved)
 

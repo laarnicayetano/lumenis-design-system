@@ -1,6 +1,8 @@
 import React from 'react';
 import { Logotype, Icon, Button } from '../../components';
 
+Logotype.assetBase = '../../assets';
+
 const NAV_LINKS = ['The Treatment', 'Technology', 'For Professionals', 'Results'];
 
 export function Nav({ onBook }: { onBook: () => void }) {

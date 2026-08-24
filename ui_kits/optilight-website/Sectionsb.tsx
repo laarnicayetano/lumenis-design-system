@@ -43,7 +43,7 @@ export function Testimonial() {
           </Quote>
           <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-4)', color: 'var(--lum-white)', marginTop: 'var(--space-6)' }}>
             <div style={{ width: 46, height: 46, borderRadius: '50%', overflow: 'hidden', background: 'rgba(255,255,255,.2)' }}>
-              <img src="assets/photography/people-warm-closeup.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="../../assets/photography/people-warm-closeup.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div>
               <div style={{ fontFamily: 'var(--font-sans)', fontWeight: 600 }}>Dr. A. Moreau</div>

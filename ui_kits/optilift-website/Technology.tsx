@@ -20,7 +20,7 @@ export function Technology() {
             ))}
           </div>
         </div>
-        <img src="assets/optilift/product/black-bg/lumenis_02.756.webp" style={{ width: '100%' }} alt="OptiLIFT console detail" />
+        <img src="../../assets/optilift/product/black-bg/lumenis_02.756.webp" style={{ width: '100%' }} alt="OptiLIFT console detail" />
       </div>
     </section>
   );

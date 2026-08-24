@@ -7,7 +7,7 @@ export function Footer() {
         fontFamily: 'var(--font-sans)', fontSize: 'var(--text-caption)', opacity: 0.7,
       }}
     >
-      <img src="assets/optilift/logo/white.png" style={{ height: 22 }} alt="OptiLIFT" />
+      <img src="../../assets/optilift/logo/white.png" style={{ height: 22 }} alt="OptiLIFT" />
       <div>© 2026 Lumenis Be Ltd. OptiLIFT is a trademark of Lumenis.</div>
     </footer>
   );

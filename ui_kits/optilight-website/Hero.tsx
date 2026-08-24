@@ -24,7 +24,7 @@ export function Hero({ onBook }: { onBook: () => void }) {
         </div>
 
         <div style={{ position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden', aspectRatio: '4 / 5', boxShadow: 'var(--shadow-lg)' }}>
-          <img src="assets/photography/people-prism-eye.webp" alt="Patient with prism light over the eye" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          <img src="../../assets/photography/people-prism-eye.webp" alt="Patient with prism light over the eye" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           <Rays tone="blue" origin="right" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', mixBlendMode: 'screen', opacity: 0.95 }} />
           <div style={{ position: 'absolute', left: 22, bottom: 20, color: 'var(--lum-white)', textShadow: '0 1px 10px rgba(0,0,0,.4)' }}>
             <Eyebrow style={{ color: 'inherit' }}>Establishing light as a</Eyebrow>

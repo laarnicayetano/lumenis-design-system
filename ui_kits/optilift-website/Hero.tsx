@@ -14,7 +14,7 @@ export function Hero() {
           <Button variant="secondary">Watch the demo</Button>
         </div>
       </div>
-      <img src="assets/optilift/product/grey-bg/lumenis_02.764.webp" style={{ width: '100%' }} alt="OptiLIFT device" />
+      <img src="../../assets/optilift/product/grey-bg/lumenis_02.764.webp" style={{ width: '100%' }} alt="OptiLIFT device" />
     </section>
   );
 }

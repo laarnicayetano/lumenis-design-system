@@ -123,17 +123,20 @@ Each component ships as `.tsx` (implementation + inline prop types — no separa
 - `assets/` — wordmark + Hero "L" symbol (black/white, SVG + PNG); `assets/fonts/` is gitignored — see [Fonts](#fonts).
 - `research/brand-guidelines.txt` — full extracted text of the 2026 brand guidelines (gitignored, not in the public repo — see source table above).
 - `components/` — one folder per component (`<Category>/<Name>/<Name>.tsx` + `<Name>.prompt.md`), plus `index.ts` as the library barrel and one shared `*.specimen.tsx` demo per category (built to `dist/components/**/*.card.html`):
-  - `brand/` — **Logotype**, **HeroL**
+  - `brand/` — **Logotype**, **HeroL**, **Rays**
   - `typography/` — **Headline**, **Prose**, **Eyebrow**, **HighlightBox**
   - `actions/` — **Button**, **TextLink**
   - `icons/` — **Icon** (substituted set)
   - `layout/` — **SplitLayout**, **SplitPanel**
-  - `navigation/` — **SiteHeader**, **SiteFooter**
-  - `content/` — **ProductCard**, **InsightCard**, **Quote**, **StatBlock**
-  - `forms/` — **TextField**, **NewsletterSignup**
-- `guidelines/*.tsx` — 20 foundation specimen cards (Colors, Type, Spacing, Brand), built to `dist/guidelines/*.card.html`.
+  - `navigation/` — **SiteHeader**, **SiteFooter**, **Tabs**
+  - `content/` — **Card**, **ProductCard**, **InsightCard**, **Quote**, **StatBlock**
+  - `forms/` — **TextField**, **NewsletterSignup**, **Checkbox**, **Radio**, **Select**, **Switch**
+  - `indicators/` — **Badge**, **Tag**
+- `guidelines/*.tsx` and `components/*/*.specimen.tsx` — 39 specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component specimens), built to `dist/guidelines/*.card.html` and `dist/components/**/*.card.html`.
 - `ui_kits/` — `.tsx` sources, built to a standalone bundle per kit that needs one:
   - `corporate-website/` — click-through home, product detail (4 sub-brands), contact.
+  - `optilift-website/` — OptiLIFT patient-facing marketing site.
+  - `optilight-website/` — OptiLIGHT marketing site.
   - `social/` — four 1080² Instagram recipes on the 6×6 grid.
   - `slides/` — seven 1280×720 slide types.
   - `email/` — 640px table-based template in Arial.

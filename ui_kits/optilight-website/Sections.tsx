@@ -35,7 +35,7 @@ export function ValueProps() {
 export function PrismBand() {
   return (
     <section style={{ position: 'relative', overflow: 'hidden', minHeight: 520, display: 'flex', alignItems: 'center' }}>
-      <img src="assets/photography/people-rainbow-face.webp" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+      <img src="../../assets/photography/people-rainbow-face.webp" alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,12,16,.55) 0%, rgba(10,12,16,.15) 55%, transparent 100%)' }} />
       <div style={{ position: 'relative', maxWidth: 'var(--page-max)', margin: '0 auto', padding: '0 var(--page-gutter)', width: '100%' }}>
         <div style={{ maxWidth: 560, color: 'var(--lum-white)' }}>
@@ -75,7 +75,7 @@ export function ProductShowcase() {
       <div style={{ maxWidth: 'var(--page-max)', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'var(--space-8)', alignItems: 'center' }}>
         <div style={{ position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden', background: 'var(--lum-image-grey)', aspectRatio: '1 / 1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Rays tone="light" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.5 }} />
-          <img src="assets/optilight/product/optilight-device-tabletop.webp" alt="OptiLIGHT device" style={{ position: 'relative', width: '86%', filter: 'drop-shadow(0 30px 50px rgba(16,24,40,.18))' }} />
+          <img src="../../assets/optilight/product/optilight-device-tabletop.webp" alt="OptiLIGHT device" style={{ position: 'relative', width: '86%', filter: 'drop-shadow(0 30px 50px rgba(16,24,40,.18))' }} />
         </div>
         <div>
           <Tabs tabs={[{ id: 'pro', label: 'Professionals' }, { id: 'pt', label: 'Patients' }]} active={tab} onChange={(id) => setTab(id as keyof typeof SHOWCASE_DATA)} style={{ marginBottom: 'var(--space-6)', display: 'inline-flex' }} />
