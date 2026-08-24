@@ -24,7 +24,7 @@ const SWATCH_LABEL: React.CSSProperties = {
    tokens/colors.css. It's OptiLIFT's own generated scale (10-step purple +
    warm-neutral), sampled from a logo PNG rather than the real print
    guideline (30MB, unreadable at generation time) — see OptiLIFT.md
-   Caveats and plan.md "Flagged deviations." The single confirmed value,
+   Caveats. The single confirmed value,
    `--lum-violet` #6F20D2, is already in tokens/colors.css and
    guidelines/colors-vision.tsx; everything below it is documentation of
    OptiLIFT's own material, not a system-wide token proposal. */

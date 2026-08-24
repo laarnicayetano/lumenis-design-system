@@ -10,7 +10,7 @@ export function Header() {
         borderBottom: 'var(--border-width-hairline) solid var(--border-subtle)',
       }}
     >
-      <img src="assets/optilift/logo/ByLUMENIS_black.png" style={{ height: 32 }} alt="OptiLIFT by Lumenis" />
+      <img src="../../assets/optilift/logo/ByLUMENIS_black.png" style={{ height: 32 }} alt="OptiLIFT by Lumenis" />
       <nav style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-7)', fontFamily: 'var(--font-sans)', fontSize: 'var(--text-form)' }}>
         <a href="#technology" style={{ color: 'inherit', textDecoration: 'none' }}>Technology</a>
         <a href="#results" style={{ color: 'inherit', textDecoration: 'none' }}>Results</a>
