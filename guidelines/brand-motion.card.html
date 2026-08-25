@@ -1,0 +1,74 @@
+<!-- @dsCard group="Brand" viewport="700x200" name="States &amp; motion" subtitle="Hover fades to 60%, press to 40% — no scale, no colour shift (inferred)" -->
+<link rel="stylesheet" href="../styles.css" />
+<div style="display: flex; flex-direction: column; gap: 16px">
+  <div style="display: flex; gap: 14px; align-items: center">
+    <div
+      style="
+        border: 1px solid #000;
+        padding: 12px 24px;
+        font-size: 14px;
+        text-transform: uppercase;
+        display: inline-block;
+        background: #000;
+        color: #fff;
+      "
+    >
+      Rest
+    </div>
+    <div
+      style="
+        border: 1px solid #000;
+        padding: 12px 24px;
+        font-size: 14px;
+        text-transform: uppercase;
+        display: inline-block;
+        background: #000;
+        color: #fff;
+        opacity: 0.6;
+      "
+    >
+      Hover 60%
+    </div>
+    <div
+      style="
+        border: 1px solid #000;
+        padding: 12px 24px;
+        font-size: 14px;
+        text-transform: uppercase;
+        display: inline-block;
+        background: #000;
+        color: #fff;
+        opacity: 0.4;
+      "
+    >
+      Press 40%
+    </div>
+    <div
+      style="
+        border: 1px solid #000;
+        padding: 12px 24px;
+        font-size: 14px;
+        text-transform: uppercase;
+        display: inline-block;
+        opacity: 0.35;
+      "
+    >
+      Disabled 35%
+    </div>
+  </div>
+  <div
+    style="
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: 0.7;
+      font-variant-numeric: tabular-nums;
+      max-width: 60ch;
+    "
+  >
+    --dur-fast 160ms state changes · --dur-base 320ms entrances · --dur-slow
+    600ms reveals · --ease-brand cubic-bezier(.22,1,.36,1). Fades and slow
+    reveals only: no bounce, no spring, no scale on press. Links reveal a 1px
+    underline rather than changing colour. Motion is not specified in the 2026
+    guidelines — these values are proposed and need brand sign-off.
+  </div>
+</div>

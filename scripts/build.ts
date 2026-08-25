@@ -205,27 +205,30 @@ function standalonePage(card: SpecimenCard, w: number, h: number, baseHref: stri
 <!doctype html><html><head><meta charset="utf-8"><base href="${baseHref}"><link rel="stylesheet" href="styles.css">${extraHead}</head><body style="margin:0;padding:${padding};background:var(--surface-page);overflow:hidden;font-family:var(--font-sans)">${html}</body></html>`;
 }
 
-async function buildGuidelineSpecimens(): Promise<CardEntry[]> {
-  const files = await findFiles(path.join(root, 'guidelines'), '.tsx');
+// guidelines/*.card.html are hand-authored static fragments (no React, no
+// build step) — see .claude/skills/code-mods/SKILL.md's convert-guidelines-to-html
+// mod. Each already starts with its own @dsCard comment and a working
+// <link rel="stylesheet" href="../styles.css">, so building one is just a
+// copy; only its metadata needs parsing out for the homepage nav.
+async function buildGuidelineCards(): Promise<CardEntry[]> {
+  const files = await findFiles(path.join(root, 'guidelines'), '.card.html');
   const cards: CardEntry[] = [];
   for (const file of files) {
-    const slug = path.basename(file, '.tsx');
-    const { html, card } = await renderSpecimen(file);
-    const [w, h] = card.viewport;
-    const page = standalonePage(card, w, h, '../', '', html);
+    const card = await readDsCard(file);
+    if (!card) continue;
+    const slug = path.basename(file, '.card.html');
     const outFile = path.join(dist, 'guidelines', `${slug}.card.html`);
-    await fs.mkdir(path.dirname(outFile), { recursive: true });
-    await fs.writeFile(outFile, page);
+    await copyFile(file, outFile);
     cards.push({
       group: card.group,
       category: card.group,
       name: card.name,
       subtitle: card.subtitle,
-      w,
-      h,
+      w: card.w,
+      h: card.h,
       href: `guidelines/${slug}.card.html`,
       key: `guidelines/${slug}`,
-      padding: card.padding ?? '18px',
+      padding: '0px',
     });
   }
   return cards;
@@ -387,9 +390,10 @@ function unmount(el: Element) {
 }
 
 function sourcePathFor(card: CardEntry): string {
-  // key mirrors the source layout: guidelines/<slug> or components/<cat>/<slug>
+  // key mirrors the source layout: components/<cat>/<slug>. Guidelines are
+  // static HTML now (see buildGuidelineCards) and never reach this — only
+  // components/*/*.specimen.tsx still gets live-mounted via specimens.js.
   const parts = card.key.split('/');
-  if (parts[0] === 'guidelines') return path.join(root, 'guidelines', `${parts[1]}.tsx`);
   return path.join(root, 'components', parts[1], `${parts[2]}.specimen.tsx`);
 }
 
@@ -487,7 +491,7 @@ async function buildHomePage(guidelineCards: CardEntry[], componentCards: CardEn
       : null,
     ...[...groupBy(guidelineCards, (c) => c.category)].map(([title, items]) => ({
       title,
-      items: items.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h, useIframe: false })),
+      items: items.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h, useIframe: true })),
     })),
     {
       title: 'Components',
@@ -721,10 +725,10 @@ export async function build() {
     copyUiKitStatics(),
     buildUiKitHtmls(),
     buildLandingPage(),
-    buildGuidelineSpecimens(),
+    buildGuidelineCards(),
     buildComponentSpecimens(),
   ]);
-  await buildSpecimensClientBundle([...guidelineCards, ...componentCards]);
+  await buildSpecimensClientBundle(componentCards);
   await buildHomePage(guidelineCards, componentCards);
   await fs.writeFile(path.join(dist, '.nojekyll'), '');
   await fs.rm(path.join(root, '.build-tmp'), { recursive: true, force: true });
