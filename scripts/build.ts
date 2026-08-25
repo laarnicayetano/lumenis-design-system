@@ -535,7 +535,7 @@ main{overflow-y:auto;background:#0d0d0d}
 .head a:hover{color:#fff;border-color:var(--ink-dim)}
 .canvas{background:#000;border:1px solid var(--line);display:flex;align-items:flex-start;justify-content:center;padding:var(--space-6);overflow:auto}
 .canvas iframe{border:none;background:#fff;flex-shrink:0}
-.canvas .mount{background:#fff;flex-shrink:0}
+.canvas .mount{background:#fff;color:var(--text-primary);flex-shrink:0}
 .deck{display:grid;grid-template-columns:200px 1fr;gap:var(--space-5)}
 .deck-rail{display:flex;flex-direction:column;gap:var(--space-3);max-height:70vh;overflow-y:auto}
 .deck-thumb{border:1px solid var(--line);cursor:pointer;overflow:hidden;background:#000;position:relative;aspect-ratio:16/9}
