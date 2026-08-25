@@ -1,3 +1,5 @@
+import { SWATCH_CSS } from './_shared';
+
 export const card = {
   group: "Colors",
   viewport: [700, 230] as [number, number],
@@ -9,10 +11,8 @@ export const card = {
 export default function ColorsUsage() {
   return (
     <>
-      <style>{`
-.sw{display:flex;flex-direction:column;gap:6px}.chip{height:64px;border:1px solid rgba(0,0,0,.1)}
-.n{font-size:12px;letter-spacing:.02em;text-transform:uppercase;line-height:1.2}.h{font-size:11px;color:var(--text-muted);opacity:.7;font-variant-numeric:tabular-nums}
-.grid{display:grid;gap:10px}.fmt{aspect-ratio:4/3;border:1px solid var(--border-subtle);position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:10px}.cap{font-size:11px;text-transform:uppercase;letter-spacing:.02em;color:var(--text-muted);margin-top:6px}.ttl{font-size:15px;line-height:.95;text-transform:uppercase}.bad{outline:1px solid #ed124a;outline-offset:2px}
+      <style>{SWATCH_CSS + `
+.fmt{aspect-ratio:4/3;border:1px solid var(--border-subtle);position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:10px}.cap{font-size:11px;text-transform:uppercase;letter-spacing:.02em;color:var(--text-muted);margin-top:6px}.ttl{font-size:15px;line-height:.95;text-transform:uppercase}.bad{outline:1px solid #ed124a;outline-offset:2px}
       `}</style>
       <div className="grid" style={{ gridTemplateColumns: "repeat(4,1fr)" }}>
         <div>
