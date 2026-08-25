@@ -4,28 +4,20 @@
 // only rebuilt on each run. templates/*.dc.html are intentionally excluded:
 // they're Claude Design's own canvas-editor format (support.js/ds-base.js),
 // not something this build produces or should touch.
+//
+// guidelines/*.card.html and components/**/*.card.html are hand-authored
+// static HTML (no SSR step) — see .claude/skills/code-mods/SKILL.md's
+// convert-guidelines-to-html and convert-specimens-to-card-html mods. This
+// build only copies them and reads their @dsCard comment for the homepage
+// nav; components/**/ComponentName.{jsx,d.ts} are still real source the
+// library bundle (buildBundles) compiles.
 import * as esbuild from 'esbuild';
-import ReactDOMServer from 'react-dom/server';
-import type { ReactNode } from 'react';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const dist = path.join(root, 'dist');
-
-interface SpecimenCard {
-  group: string;
-  viewport: [number, number];
-  name: string;
-  subtitle: string;
-  padding?: string;
-}
-
-interface SpecimenModule {
-  default: () => ReactNode;
-  card: SpecimenCard;
-}
 
 interface PromptEntry {
   name: string;
@@ -53,7 +45,6 @@ interface NavItem {
   href?: string;
   w?: number;
   h?: number;
-  useIframe?: boolean;
   prompts?: PromptEntry[];
   slides?: CardEntry[];
 }
@@ -131,6 +122,14 @@ async function buildBundles() {
     outfile: path.join(dist, 'design-system.js'),
     format: 'iife',
     globalName: 'LumenisDesignSystem',
+    // Consuming pages (components/*.card.html, ui_kits/*/index.html) load
+    // React/ReactDOM from a CDN <script> tag before this bundle — alias
+    // instead of bundling a private copy, or components' hooks get a
+    // different dispatcher than whatever actually renders them.
+    alias: {
+      react: path.join(root, 'build/react-global-shim.ts'),
+      'react-dom/client': path.join(root, 'build/react-dom-global-shim.ts'),
+    },
   });
 
   for (const kit of INTERACTIVE_UI_KITS) {
@@ -159,57 +158,17 @@ async function copyStaticAssets() {
   );
 }
 
-// guidelines/*.tsx and components/**/*.specimen.tsx are real React source —
-// rendered to static HTML at build time (SSR), never hand-authored as HTML.
-// Each exports `card` (the @dsCard metadata) and a default component.
-async function importSpecimenModule(file: string): Promise<SpecimenModule> {
-  const result = await esbuild.build({
-    entryPoints: [file],
-    bundle: true,
-    write: false,
-    format: 'esm',
-    platform: 'node',
-    jsx: 'automatic',
-    external: ['react', 'react/jsx-runtime', 'react-dom', 'react-dom/server'],
-    logLevel: 'silent',
-  });
-  // Written inside the repo (not os.tmpdir()) so bare `import 'react'` resolves
-  // against this project's node_modules.
-  const tmpDir = path.join(root, '.build-tmp');
-  await fs.mkdir(tmpDir, { recursive: true });
-  const tmpFile = path.join(tmpDir, `ds-specimen-${process.pid}-${Math.random().toString(36).slice(2)}.mjs`);
-  await fs.writeFile(tmpFile, result.outputFiles[0].text);
-  try {
-    return (await import(pathToFileURL(tmpFile).href)) as SpecimenModule;
-  } finally {
-    await fs.unlink(tmpFile);
-  }
-}
-
-async function renderSpecimen(file: string): Promise<{ html: string; card: SpecimenCard }> {
-  const mod = await importSpecimenModule(file);
-  const html = ReactDOMServer.renderToStaticMarkup(mod.default());
-  return { html, card: mod.card };
-}
-
-function dsCardComment(card: SpecimenCard, w: number, h: number): string {
-  return `<!-- @dsCard group="${card.group}" viewport="${w}x${h}" name="${card.name}" subtitle="${card.subtitle}" -->`;
-}
-
-function standalonePage(card: SpecimenCard, w: number, h: number, baseHref: string, extraHead: string, html: string): string {
-  const padding = card.padding ?? '18px';
-  // <base> lets specimen source use the same root-relative paths (e.g.
-  // "assets/x.svg") whether SSR'd here at some nested depth or live-mounted
-  // at dist/index.html by the specimens client bundle.
-  return `${dsCardComment(card, w, h)}
-<!doctype html><html><head><meta charset="utf-8"><base href="${baseHref}"><link rel="stylesheet" href="styles.css">${extraHead}</head><body style="margin:0;padding:${padding};background:var(--surface-page);overflow:hidden;font-family:var(--font-sans)">${html}</body></html>`;
-}
-
 // guidelines/*.card.html are hand-authored static fragments (no React, no
 // build step) — see .claude/skills/code-mods/SKILL.md's convert-guidelines-to-html
 // mod. Each already starts with its own @dsCard comment and a working
-// <link rel="stylesheet" href="../styles.css">, so building one is just a
-// copy; only its metadata needs parsing out for the homepage nav.
+// <link rel="stylesheet" href="../styles.css">, so building one is mostly a
+// copy. They stay bare/unpadded in source (matching Claude Design's own
+// reference format — no card there bakes in padding either), so this build
+// injects presentation-only padding into the dist/ copy and grows the
+// reported card size to match, so the homepage's iframe fitting still scales
+// correctly around the now-larger rendered content.
+const GUIDELINE_PADDING = 20;
+
 async function buildGuidelineCards(): Promise<CardEntry[]> {
   const files = await findFiles(path.join(root, 'guidelines'), '.card.html');
   const cards: CardEntry[] = [];
@@ -218,14 +177,20 @@ async function buildGuidelineCards(): Promise<CardEntry[]> {
     if (!card) continue;
     const slug = path.basename(file, '.card.html');
     const outFile = path.join(dist, 'guidelines', `${slug}.card.html`);
-    await copyFile(file, outFile);
+    const src = await fs.readFile(file, 'utf8');
+    const padded = src.replace(
+      /<link[^>]*href="\.\.\/styles\.css"[^>]*>/,
+      `$&\n<style>body{margin:0;padding:${GUIDELINE_PADDING}px;box-sizing:border-box}</style>`
+    );
+    await fs.mkdir(path.dirname(outFile), { recursive: true });
+    await fs.writeFile(outFile, padded);
     cards.push({
       group: card.group,
       category: card.group,
       name: card.name,
       subtitle: card.subtitle,
-      w: card.w,
-      h: card.h,
+      w: card.w + GUIDELINE_PADDING * 2,
+      h: card.h + GUIDELINE_PADDING * 2,
       href: `guidelines/${slug}.card.html`,
       key: `guidelines/${slug}`,
       padding: '0px',
@@ -278,30 +243,37 @@ function renderPromptMarkdown(md: string): string {
     .join('');
 }
 
-async function buildComponentSpecimens(): Promise<CardEntry[]> {
-  const files = await findFiles(path.join(root, 'components'), '.specimen.tsx');
+// components/**/*.card.html are hand-authored static demo pages — CDN
+// React/ReactDOM/Babel scripts, _ds_bundle.js, and JSX transpiled live via
+// <script type="text/babel"> (see .claude/skills/code-mods/SKILL.md's
+// convert-specimens-to-card-html mod). Building one is a copy, same as
+// guidelines; the destructured `const { A, B } = window[...]` line at the
+// top of each is also how we know which real components it demos, to
+// surface their .prompt.md usage notes on the homepage.
+async function buildComponentCards(): Promise<CardEntry[]> {
+  const files = await findFiles(path.join(root, 'components'), '.card.html');
   const promptMap = await buildComponentPromptMap();
   const promptCache = new Map<string, string>();
-  const phosphor = `
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css">
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css">`;
   const cards: CardEntry[] = [];
   for (const file of files) {
+    const card = await readDsCard(file);
+    if (!card) continue;
     const category = path.basename(path.dirname(file));
-    const slug = path.basename(file, '.specimen.tsx');
-    const { html, card } = await renderSpecimen(file);
-    const [w, h] = card.viewport;
-    const page = standalonePage(card, w, h, '../../', phosphor, html);
+    const slug = path.basename(file, '.card.html');
     const outFile = path.join(dist, 'components', category, `${slug}.card.html`);
-    await fs.mkdir(path.dirname(outFile), { recursive: true });
-    await fs.writeFile(outFile, page);
 
-    // Which real components does this specimen demo? Surface their usage
-    // notes (same .prompt.md files Claude Design shows in its own preview).
+    // _ds_bundle.js is Claude Design's own generated bundle — not something
+    // this build produces (see .gitignore) — so it 404s in dist/. Point at
+    // design-system.js instead, this build's own compiled library bundle,
+    // which exposes the same window.LumenisDesignSystem global.
     const src = await fs.readFile(file, 'utf8');
-    const importMatch = src.match(/import \{([^}]*)\} from ['"]\.\.\/index['"]/);
-    const importedNames = importMatch
-      ? importMatch[1]
+    const patched = src.replace('src="../../_ds_bundle.js"', 'src="../../design-system.js"');
+    await fs.mkdir(path.dirname(outFile), { recursive: true });
+    await fs.writeFile(outFile, patched);
+
+    const destructureMatch = src.match(/const \{([^}]*)\}\s*=\s*window\[/);
+    const importedNames = destructureMatch
+      ? destructureMatch[1]
           .split(',')
           .map((n) => n.trim())
           .filter(Boolean)
@@ -325,76 +297,15 @@ async function buildComponentSpecimens(): Promise<CardEntry[]> {
       category: titleCase(category),
       name: card.name,
       subtitle: card.subtitle,
-      w,
-      h,
+      w: card.w,
+      h: card.h,
       href: `components/${category}/${slug}.card.html`,
       key: `components/${category}/${slug}`,
-      padding: card.padding ?? '20px',
+      padding: '0px',
       prompts,
     });
   }
   return cards;
-}
-
-// Client bundle mounting the same guideline/component specimens as real,
-// live React — used by the homepage instead of an iframe. UI kits (full
-// standalone pages, different layout contexts) still use iframes.
-async function buildSpecimensClientBundle(cards: CardEntry[]) {
-  const tmpDir = path.join(root, '.build-tmp');
-  await fs.mkdir(tmpDir, { recursive: true });
-  const entryFile = path.join(tmpDir, 'specimens-entry.tsx');
-
-  const imports = cards.map((c, i) => `import * as mod${i} from ${JSON.stringify(sourcePathFor(c))};`).join('\n');
-  const registryEntries = cards.map((c, i) => `  ${JSON.stringify(c.key)}: mod${i},`).join('\n');
-
-  const entrySrc = `import { createRoot } from 'react-dom/client';
-import { createElement } from 'react';
-${imports}
-
-const registry: Record<string, { default: () => unknown }> = {
-${registryEntries}
-};
-
-const roots = new Map<Element, ReturnType<typeof createRoot>>();
-
-function mount(key: string, el: Element) {
-  const mod = registry[key];
-  if (!mod) return;
-  const root = createRoot(el);
-  roots.set(el, root);
-  root.render(createElement(mod.default as any));
-}
-
-function unmount(el: Element) {
-  roots.get(el)?.unmount();
-  roots.delete(el);
-}
-
-(window as any).LumenisSpecimens = { mount, unmount };
-`;
-  await fs.writeFile(entryFile, entrySrc);
-
-  try {
-    await esbuild.build({
-      entryPoints: [entryFile],
-      bundle: true,
-      minify: true,
-      jsx: 'automatic',
-      format: 'iife',
-      outfile: path.join(dist, 'specimens.js'),
-      logLevel: 'info',
-    });
-  } finally {
-    await fs.unlink(entryFile);
-  }
-}
-
-function sourcePathFor(card: CardEntry): string {
-  // key mirrors the source layout: components/<cat>/<slug>. Guidelines are
-  // static HTML now (see buildGuidelineCards) and never reach this — only
-  // components/*/*.specimen.tsx still gets live-mounted via specimens.js.
-  const parts = card.key.split('/');
-  return path.join(root, 'components', parts[1], `${parts[2]}.specimen.tsx`);
 }
 
 async function copyUiKitStatics() {
@@ -481,7 +392,7 @@ async function buildHomePage(guidelineCards: CardEntry[], componentCards: CardEn
   const nav: (NavGroup | null)[] = [
     {
       title: 'UI Kits',
-      items: kits.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page', key: `ui-kits/${slugifyName(c.name)}`, href: c.href, w: c.w, h: c.h, useIframe: true })),
+      items: kits.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page', key: `ui-kits/${slugifyName(c.name)}`, href: c.href, w: c.w, h: c.h })),
     },
     slides.length
       ? {
@@ -491,12 +402,12 @@ async function buildHomePage(guidelineCards: CardEntry[], componentCards: CardEn
       : null,
     ...[...groupBy(guidelineCards, (c) => c.category)].map(([title, items]) => ({
       title,
-      items: items.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h, useIframe: true })),
+      items: items.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h })),
     })),
     {
       title: 'Components',
       items: componentCards
-        .map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h, useIframe: false, prompts: c.prompts }))
+        .map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h, prompts: c.prompts }))
         .sort((a, b) => a.name.localeCompare(b.name)),
     },
   ];
@@ -544,7 +455,6 @@ main{overflow-y:auto;background:var(--bg)}
 .head a:hover{color:#fff;border-color:var(--ink-dim);background:var(--panel-2)}
 .canvas{background:#000;border:1px solid var(--line);border-radius:var(--radius-lg);display:flex;align-items:flex-start;justify-content:center;padding:var(--space-6);overflow:auto}
 .canvas iframe{border:none;background:#fff;flex-shrink:0;border-radius:var(--radius-md)}
-.canvas .mount{background:#fff;color:var(--text-primary);flex-shrink:0;border-radius:var(--radius-md);overflow:hidden}
 .deck{display:grid;grid-template-columns:200px 1fr;gap:var(--space-5)}
 .deck-rail{display:flex;flex-direction:column;gap:var(--space-3);max-height:70vh;overflow-y:auto}
 .deck-thumb{border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;overflow:hidden;background:#000;position:relative;aspect-ratio:16/9}
@@ -575,12 +485,10 @@ main{overflow-y:auto;background:var(--bg)}
   </main>
 </div>
 <script id="ds-data" type="application/json">${data}</script>
-<script src="specimens.js"></script>
 <script>
 const groups = JSON.parse(document.getElementById('ds-data').textContent);
 const navEl = document.getElementById('nav-groups');
 const contentEl = document.getElementById('content');
-let mountedEl = null;
 
 navEl.innerHTML = groups.map((g) => \`
   <div class="nav-group">
@@ -605,7 +513,6 @@ function renderPrompts(prompts) {
 }
 
 function renderPage(item) {
-  if (mountedEl) { window.LumenisSpecimens.unmount(mountedEl); mountedEl = null; }
   const openLink = item.href ? \`<a href="\${item.href}" target="_blank" rel="noopener">Open standalone ↗</a>\` : '';
   contentEl.innerHTML = \`
     <div class="head">
@@ -616,39 +523,19 @@ function renderPage(item) {
     \${renderPrompts(item.prompts)}\`;
   const wrap = contentEl.querySelector('.canvas > div');
 
-  if (item.useIframe) {
-    wrap.innerHTML = '<iframe src="' + item.href + '"></iframe>';
-    const iframe = wrap.querySelector('iframe');
-    let h = item.h;
-    const resize = () => fitFrame(iframe, item.w, h, contentEl.clientWidth - 2 * 56 - 2);
+  wrap.innerHTML = '<iframe src="' + item.href + '"></iframe>';
+  const iframe = wrap.querySelector('iframe');
+  let h = item.h;
+  const resize = () => fitFrame(iframe, item.w, h, contentEl.clientWidth - 2 * 56 - 2);
+  resize();
+  iframe.addEventListener('load', () => {
+    try { h = Math.max(item.h, iframe.contentDocument.body.scrollHeight); } catch {}
     resize();
-    iframe.addEventListener('load', () => {
-      try { h = Math.max(item.h, iframe.contentDocument.body.scrollHeight); } catch {}
-      resize();
-    });
-    window.onresize = resize;
-    return;
-  }
-
-  const mount = document.createElement('div');
-  mount.className = 'mount';
-  // Fix the width to the design width *before* mounting/measuring — the
-  // specimen's flex-wrap layout depends on it, so measuring at some other
-  // (unconstrained) width would give the wrong scrollHeight.
-  mount.style.width = item.w + 'px';
-  wrap.appendChild(mount);
-  window.LumenisSpecimens.mount(item.key, mount);
-  mountedEl = mount;
-  const resize = () => {
-    const realH = Math.max(item.h, mount.scrollHeight);
-    fitFrame(mount, item.w, realH, contentEl.clientWidth - 2 * 56 - 2);
-  };
-  requestAnimationFrame(resize);
+  });
   window.onresize = resize;
 }
 
 function renderDeck(item) {
-  if (mountedEl) { window.LumenisSpecimens.unmount(mountedEl); mountedEl = null; }
   contentEl.innerHTML = \`
     <div class="head">
       <div><h1>\${item.name}</h1><p>\${item.subtitle}</p></div>
@@ -726,9 +613,8 @@ export async function build() {
     buildUiKitHtmls(),
     buildLandingPage(),
     buildGuidelineCards(),
-    buildComponentSpecimens(),
+    buildComponentCards(),
   ]);
-  await buildSpecimensClientBundle(componentCards);
   await buildHomePage(guidelineCards, componentCards);
   await fs.writeFile(path.join(dist, '.nojekyll'), '');
   await fs.rm(path.join(root, '.build-tmp'), { recursive: true, force: true });

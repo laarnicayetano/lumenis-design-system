@@ -1,0 +1,55 @@
+<!-- @dsCard group="Components" viewport="700x210" name="Logotype &amp; Hero L" subtitle="Wordmark and symbol, positive and negative" -->
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin></script>
+<script src="../../_ds_bundle.js"></script>
+<div id="root" style="padding:20px;background:var(--surface-page)"></div>
+<script type="text/babel">
+const { Logotype, HeroL } = window[Object.keys(window).find(function (k) { return k.indexOf('LumenisDesignSystem') === 0; })];
+Logotype.assetBase = '../../assets';
+
+function Demo() {
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr 1fr",
+        gap: 12,
+        alignItems: "stretch",
+      }}
+    >
+      <style>{`
+                .tile{display:grid;place-items:center;padding:22px;gap:14px}
+      `}</style>
+      <div className="tile" style={{ border: "1px solid var(--border-subtle)" }}>
+        <Logotype width={170} />
+        <Logotype variant="symbol" width={34} />
+      </div>
+      <div className="tile" style={{ background: "var(--lum-black)" }}>
+        <Logotype tone="white" width={170} />
+        <Logotype tone="white" variant="symbol" width={34} />
+      </div>
+      <div
+        className="tile"
+        style={{
+          border: "1px solid var(--border-subtle)",
+          fontSize: 34,
+          lineHeight: 0.95,
+          textTransform: "uppercase",
+        }}
+      >
+        <span>
+          UNVEI
+          <HeroL />
+          <br />
+          THE BEST
+        </span>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo/>);
+</script>
