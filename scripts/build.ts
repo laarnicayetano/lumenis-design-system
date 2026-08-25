@@ -411,7 +411,6 @@ async function buildUiKitHtml(kit: string) {
     .replace(/<script src="https:\/\/unpkg\.com\/react@[^"]*"[^>]*><\/script>\n?/, '')
     .replace(/<script src="https:\/\/unpkg\.com\/react-dom@[^"]*"[^>]*><\/script>\n?/, '')
     .replace(/<script src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[^>]*><\/script>\n?/, '')
-    .replace(/<script src="\.\.\/\.\.\/_ds_bundle\.js"><\/script>\n?/, '')
     .replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, '')
     .replace(/<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/, '<script src="./bundle.js"></script>');
   const to = path.join(dist, 'ui_kits', kit, 'index.html');
