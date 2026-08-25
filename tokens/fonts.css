@@ -11,8 +11,48 @@
    typography.css. Supplied cuts: Sans Regular + Light, Mix Regular + Italic.
    Bold and Medium (used only for the social high-contrast pairings, p.22-23)
    are not yet supplied. Arial is the sanctioned system fallback (p.32). */
-@font-face{font-family:"ABC Arizona Sans";src:local("ABC Arizona Sans Regular"),url("../assets/fonts/ABCArizonaSans-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"ABC Arizona Sans";src:local("ABC Arizona Sans Light"),url("../assets/fonts/ABCArizonaSans-Light.otf") format("opentype");font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:"ABC Arizona Mix";src:local("ABC Arizona Mix Regular"),url("../assets/fonts/ABCArizonaMix-Regular.otf") format("opentype");font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:"ABC Arizona Mix";src:local("ABC Arizona Mix Regular Italic"),url("../assets/fonts/ABCArizonaMix-RegularItalic.otf") format("opentype");font-weight:400;font-style:italic;font-display:swap}
-@font-face{font-family:"Lumenis Arial";src:local("Arial"),url("../assets/fonts/Arial.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face {
+  font-family: "ABC Arizona Sans";
+  src:
+    local("ABC Arizona Sans Regular"),
+    url("../assets/fonts/ABCArizonaSans-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABC Arizona Sans";
+  src:
+    local("ABC Arizona Sans Light"),
+    url("../assets/fonts/ABCArizonaSans-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABC Arizona Mix";
+  src:
+    local("ABC Arizona Mix Regular"),
+    url("../assets/fonts/ABCArizonaMix-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "ABC Arizona Mix";
+  src:
+    local("ABC Arizona Mix Regular Italic"),
+    url("../assets/fonts/ABCArizonaMix-RegularItalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Lumenis Arial";
+  src:
+    local("Arial"),
+    url("../assets/fonts/Arial.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
