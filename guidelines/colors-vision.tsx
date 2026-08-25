@@ -1,7 +1,7 @@
 export const card = {
   group: "Colors",
   viewport: [700, 160] as [number, number],
-  name: "Vision accents",
+  name: "Vision Accents",
   subtitle: "OptiLIGHT, OptiPLUS, OptiLIFT, Digital Duet / Trio",
   padding: "18px",
 };

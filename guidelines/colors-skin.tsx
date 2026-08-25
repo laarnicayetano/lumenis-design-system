@@ -1,7 +1,7 @@
 export const card = {
   group: "Colors",
   viewport: [700, 160] as [number, number],
-  name: "Aesthetics · skin tones",
+  name: "Aesthetics · Skin Tones",
   subtitle: "LightSheer and SPLENDOR X hair-removal family",
   padding: "18px",
 };

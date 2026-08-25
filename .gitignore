@@ -23,3 +23,7 @@ dist/
 .playwright-mcp/
 
 TODO.md
+
+_ds_bundle.js
+_ds_manifest.json
+_adherence.oxlintrc.json

@@ -1,7 +1,7 @@
 export const card = {
   group: "Colors",
   viewport: [700, 150] as [number, number],
-  name: "Primary palette",
+  name: "Primary Palette",
   subtitle: "Black and white carry every Lumenis surface",
   padding: "18px",
 };
