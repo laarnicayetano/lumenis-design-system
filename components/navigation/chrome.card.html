@@ -1,0 +1,78 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Header &amp; Footer" subtitle="Corporate site chrome" -->
+<link rel="stylesheet" href="../../styles.css" />
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css"
+/>
+<script
+  src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+  crossorigin
+></script>
+<script src="../../_ds_bundle.js"></script>
+<div id="root" style="padding: 0px; background: var(--surface-page)"></div>
+<script type="text/babel">
+  const { SiteHeader, SiteFooter, Logotype } =
+    window[
+      Object.keys(window).find(function (k) {
+        return k.indexOf("LumenisDesignSystem") === 0;
+      })
+    ];
+  Logotype.assetBase = "../../assets";
+  const NAV = [
+    { id: "aesthetics", label: "Aesthetics" },
+    { id: "vision", label: "Vision" },
+    { id: "resources", label: "Resources" },
+    { id: "about", label: "About" },
+    { id: "support", label: "Support" },
+    { id: "contact", label: "Contact" },
+  ];
+  const FOOTER_COLUMNS = [
+    {
+      title: "Company",
+      links: ["About Lumenis", "Leadership", "Careers", "Partner Zone"],
+    },
+    {
+      title: "Aesthetics",
+      links: ["Hair Removal", "Body", "Skin", "Hair Loss"],
+    },
+    { title: "Vision", links: ["Dry Eye", "Glaucoma", "Retina"] },
+  ];
+  const SOCIAL = [
+    "facebook-logo",
+    "instagram-logo",
+    "linkedin-logo",
+    "youtube-logo",
+  ];
+  const POLICIES = ["Privacy Statement", "Terms of Use"];
+  function Demo() {
+    return (
+      <div
+        style={{
+          transform: "scale(.55)",
+          transformOrigin: "top left",
+          width: "1272px",
+        }}
+      >
+        <SiteHeader active="aesthetics" nav={NAV} />
+        <SiteFooter
+          columns={FOOTER_COLUMNS}
+          social={SOCIAL}
+          policies={POLICIES}
+        />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
