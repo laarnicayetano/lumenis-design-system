@@ -11,13 +11,13 @@
 // build only copies them and reads their @dsCard comment for the homepage
 // nav; components/**/ComponentName.{jsx,d.ts} are still real source the
 // library bundle (buildBundles) compiles.
-import * as esbuild from 'esbuild';
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import * as esbuild from "esbuild";
+import { promises as fs } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const dist = path.join(root, 'dist');
+const dist = path.join(root, "dist");
 
 interface PromptEntry {
   name: string;
@@ -40,7 +40,7 @@ interface CardEntry {
 interface NavItem {
   name: string;
   subtitle: string;
-  kind: 'page' | 'deck';
+  kind: "page" | "deck";
   key: string;
   href?: string;
   w?: number;
@@ -64,7 +64,11 @@ async function copyFile(from: string, to: string) {
   await fs.copyFile(from, to);
 }
 
-async function copyDirFiltered(fromDir: string, toDir: string, predicate: (p: string) => boolean) {
+async function copyDirFiltered(
+  fromDir: string,
+  toDir: string,
+  predicate: (p: string) => boolean,
+) {
   const entries = await fs.readdir(fromDir, { withFileTypes: true });
   for (const entry of entries) {
     const fromPath = path.join(fromDir, entry.name);
@@ -78,8 +82,8 @@ async function copyDirFiltered(fromDir: string, toDir: string, predicate: (p: st
 }
 
 async function minifyCssFile(from: string, to: string) {
-  const src = await fs.readFile(from, 'utf8');
-  const result = await esbuild.transform(src, { loader: 'css', minify: true });
+  const src = await fs.readFile(from, "utf8");
+  const result = await esbuild.transform(src, { loader: "css", minify: true });
   await fs.mkdir(path.dirname(to), { recursive: true });
   await fs.writeFile(to, result.code);
 }
@@ -99,62 +103,69 @@ async function findFiles(dir: string, matchExt: string): Promise<string[]> {
 }
 
 function titleCase(slug: string): string {
-  return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+  return slug.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
 // Interactive ui_kits — each has an App.tsx entry precompiled to bundle.js
 // and an index.html following the same CDN-script convention (see
 // buildUiKitHtml below). Static-only kits (social/email/slides) don't need
 // an entry here — see copyUiKitStatics.
-const INTERACTIVE_UI_KITS = ['corporate-website', 'optilift-website', 'optilight-website'];
+const INTERACTIVE_UI_KITS = [
+  "corporate-website",
+  "optilift-website",
+  "optilight-website",
+];
 
 async function buildBundles() {
   const common = {
     bundle: true,
     minify: true,
-    jsx: 'automatic' as const,
-    logLevel: 'info' as const,
+    jsx: "automatic" as const,
+    logLevel: "info" as const,
   };
 
   await esbuild.build({
     ...common,
-    entryPoints: [path.join(root, 'build/design-system-entry.ts')],
-    outfile: path.join(dist, 'design-system.js'),
-    format: 'iife',
-    globalName: 'LumenisDesignSystem',
+    entryPoints: [path.join(root, "build/design-system-entry.ts")],
+    outfile: path.join(dist, "design-system.js"),
+    format: "iife",
+    globalName: "LumenisDesignSystem",
     // Consuming pages (components/*.card.html, ui_kits/*/index.html) load
     // React/ReactDOM from a CDN <script> tag before this bundle — alias
     // instead of bundling a private copy, or components' hooks get a
     // different dispatcher than whatever actually renders them.
     alias: {
-      react: path.join(root, 'build/react-global-shim.ts'),
-      'react-dom/client': path.join(root, 'build/react-dom-global-shim.ts'),
+      react: path.join(root, "build/react-global-shim.ts"),
+      "react-dom/client": path.join(root, "build/react-dom-global-shim.ts"),
     },
   });
 
   for (const kit of INTERACTIVE_UI_KITS) {
     await esbuild.build({
       ...common,
-      entryPoints: [path.join(root, 'ui_kits', kit, 'App.tsx')],
-      outfile: path.join(dist, 'ui_kits', kit, 'bundle.js'),
-      format: 'iife',
+      entryPoints: [path.join(root, "ui_kits", kit, "App.tsx")],
+      outfile: path.join(dist, "ui_kits", kit, "bundle.js"),
+      format: "iife",
     });
   }
 }
 
 async function copyStaticAssets() {
   // tokens/*.css, styles.css — minified
-  const tokenFiles = await findFiles(path.join(root, 'tokens'), '.css');
+  const tokenFiles = await findFiles(path.join(root, "tokens"), ".css");
   for (const f of tokenFiles) {
     await minifyCssFile(f, path.join(dist, path.relative(root, f)));
   }
-  await minifyCssFile(path.join(root, 'styles.css'), path.join(dist, 'styles.css'));
+  await minifyCssFile(
+    path.join(root, "styles.css"),
+    path.join(dist, "styles.css"),
+  );
 
   // assets/ — logos only, never fonts (licensed, gitignored, not built either)
   await copyDirFiltered(
-    path.join(root, 'assets'),
-    path.join(dist, 'assets'),
-    (p) => !p.includes(`${path.sep}fonts${path.sep}`)
+    path.join(root, "assets"),
+    path.join(dist, "assets"),
+    (p) => !p.includes(`${path.sep}fonts${path.sep}`),
   );
 }
 
@@ -170,17 +181,17 @@ async function copyStaticAssets() {
 const GUIDELINE_PADDING = 20;
 
 async function buildGuidelineCards(): Promise<CardEntry[]> {
-  const files = await findFiles(path.join(root, 'guidelines'), '.card.html');
+  const files = await findFiles(path.join(root, "guidelines"), ".card.html");
   const cards: CardEntry[] = [];
   for (const file of files) {
     const card = await readDsCard(file);
     if (!card) continue;
-    const slug = path.basename(file, '.card.html');
-    const outFile = path.join(dist, 'guidelines', `${slug}.card.html`);
-    const src = await fs.readFile(file, 'utf8');
+    const slug = path.basename(file, ".card.html");
+    const outFile = path.join(dist, "guidelines", `${slug}.card.html`);
+    const src = await fs.readFile(file, "utf8");
     const padded = src.replace(
       /<link[^>]*href="\.\.\/styles\.css"[^>]*>/,
-      `$&\n<style>body{margin:0;padding:${GUIDELINE_PADDING}px;box-sizing:border-box}</style>`
+      `$&\n<style>body{margin:0;padding:${GUIDELINE_PADDING}px;box-sizing:border-box}</style>`,
     );
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, padded);
@@ -193,7 +204,7 @@ async function buildGuidelineCards(): Promise<CardEntry[]> {
       h: card.h + GUIDELINE_PADDING * 2,
       href: `guidelines/${slug}.card.html`,
       key: `guidelines/${slug}`,
-      padding: '0px',
+      padding: "0px",
     });
   }
   return cards;
@@ -203,44 +214,47 @@ async function buildGuidelineCards(): Promise<CardEntry[]> {
 // to map an imported name (e.g. "SplitPanel") back to the `.prompt.md` that
 // documents it (SplitPanel and SplitLayout share SplitLayout.prompt.md).
 async function buildComponentPromptMap(): Promise<Map<string, string>> {
-  const indexSrc = await fs.readFile(path.join(root, 'components/index.ts'), 'utf8');
+  const indexSrc = await fs.readFile(
+    path.join(root, "components/index.ts"),
+    "utf8",
+  );
   const map = new Map<string, string>();
   const exportRe = /^export \{([^}]*)\} from '(\.[^']+)';$/gm;
   let m: RegExpExecArray | null;
   while ((m = exportRe.exec(indexSrc))) {
     const names = m[1]
-      .split(',')
+      .split(",")
       .map((n) => n.trim())
       .filter(Boolean);
-    const modulePath = path.join(root, 'components', m[2] + '.prompt.md');
+    const modulePath = path.join(root, "components", m[2] + ".prompt.md");
     for (const name of names) map.set(name, modulePath);
   }
   return map;
 }
 
 function escapeHtml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 function inlineMarkdown(text: string): string {
-  return escapeHtml(text).replace(/`([^`]+)`/g, '<code>$1</code>');
+  return escapeHtml(text).replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
 function renderPromptMarkdown(md: string): string {
   const blocks = md.trim().split(/\n\s*\n/);
   return blocks
     .map((block) => {
-      if (block.startsWith('```')) {
-        const code = block.replace(/^```\w*\n?/, '').replace(/```$/, '');
+      if (block.startsWith("```")) {
+        const code = block.replace(/^```\w*\n?/, "").replace(/```$/, "");
         return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
       }
-      const lines = block.split('\n').filter(Boolean);
-      if (lines.length && lines.every((l) => l.trim().startsWith('- '))) {
-        return `<ul>${lines.map((l) => `<li>${inlineMarkdown(l.trim().slice(2))}</li>`).join('')}</ul>`;
+      const lines = block.split("\n").filter(Boolean);
+      if (lines.length && lines.every((l) => l.trim().startsWith("- "))) {
+        return `<ul>${lines.map((l) => `<li>${inlineMarkdown(l.trim().slice(2))}</li>`).join("")}</ul>`;
       }
       return `<p>${inlineMarkdown(block.trim())}</p>`;
     })
-    .join('');
+    .join("");
 }
 
 // components/**/*.card.html are hand-authored static demo pages — CDN
@@ -251,7 +265,7 @@ function renderPromptMarkdown(md: string): string {
 // top of each is also how we know which real components it demos, to
 // surface their .prompt.md usage notes on the homepage.
 async function buildComponentCards(): Promise<CardEntry[]> {
-  const files = await findFiles(path.join(root, 'components'), '.card.html');
+  const files = await findFiles(path.join(root, "components"), ".card.html");
   const promptMap = await buildComponentPromptMap();
   const promptCache = new Map<string, string>();
   const cards: CardEntry[] = [];
@@ -259,22 +273,30 @@ async function buildComponentCards(): Promise<CardEntry[]> {
     const card = await readDsCard(file);
     if (!card) continue;
     const category = path.basename(path.dirname(file));
-    const slug = path.basename(file, '.card.html');
-    const outFile = path.join(dist, 'components', category, `${slug}.card.html`);
+    const slug = path.basename(file, ".card.html");
+    const outFile = path.join(
+      dist,
+      "components",
+      category,
+      `${slug}.card.html`,
+    );
 
     // _ds_bundle.js is Claude Design's own generated bundle — not something
     // this build produces (see .gitignore) — so it 404s in dist/. Point at
     // design-system.js instead, this build's own compiled library bundle,
     // which exposes the same window.LumenisDesignSystem global.
-    const src = await fs.readFile(file, 'utf8');
-    const patched = src.replace('src="../../_ds_bundle.js"', 'src="../../design-system.js"');
+    const src = await fs.readFile(file, "utf8");
+    const patched = src.replace(
+      'src="../../_ds_bundle.js"',
+      'src="../../design-system.js"',
+    );
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, patched);
 
     const destructureMatch = src.match(/const \{([^}]*)\}\s*=\s*window\[/);
     const importedNames = destructureMatch
       ? destructureMatch[1]
-          .split(',')
+          .split(",")
           .map((n) => n.trim())
           .filter(Boolean)
       : [];
@@ -286,10 +308,14 @@ async function buildComponentCards(): Promise<CardEntry[]> {
       seenPromptFiles.add(promptFile);
       let raw = promptCache.get(promptFile);
       if (raw === undefined) {
-        raw = await fs.readFile(promptFile, 'utf8').catch(() => '');
+        raw = await fs.readFile(promptFile, "utf8").catch(() => "");
         promptCache.set(promptFile, raw);
       }
-      if (raw) prompts.push({ name: path.basename(promptFile, '.prompt.md'), html: renderPromptMarkdown(raw) });
+      if (raw)
+        prompts.push({
+          name: path.basename(promptFile, ".prompt.md"),
+          html: renderPromptMarkdown(raw),
+        });
     }
 
     cards.push({
@@ -301,7 +327,7 @@ async function buildComponentCards(): Promise<CardEntry[]> {
       h: card.h,
       href: `components/${category}/${slug}.card.html`,
       key: `components/${category}/${slug}`,
-      padding: '0px',
+      padding: "0px",
       prompts,
     });
   }
@@ -310,25 +336,39 @@ async function buildComponentCards(): Promise<CardEntry[]> {
 
 async function copyUiKitStatics() {
   // ui_kits/{social,email,slides} — static specimen pages, no bundle dependency.
-  for (const sub of ['social', 'email', 'slides']) {
-    const from = path.join(root, 'ui_kits', sub);
-    await copyDirFiltered(from, path.join(dist, 'ui_kits', sub), (p) => p.endsWith('.html'));
+  for (const sub of ["social", "email", "slides"]) {
+    const from = path.join(root, "ui_kits", sub);
+    await copyDirFiltered(from, path.join(dist, "ui_kits", sub), (p) =>
+      p.endsWith(".html"),
+    );
   }
 }
 
 async function buildUiKitHtml(kit: string) {
-  const from = path.join(root, 'ui_kits', kit, 'index.html');
-  let html = await fs.readFile(from, 'utf8');
+  const from = path.join(root, "ui_kits", kit, "index.html");
+  let html = await fs.readFile(from, "utf8");
   // Strip the old CDN React/ReactDOM/Babel scripts and any per-file inline
   // babel scripts — App.tsx is now precompiled into bundle.js. Generic
   // (not per-filename) so this works for any kit following the convention.
   html = html
-    .replace(/<script src="https:\/\/unpkg\.com\/react@[^"]*"[^>]*><\/script>\n?/, '')
-    .replace(/<script src="https:\/\/unpkg\.com\/react-dom@[^"]*"[^>]*><\/script>\n?/, '')
-    .replace(/<script src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[^>]*><\/script>\n?/, '')
-    .replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, '')
-    .replace(/<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/, '<script src="./bundle.js"></script>');
-  const to = path.join(dist, 'ui_kits', kit, 'index.html');
+    .replace(
+      /<script src="https:\/\/unpkg\.com\/react@[^"]*"[^>]*><\/script>\n?/,
+      "",
+    )
+    .replace(
+      /<script src="https:\/\/unpkg\.com\/react-dom@[^"]*"[^>]*><\/script>\n?/,
+      "",
+    )
+    .replace(
+      /<script src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[^>]*><\/script>\n?/,
+      "",
+    )
+    .replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, "")
+    .replace(
+      /<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/,
+      '<script src="./bundle.js"></script>',
+    );
+  const to = path.join(dist, "ui_kits", kit, "index.html");
   await fs.mkdir(path.dirname(to), { recursive: true });
   await fs.writeFile(to, html);
 }
@@ -340,18 +380,31 @@ async function buildUiKitHtmls() {
 async function buildLandingPage() {
   // thumbnail.html is Claude Design's homepage tile, not a page for people —
   // keep it available at its own path instead of serving it as the index.
-  await copyFile(path.join(root, 'thumbnail.html'), path.join(dist, 'thumbnail.html'));
+  await copyFile(
+    path.join(root, "thumbnail.html"),
+    path.join(dist, "thumbnail.html"),
+  );
 }
 
-const DS_CARD_RE = /<!--\s*@dsCard\s+group="([^"]*)"\s+viewport="([^"]*)"\s+name="([^"]*)"\s+subtitle="([^"]*)"\s*-->/;
+const DS_CARD_RE =
+  /<!--\s*@dsCard\s+group="([^"]*)"\s+viewport="([^"]*)"\s+name="([^"]*)"\s+subtitle="([^"]*)"\s*-->/;
 
-async function readDsCard(file: string): Promise<Omit<CardEntry, 'category' | 'key' | 'padding' | 'prompts'> | null> {
-  const head = await fs.readFile(file, 'utf8');
+async function readDsCard(
+  file: string,
+): Promise<Omit<CardEntry, "category" | "key" | "padding" | "prompts"> | null> {
+  const head = await fs.readFile(file, "utf8");
   const m = head.match(DS_CARD_RE);
   if (!m) return null;
   const [, group, viewport, name, subtitle] = m;
-  const [w, h] = viewport.split('x').map(Number);
-  return { group, name, subtitle, w, h, href: path.relative(root, file).split(path.sep).join('/') };
+  const [w, h] = viewport.split("x").map(Number);
+  return {
+    group,
+    name,
+    subtitle,
+    w,
+    h,
+    href: path.relative(root, file).split(path.sep).join("/"),
+  };
 }
 
 async function collectDsCards(dir: string, ext: string): Promise<CardEntry[]> {
@@ -360,8 +413,17 @@ async function collectDsCards(dir: string, ext: string): Promise<CardEntry[]> {
   for (const f of files) {
     const card = await readDsCard(f);
     if (card) {
-      const key = path.relative(root, f).split(path.sep).join('/').replace(/\.[^.]+$/, '');
-      cards.push({ ...card, category: titleCase(path.basename(path.dirname(f))), key, padding: '0px' });
+      const key = path
+        .relative(root, f)
+        .split(path.sep)
+        .join("/")
+        .replace(/\.[^.]+$/, "");
+      cards.push({
+        ...card,
+        category: titleCase(path.basename(path.dirname(f))),
+        key,
+        padding: "0px",
+      });
     }
   }
   return cards;
@@ -380,34 +442,74 @@ function groupBy<T>(items: T[], key: (item: T) => string): Map<string, T[]> {
 function slugifyName(name: string): string {
   return name
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
-async function buildHomePage(guidelineCards: CardEntry[], componentCards: CardEntry[]) {
-  const uiCards = await collectDsCards(path.join(root, 'ui_kits'), '.html');
-  const kits = uiCards.filter((c) => c.group !== 'Slides');
-  const slides = uiCards.filter((c) => c.group === 'Slides').sort((a, b) => a.href.localeCompare(b.href));
+async function buildHomePage(
+  guidelineCards: CardEntry[],
+  componentCards: CardEntry[],
+) {
+  const uiCards = await collectDsCards(path.join(root, "ui_kits"), ".html");
+  const kits = uiCards.filter((c) => c.group !== "Slides");
+  const slides = uiCards
+    .filter((c) => c.group === "Slides")
+    .sort((a, b) => a.href.localeCompare(b.href));
 
   const nav: (NavGroup | null)[] = [
     {
-      title: 'UI Kits',
-      items: kits.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page', key: `ui-kits/${slugifyName(c.name)}`, href: c.href, w: c.w, h: c.h })),
+      title: "UI Kits",
+      items: kits.map((c) => ({
+        name: c.name,
+        subtitle: c.subtitle,
+        kind: "page",
+        key: `ui-kits/${slugifyName(c.name)}`,
+        href: c.href,
+        w: c.w,
+        h: c.h,
+      })),
     },
     slides.length
       ? {
-          title: 'UI Kits',
-          items: [{ name: 'Slide deck', subtitle: `${slides.length} slides, keyboard nav`, kind: 'deck', key: 'ui-kits/slide-deck', slides }],
+          title: "UI Kits",
+          items: [
+            {
+              name: "Slide Deck",
+              subtitle: `${slides.length} slides, keyboard nav`,
+              kind: "deck",
+              key: "ui-kits/slide-deck",
+              slides,
+            },
+          ],
         }
       : null,
-    ...[...groupBy(guidelineCards, (c) => c.category)].map(([title, items]) => ({
-      title,
-      items: items.map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h })),
-    })),
+    ...[...groupBy(guidelineCards, (c) => c.category)].map(
+      ([title, items]) => ({
+        title,
+        items: items.map((c) => ({
+          name: c.name,
+          subtitle: c.subtitle,
+          kind: "page" as const,
+          key: c.key,
+          href: c.href,
+          w: c.w,
+          h: c.h,
+        })),
+      }),
+    ),
     {
-      title: 'Components',
+      title: "Components",
       items: componentCards
-        .map((c) => ({ name: c.name, subtitle: c.subtitle, kind: 'page' as const, key: c.key, href: c.href, w: c.w, h: c.h, prompts: c.prompts }))
+        .map((c) => ({
+          name: c.name,
+          subtitle: c.subtitle,
+          kind: "page" as const,
+          key: c.key,
+          href: c.href,
+          w: c.w,
+          h: c.h,
+          prompts: c.prompts,
+        }))
         .sort((a, b) => a.name.localeCompare(b.name)),
     },
   ];
@@ -601,7 +703,7 @@ if (!openFromHash()) {
 </body></html>`;
 
   await fs.mkdir(dist, { recursive: true });
-  await fs.writeFile(path.join(dist, 'index.html'), html);
+  await fs.writeFile(path.join(dist, "index.html"), html);
 }
 
 export async function build() {
@@ -616,12 +718,12 @@ export async function build() {
     buildComponentCards(),
   ]);
   await buildHomePage(guidelineCards, componentCards);
-  await fs.writeFile(path.join(dist, '.nojekyll'), '');
-  await fs.rm(path.join(root, '.build-tmp'), { recursive: true, force: true });
-  console.log('Built to dist/');
+  await fs.writeFile(path.join(dist, ".nojekyll"), "");
+  await fs.rm(path.join(root, ".build-tmp"), { recursive: true, force: true });
+  console.log("Built to dist/");
 }
 
 // Only run when invoked directly (`node scripts/build.ts`), not when imported by dev.ts.
-if (path.resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url)) {
+if (path.resolve(process.argv[1] ?? "") === fileURLToPath(import.meta.url)) {
   await build();
 }

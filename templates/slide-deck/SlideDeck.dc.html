@@ -1,93 +1,673 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
-</head>
-<body>
-<x-dc>
-<!-- @template name="Slide deck" description="Lumenis 16:9 deck: title, section divider, split content, proof points, quote, product grid, closing" -->
-<helmet>
-<script src="./ds-base.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css">
-<style>body{margin:0;background:#e9e9e9;font-family:"ABC Arizona Sans",Arial,sans-serif}</style>
-</helmet>
-<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%">
-<section data-label="Title" data-screen-label="01" style="width:1920px;height:1080px;background:#000;color:#fff;padding:108px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<p style="margin:0;font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:rgba(255,255,255,.6)">Corporate overview · 2026</p>
-<h1 style="margin:0;font-size:132px;line-height:.9;text-transform:uppercase">Empowering you, <span style="font-family:'ABC Arizona Mix',Georgia,serif">your way</span></h1>
-<div style="display:flex;align-items:flex-end;justify-content:space-between">
-<img src="../../assets/logo/wordmark-white.svg" alt="Lumenis" style="width:285px;display:block">
-<span style="font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:rgba(255,255,255,.6)">Lumenis™</span>
-</div>
-</section>
-<section data-label="Section" data-screen-label="02" style="width:1920px;height:1080px;background:#578fff;color:#fff;padding:108px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<i class="ph-thin ph-eye" style="font-size:144px"></i>
-<h2 style="margin:0;font-size:132px;line-height:.9;text-transform:uppercase">01<br>Vision</h2>
-<div style="display:flex;align-items:flex-end;justify-content:space-between">
-<img src="../../assets/logo/wordmark-white.svg" alt="Lumenis" style="width:255px;display:block">
-<span style="font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:rgba(255,255,255,.75)">Dry eye · glaucoma · retina</span>
-</div>
-</section>
-<section data-label="Split content" data-screen-label="03" style="width:1920px;height:1080px;display:flex;background:#fff;color:#000;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<div style="flex:5;padding:108px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<p style="margin:0;font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:#404040">The expert tool</p>
-<div style="display:flex;flex-direction:column;gap:42px">
-<h2 style="margin:0;font-size:78px;line-height:.92;text-transform:uppercase">Elevate your <span style="font-family:'ABC Arizona Mix',Georgia,serif">practice</span></h2>
-<p style="margin:0;font-size:33px;line-height:1.39;max-width:34ch">Stellar M22 is a powerful modular multi-application platform. Treat different indications across skin types, ages and genders — without disposables.</p>
-<span style="display:inline-flex;align-self:flex-start;border:1px solid #000;padding:24px 51px;font-size:27px;text-transform:uppercase">Discover more</span>
-</div>
-<img src="../../assets/logo/wordmark-black.svg" alt="Lumenis" style="width:255px;display:block">
-</div>
-<div style="flex:7;background:#f2f2f2;display:grid;place-items:center;font-size:24px;letter-spacing:.02em;text-transform:uppercase;color:#8a8a8a">Device photography</div>
-</section>
-<section data-label="Proof points" data-screen-label="04" style="width:1920px;height:1080px;background:#fff;color:#000;padding:108px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<p style="margin:0;font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:#404040">Why Lumenis</p>
-<div>
-<h2 style="margin:0 0 72px;font-size:72px;line-height:.92;text-transform:uppercase">60 years of pushing boundaries</h2>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:60px">
-<div><div style="height:1px;background:rgba(0,0,0,.16)"></div><div style="font-size:96px;line-height:1;padding:30px 0 18px">88+</div><div style="font-size:24px;letter-spacing:.02em;text-transform:uppercase">Countries</div><div style="font-size:24px;color:#404040;margin-top:6px">Worldwide</div></div>
-<div><div style="height:1px;background:rgba(0,0,0,.16)"></div><div style="font-size:96px;line-height:1;padding:30px 0 18px">90k+</div><div style="font-size:24px;letter-spacing:.02em;text-transform:uppercase">Devices</div><div style="font-size:24px;color:#404040;margin-top:6px">Installed worldwide</div></div>
-<div><div style="height:1px;background:rgba(0,0,0,.16)"></div><div style="font-size:96px;line-height:1;padding:30px 0 18px">60+</div><div style="font-size:24px;letter-spacing:.02em;text-transform:uppercase">Years</div><div style="font-size:24px;color:#404040;margin-top:6px">Of industry leadership</div></div>
-<div><div style="height:1px;background:rgba(0,0,0,.16)"></div><div style="font-size:96px;line-height:1;padding:30px 0 18px">500+</div><div style="font-size:24px;letter-spacing:.02em;text-transform:uppercase">Clinical</div><div style="font-size:24px;color:#404040;margin-top:6px">Publications</div></div>
-</div>
-</div>
-<img src="../../assets/logo/wordmark-black.svg" alt="Lumenis" style="width:255px;display:block">
-</section>
-<section data-label="Quote" data-screen-label="05" style="width:1920px;height:1080px;background:#000;color:#fff;padding:108px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<img src="../../assets/logo/symbol-white.svg" alt="" style="height:84px;display:block">
-<div style="max-width:38ch">
-<p style="margin:0;font-size:66px;line-height:1.16">Lumenis products have been such a success in my clinic, achieving amazing results with my clients.</p>
-<div style="width:96px;height:1px;background:rgba(255,255,255,.5);margin:54px 0 21px"></div>
-<p style="margin:0;font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:rgba(255,255,255,.7)">Evie Rose — Aesthetic Clinic, London</p>
-</div>
-<img src="../../assets/logo/wordmark-white.svg" alt="Lumenis" style="width:255px;display:block">
-</section>
-<section data-label="Product grid" data-screen-label="06" style="width:1920px;height:1080px;background:#fff;color:#000;padding:108px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<div style="display:flex;align-items:flex-end;justify-content:space-between">
-<h2 style="margin:0;font-size:66px;line-height:.92;text-transform:uppercase">Our products</h2>
-<span style="font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:#404040">Aesthetics · Vision</span>
-</div>
-<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:36px">
-<div><div style="aspect-ratio:252/330;background:#f2f2f2;display:grid;place-items:center;font-size:21px;letter-spacing:.02em;text-transform:uppercase;color:#8a8a8a">Device</div><div style="font-size:30px;text-transform:uppercase;margin-top:21px">FoLix™</div></div>
-<div><div style="aspect-ratio:252/330;background:#f2f2f2;display:grid;place-items:center;font-size:21px;letter-spacing:.02em;text-transform:uppercase;color:#8a8a8a">Device</div><div style="font-size:30px;text-transform:uppercase;margin-top:21px">triLift</div></div>
-<div><div style="aspect-ratio:252/330;background:#f2f2f2;display:grid;place-items:center;font-size:21px;letter-spacing:.02em;text-transform:uppercase;color:#8a8a8a">Device</div><div style="font-size:30px;text-transform:uppercase;margin-top:21px">Stellar M22™</div></div>
-<div><div style="aspect-ratio:252/330;background:#f2f2f2;display:grid;place-items:center;font-size:21px;letter-spacing:.02em;text-transform:uppercase;color:#8a8a8a">Device</div><div style="font-size:30px;text-transform:uppercase;margin-top:21px">OptiLIGHT</div></div>
-<div><div style="aspect-ratio:252/330;background:#f2f2f2;display:grid;place-items:center;font-size:21px;letter-spacing:.02em;text-transform:uppercase;color:#8a8a8a">Device</div><div style="font-size:30px;text-transform:uppercase;margin-top:21px">Digital Duet</div></div>
-</div>
-<img src="../../assets/logo/wordmark-black.svg" alt="Lumenis" style="width:255px;display:block">
-</section>
-<section data-label="Closing" data-screen-label="07" style="width:1920px;height:1080px;background:#fff;color:#000;padding:108px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;text-align:right;box-sizing:border-box;font-family:'ABC Arizona Sans',Arial,sans-serif">
-<p style="margin:0;font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:#404040">Thank you</p>
-<h2 style="margin:0;font-size:114px;line-height:.9;text-transform:uppercase">BeautyTech<br>for <span style="font-family:'ABC Arizona Mix',Georgia,serif">life</span>.</h2>
-<div style="display:flex;align-items:flex-end;gap:36px">
-<span style="font-size:27px;letter-spacing:.02em;text-transform:uppercase;color:#404040">www.lumenis.com</span>
-<img src="../../assets/logo/wordmark-black.svg" alt="Lumenis" style="width:285px;display:block">
-</div>
-</section>
-</x-import>
-
-</x-dc>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <!-- @template name="Slide Deck" description="Lumenis 16:9 deck: title, section divider, split content, proof points, quote, product grid, closing" -->
+      <helmet>
+        <script src="./ds-base.js"></script>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css"
+        />
+        <style>
+          body {
+            margin: 0;
+            background: #e9e9e9;
+            font-family: "ABC Arizona Sans", Arial, sans-serif;
+          }
+        </style>
+      </helmet>
+      <x-import
+        component-from-global-scope="deck-stage"
+        from="./deck-stage.js"
+        width="1920"
+        height="1080"
+        hint-size="100%,100%"
+      >
+        <section
+          data-label="Title"
+          data-screen-label="01"
+          style="
+            width: 1920px;
+            height: 1080px;
+            background: #000;
+            color: #fff;
+            padding: 108px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+          "
+        >
+          <p
+            style="
+              margin: 0;
+              font-size: 27px;
+              letter-spacing: 0.02em;
+              text-transform: uppercase;
+              color: rgba(255, 255, 255, 0.6);
+            "
+          >
+            Corporate overview · 2026
+          </p>
+          <h1
+            style="
+              margin: 0;
+              font-size: 132px;
+              line-height: 0.9;
+              text-transform: uppercase;
+            "
+          >
+            Empowering you,
+            <span
+              style="font-family: &quot;ABC Arizona Mix&quot;, Georgia, serif"
+              >your way</span
+            >
+          </h1>
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+            "
+          >
+            <img
+              src="../../assets/logo/wordmark-white.svg"
+              alt="Lumenis"
+              style="width: 285px; display: block"
+            />
+            <span
+              style="
+                font-size: 27px;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.6);
+              "
+              >Lumenis™</span
+            >
+          </div>
+        </section>
+        <section
+          data-label="Section"
+          data-screen-label="02"
+          style="
+            width: 1920px;
+            height: 1080px;
+            background: #578fff;
+            color: #fff;
+            padding: 108px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+          "
+        >
+          <i class="ph-thin ph-eye" style="font-size: 144px"></i>
+          <h2
+            style="
+              margin: 0;
+              font-size: 132px;
+              line-height: 0.9;
+              text-transform: uppercase;
+            "
+          >
+            01<br />Vision
+          </h2>
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+            "
+          >
+            <img
+              src="../../assets/logo/wordmark-white.svg"
+              alt="Lumenis"
+              style="width: 255px; display: block"
+            />
+            <span
+              style="
+                font-size: 27px;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.75);
+              "
+              >Dry eye · glaucoma · retina</span
+            >
+          </div>
+        </section>
+        <section
+          data-label="Split content"
+          data-screen-label="03"
+          style="
+            width: 1920px;
+            height: 1080px;
+            display: flex;
+            background: #fff;
+            color: #000;
+            box-sizing: border-box;
+            font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+          "
+        >
+          <div
+            style="
+              flex: 5;
+              padding: 108px;
+              display: flex;
+              flex-direction: column;
+              justify-content: space-between;
+              box-sizing: border-box;
+              font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+            "
+          >
+            <p
+              style="
+                margin: 0;
+                font-size: 27px;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: #404040;
+              "
+            >
+              The expert tool
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 42px">
+              <h2
+                style="
+                  margin: 0;
+                  font-size: 78px;
+                  line-height: 0.92;
+                  text-transform: uppercase;
+                "
+              >
+                Elevate your
+                <span
+                  style="
+                    font-family: &quot;ABC Arizona Mix&quot;, Georgia, serif;
+                  "
+                  >practice</span
+                >
+              </h2>
+              <p
+                style="
+                  margin: 0;
+                  font-size: 33px;
+                  line-height: 1.39;
+                  max-width: 34ch;
+                "
+              >
+                Stellar M22 is a powerful modular multi-application platform.
+                Treat different indications across skin types, ages and genders
+                — without disposables.
+              </p>
+              <span
+                style="
+                  display: inline-flex;
+                  align-self: flex-start;
+                  border: 1px solid #000;
+                  padding: 24px 51px;
+                  font-size: 27px;
+                  text-transform: uppercase;
+                "
+                >Discover more</span
+              >
+            </div>
+            <img
+              src="../../assets/logo/wordmark-black.svg"
+              alt="Lumenis"
+              style="width: 255px; display: block"
+            />
+          </div>
+          <div
+            style="
+              flex: 7;
+              background: #f2f2f2;
+              display: grid;
+              place-items: center;
+              font-size: 24px;
+              letter-spacing: 0.02em;
+              text-transform: uppercase;
+              color: #8a8a8a;
+            "
+          >
+            Device photography
+          </div>
+        </section>
+        <section
+          data-label="Proof points"
+          data-screen-label="04"
+          style="
+            width: 1920px;
+            height: 1080px;
+            background: #fff;
+            color: #000;
+            padding: 108px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+          "
+        >
+          <p
+            style="
+              margin: 0;
+              font-size: 27px;
+              letter-spacing: 0.02em;
+              text-transform: uppercase;
+              color: #404040;
+            "
+          >
+            Why Lumenis
+          </p>
+          <div>
+            <h2
+              style="
+                margin: 0 0 72px;
+                font-size: 72px;
+                line-height: 0.92;
+                text-transform: uppercase;
+              "
+            >
+              60 years of pushing boundaries
+            </h2>
+            <div
+              style="
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 60px;
+              "
+            >
+              <div>
+                <div style="height: 1px; background: rgba(0, 0, 0, 0.16)"></div>
+                <div
+                  style="font-size: 96px; line-height: 1; padding: 30px 0 18px"
+                >
+                  88+
+                </div>
+                <div
+                  style="
+                    font-size: 24px;
+                    letter-spacing: 0.02em;
+                    text-transform: uppercase;
+                  "
+                >
+                  Countries
+                </div>
+                <div style="font-size: 24px; color: #404040; margin-top: 6px">
+                  Worldwide
+                </div>
+              </div>
+              <div>
+                <div style="height: 1px; background: rgba(0, 0, 0, 0.16)"></div>
+                <div
+                  style="font-size: 96px; line-height: 1; padding: 30px 0 18px"
+                >
+                  90k+
+                </div>
+                <div
+                  style="
+                    font-size: 24px;
+                    letter-spacing: 0.02em;
+                    text-transform: uppercase;
+                  "
+                >
+                  Devices
+                </div>
+                <div style="font-size: 24px; color: #404040; margin-top: 6px">
+                  Installed worldwide
+                </div>
+              </div>
+              <div>
+                <div style="height: 1px; background: rgba(0, 0, 0, 0.16)"></div>
+                <div
+                  style="font-size: 96px; line-height: 1; padding: 30px 0 18px"
+                >
+                  60+
+                </div>
+                <div
+                  style="
+                    font-size: 24px;
+                    letter-spacing: 0.02em;
+                    text-transform: uppercase;
+                  "
+                >
+                  Years
+                </div>
+                <div style="font-size: 24px; color: #404040; margin-top: 6px">
+                  Of industry leadership
+                </div>
+              </div>
+              <div>
+                <div style="height: 1px; background: rgba(0, 0, 0, 0.16)"></div>
+                <div
+                  style="font-size: 96px; line-height: 1; padding: 30px 0 18px"
+                >
+                  500+
+                </div>
+                <div
+                  style="
+                    font-size: 24px;
+                    letter-spacing: 0.02em;
+                    text-transform: uppercase;
+                  "
+                >
+                  Clinical
+                </div>
+                <div style="font-size: 24px; color: #404040; margin-top: 6px">
+                  Publications
+                </div>
+              </div>
+            </div>
+          </div>
+          <img
+            src="../../assets/logo/wordmark-black.svg"
+            alt="Lumenis"
+            style="width: 255px; display: block"
+          />
+        </section>
+        <section
+          data-label="Quote"
+          data-screen-label="05"
+          style="
+            width: 1920px;
+            height: 1080px;
+            background: #000;
+            color: #fff;
+            padding: 108px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+          "
+        >
+          <img
+            src="../../assets/logo/symbol-white.svg"
+            alt=""
+            style="height: 84px; display: block"
+          />
+          <div style="max-width: 38ch">
+            <p style="margin: 0; font-size: 66px; line-height: 1.16">
+              Lumenis products have been such a success in my clinic, achieving
+              amazing results with my clients.
+            </p>
+            <div
+              style="
+                width: 96px;
+                height: 1px;
+                background: rgba(255, 255, 255, 0.5);
+                margin: 54px 0 21px;
+              "
+            ></div>
+            <p
+              style="
+                margin: 0;
+                font-size: 27px;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.7);
+              "
+            >
+              Evie Rose — Aesthetic Clinic, London
+            </p>
+          </div>
+          <img
+            src="../../assets/logo/wordmark-white.svg"
+            alt="Lumenis"
+            style="width: 255px; display: block"
+          />
+        </section>
+        <section
+          data-label="Product grid"
+          data-screen-label="06"
+          style="
+            width: 1920px;
+            height: 1080px;
+            background: #fff;
+            color: #000;
+            padding: 108px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              align-items: flex-end;
+              justify-content: space-between;
+            "
+          >
+            <h2
+              style="
+                margin: 0;
+                font-size: 66px;
+                line-height: 0.92;
+                text-transform: uppercase;
+              "
+            >
+              Our products
+            </h2>
+            <span
+              style="
+                font-size: 27px;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: #404040;
+              "
+              >Aesthetics · Vision</span
+            >
+          </div>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(5, 1fr);
+              gap: 36px;
+            "
+          >
+            <div>
+              <div
+                style="
+                  aspect-ratio: 252/330;
+                  background: #f2f2f2;
+                  display: grid;
+                  place-items: center;
+                  font-size: 21px;
+                  letter-spacing: 0.02em;
+                  text-transform: uppercase;
+                  color: #8a8a8a;
+                "
+              >
+                Device
+              </div>
+              <div
+                style="
+                  font-size: 30px;
+                  text-transform: uppercase;
+                  margin-top: 21px;
+                "
+              >
+                FoLix™
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  aspect-ratio: 252/330;
+                  background: #f2f2f2;
+                  display: grid;
+                  place-items: center;
+                  font-size: 21px;
+                  letter-spacing: 0.02em;
+                  text-transform: uppercase;
+                  color: #8a8a8a;
+                "
+              >
+                Device
+              </div>
+              <div
+                style="
+                  font-size: 30px;
+                  text-transform: uppercase;
+                  margin-top: 21px;
+                "
+              >
+                triLift
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  aspect-ratio: 252/330;
+                  background: #f2f2f2;
+                  display: grid;
+                  place-items: center;
+                  font-size: 21px;
+                  letter-spacing: 0.02em;
+                  text-transform: uppercase;
+                  color: #8a8a8a;
+                "
+              >
+                Device
+              </div>
+              <div
+                style="
+                  font-size: 30px;
+                  text-transform: uppercase;
+                  margin-top: 21px;
+                "
+              >
+                Stellar M22™
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  aspect-ratio: 252/330;
+                  background: #f2f2f2;
+                  display: grid;
+                  place-items: center;
+                  font-size: 21px;
+                  letter-spacing: 0.02em;
+                  text-transform: uppercase;
+                  color: #8a8a8a;
+                "
+              >
+                Device
+              </div>
+              <div
+                style="
+                  font-size: 30px;
+                  text-transform: uppercase;
+                  margin-top: 21px;
+                "
+              >
+                OptiLIGHT
+              </div>
+            </div>
+            <div>
+              <div
+                style="
+                  aspect-ratio: 252/330;
+                  background: #f2f2f2;
+                  display: grid;
+                  place-items: center;
+                  font-size: 21px;
+                  letter-spacing: 0.02em;
+                  text-transform: uppercase;
+                  color: #8a8a8a;
+                "
+              >
+                Device
+              </div>
+              <div
+                style="
+                  font-size: 30px;
+                  text-transform: uppercase;
+                  margin-top: 21px;
+                "
+              >
+                Digital Duet
+              </div>
+            </div>
+          </div>
+          <img
+            src="../../assets/logo/wordmark-black.svg"
+            alt="Lumenis"
+            style="width: 255px; display: block"
+          />
+        </section>
+        <section
+          data-label="Closing"
+          data-screen-label="07"
+          style="
+            width: 1920px;
+            height: 1080px;
+            background: #fff;
+            color: #000;
+            padding: 108px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end;
+            text-align: right;
+            box-sizing: border-box;
+            font-family: &quot;ABC Arizona Sans&quot;, Arial, sans-serif;
+          "
+        >
+          <p
+            style="
+              margin: 0;
+              font-size: 27px;
+              letter-spacing: 0.02em;
+              text-transform: uppercase;
+              color: #404040;
+            "
+          >
+            Thank you
+          </p>
+          <h2
+            style="
+              margin: 0;
+              font-size: 114px;
+              line-height: 0.9;
+              text-transform: uppercase;
+            "
+          >
+            BeautyTech<br />for
+            <span
+              style="font-family: &quot;ABC Arizona Mix&quot;, Georgia, serif"
+              >life</span
+            >.
+          </h2>
+          <div style="display: flex; align-items: flex-end; gap: 36px">
+            <span
+              style="
+                font-size: 27px;
+                letter-spacing: 0.02em;
+                text-transform: uppercase;
+                color: #404040;
+              "
+              >www.lumenis.com</span
+            >
+            <img
+              src="../../assets/logo/wordmark-black.svg"
+              alt="Lumenis"
+              style="width: 285px; display: block"
+            />
+          </div>
+        </section>
+      </x-import>
+    </x-dc>
+  </body>
 </html>
