@@ -513,51 +513,63 @@ async function buildHomePage(guidelineCards: CardEntry[], componentCards: CardEn
 <html><head><meta charset="utf-8"><title>Lumenis Design System</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-:root{--panel:#161616;--panel-2:#1d1d1d;--ink:#e8e8e8;--ink-dim:#8a8a8a;--line:rgba(255,255,255,.08);--accent-ui:#ff6a3d}
+:root{--bg:#0b0b0c;--panel:#141415;--panel-2:#1c1c1f;--panel-3:#242427;--ink:#f0f0f0;--ink-dim:#8f8f95;--line:rgba(255,255,255,.08);--line-strong:rgba(255,255,255,.16);--accent-ui:#ff6a3d}
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;background:#0d0d0d;color:var(--ink);font-family:var(--font-sans)}
-#app{display:grid;grid-template-columns:280px 1fr;height:100vh}
-.sidebar{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:var(--space-5) 0}
-.brand-pill{margin:0 var(--space-5) var(--space-6);padding:var(--space-2) var(--space-4);border:1px solid var(--line);border-radius:999px;font-size:var(--text-caption);display:inline-block}
-.nav-group{margin-bottom:var(--space-6)}
-.nav-group h2{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-dim);margin:0 var(--space-5) var(--space-2);font-weight:var(--weight-regular)}
-.nav-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--ink);font-family:inherit;font-size:var(--text-form);padding:7px var(--space-5);cursor:pointer;border-left:2px solid transparent}
-.nav-item:hover{background:var(--panel-2)}
-.nav-item.active{background:var(--panel-2);border-left-color:var(--accent-ui);color:#fff}
-main{overflow-y:auto;background:#0d0d0d}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+#app{display:grid;grid-template-columns:272px 1fr;height:100vh}
+.sidebar{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:var(--space-5) 0;display:flex;flex-direction:column;gap:var(--space-2)}
+.brand-pill{margin:0 var(--space-5) var(--space-5);padding:var(--space-2) var(--space-4);background:var(--panel-3);border:1px solid var(--line-strong);border-radius:999px;font-size:var(--text-caption);font-weight:var(--weight-regular);letter-spacing:.02em;display:inline-flex;align-items:center;gap:var(--space-2);width:fit-content}
+.brand-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-ui)}
+.nav-group{margin-bottom:var(--space-5)}
+.nav-group h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);margin:0 var(--space-5) var(--space-2);font-weight:var(--weight-regular)}
+.nav-item{display:block;width:calc(100% - 20px);text-align:left;background:none;border:none;color:var(--ink-dim);font-family:inherit;font-size:var(--text-form);line-height:1.3;padding:7px 12px;margin:0 10px 1px;cursor:pointer;border-radius:var(--radius-sm);transition:background var(--dur-fast) var(--ease-brand),color var(--dur-fast) var(--ease-brand)}
+.nav-item:hover{background:var(--panel-2);color:var(--ink)}
+.nav-item.active{background:color-mix(in srgb, var(--accent-ui) 16%, var(--panel-2));color:#fff}
+main{overflow-y:auto;background:var(--bg)}
+.topbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);padding:14px var(--space-9);background:color-mix(in srgb, var(--bg) 85%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.crumb{font-size:12px;color:var(--ink-dim);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.crumb b{color:var(--ink);font-weight:var(--weight-regular)}
+.gh-link{color:var(--ink-dim);font-size:var(--text-caption);text-decoration:none;border:1px solid var(--line-strong);padding:6px var(--space-4);border-radius:999px;white-space:nowrap;transition:color var(--dur-fast) var(--ease-brand),border-color var(--dur-fast) var(--ease-brand)}
+.gh-link:hover{color:var(--ink);border-color:var(--ink-dim)}
 .content{padding:var(--space-8) var(--space-9);max-width:1400px}
 .empty{padding:var(--space-11) var(--space-9);color:var(--ink-dim)}
 .empty h1{color:var(--ink);font-weight:var(--weight-regular)}
 .head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-6);margin-bottom:var(--space-6)}
-.head h1{font-size:var(--text-title-sm);margin:0 0 var(--space-2);font-weight:var(--weight-regular)}
+.head h1{font-size:var(--text-title-sm);margin:0 0 var(--space-2);font-weight:var(--weight-regular);letter-spacing:-.01em}
 .head p{margin:0;color:var(--ink-dim);font-size:var(--text-form)}
-.head a{color:var(--ink-dim);font-size:var(--text-caption);text-decoration:none;border:1px solid var(--line);padding:var(--space-2) var(--space-4);border-radius:999px;white-space:nowrap}
-.head a:hover{color:#fff;border-color:var(--ink-dim)}
-.canvas{background:#000;border:1px solid var(--line);display:flex;align-items:flex-start;justify-content:center;padding:var(--space-6);overflow:auto}
-.canvas iframe{border:none;background:#fff;flex-shrink:0}
-.canvas .mount{background:#fff;color:var(--text-primary);flex-shrink:0}
+.head a{display:inline-flex;align-items:center;gap:6px;color:var(--ink-dim);font-size:var(--text-caption);text-decoration:none;border:1px solid var(--line-strong);padding:var(--space-2) var(--space-4);border-radius:999px;white-space:nowrap;transition:color var(--dur-fast) var(--ease-brand),border-color var(--dur-fast) var(--ease-brand),background var(--dur-fast) var(--ease-brand)}
+.head a:hover{color:#fff;border-color:var(--ink-dim);background:var(--panel-2)}
+.canvas{background:#000;border:1px solid var(--line);border-radius:var(--radius-lg);display:flex;align-items:flex-start;justify-content:center;padding:var(--space-6);overflow:auto}
+.canvas iframe{border:none;background:#fff;flex-shrink:0;border-radius:var(--radius-md)}
+.canvas .mount{background:#fff;color:var(--text-primary);flex-shrink:0;border-radius:var(--radius-md);overflow:hidden}
 .deck{display:grid;grid-template-columns:200px 1fr;gap:var(--space-5)}
 .deck-rail{display:flex;flex-direction:column;gap:var(--space-3);max-height:70vh;overflow-y:auto}
-.deck-thumb{border:1px solid var(--line);cursor:pointer;overflow:hidden;background:#000;position:relative;aspect-ratio:16/9}
+.deck-thumb{border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;overflow:hidden;background:#000;position:relative;aspect-ratio:16/9}
 .deck-thumb.active{border-color:var(--accent-ui)}
 .deck-thumb iframe{pointer-events:none;border:none}
 .deck-thumb .num{position:absolute;top:4px;left:6px;font-size:10px;color:var(--ink-dim);z-index:1}
-.deck-main iframe{border:none;background:#fff}
+.deck-main iframe{border:none;background:#fff;border-radius:var(--radius-md)}
 .prompts{margin-top:var(--space-8);display:flex;flex-direction:column;gap:var(--space-6)}
 .prompt{border-top:1px solid var(--line);padding-top:var(--space-4)}
 .prompt h3{font-size:var(--text-caption);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-dim);margin:0 0 var(--space-3);font-weight:var(--weight-regular)}
 .prompt p{margin:0 0 var(--space-3);font-size:var(--text-form);color:var(--ink)}
 .prompt ul{margin:0 0 var(--space-3);padding-left:1.2em;font-size:var(--text-form);color:var(--ink)}
-.prompt pre{background:var(--panel);border:1px solid var(--line);padding:var(--space-4);overflow-x:auto;margin:0 0 var(--space-3);border-radius:4px}
+.prompt pre{background:var(--panel-2);border:1px solid var(--line);padding:var(--space-4);overflow-x:auto;margin:0 0 var(--space-3);border-radius:var(--radius-sm)}
 .prompt code{font-family:ui-monospace,monospace;font-size:13px}
-.prompt p code{background:var(--panel);padding:1px 5px;border-radius:3px}
+.prompt p code{background:var(--panel-2);padding:1px 5px;border-radius:3px}
 </style></head><body>
 <div id="app">
   <nav class="sidebar">
     <span class="brand-pill">Design System</span>
     <div id="nav-groups"></div>
   </nav>
-  <main><div id="content" class="content"></div></main>
+  <main>
+    <div class="topbar">
+      <div class="crumb" id="crumb"></div>
+      <a class="gh-link" href="https://github.com/laarnicayetano/lumenis-design-system" target="_blank" rel="noopener">View on GitHub ↗</a>
+    </div>
+    <div id="content" class="content"></div>
+  </main>
 </div>
 <script id="ds-data" type="application/json">${data}</script>
 <script src="specimens.js"></script>
@@ -662,10 +674,19 @@ function findItem(key) {
   return null;
 }
 
+function findGroupTitle(key) {
+  for (const g of groups) for (const it of g.items) if (it.key === key) return g.title;
+  return '';
+}
+
+const crumbEl = document.getElementById('crumb');
+crumbEl.textContent = 'Design System';
+
 function open(key, push) {
   const item = findItem(key);
   if (!item) return;
   document.querySelectorAll('.nav-item').forEach((b) => b.classList.toggle('active', b.dataset.key === key));
+  crumbEl.innerHTML = 'Design System / ' + findGroupTitle(key) + ' / <b>' + item.name + '</b>';
   if (item.kind === 'deck') renderDeck(item);
   else renderPage(item);
   if (push) location.hash = key;

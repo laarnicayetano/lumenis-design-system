@@ -1,7 +1,7 @@
 export const card = {
   group: "Colors",
   viewport: [700, 160] as [number, number],
-  name: "Aesthetics · purples & reds",
+  name: "Aesthetics · Purple & Reds",
   subtitle: "ULTRApulse, AcuPulse, FemTouch, LegendPro, NuEra, FoLix",
   padding: "18px",
 };

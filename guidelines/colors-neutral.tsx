@@ -1,7 +1,7 @@
 export const card = {
   group: "Colors",
   viewport: [700, 150] as [number, number],
-  name: "Neutrals & grounds",
+  name: "Neutrals",
   subtitle: "Shine grey, photography ground, organic tone",
   padding: "18px",
 };
