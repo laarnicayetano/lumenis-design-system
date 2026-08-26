@@ -1,6 +1,6 @@
 ---
 name: propose-change
-description: Publish edits made in this repo (lumenis-design-system) by opening a GitHub PR. Use when the user says "ship this", "publish this change", "release this", "open a PR", or has finished editing tokens/components/guidelines and wants it live. This is a repo-local skill for maintaining lumenis-design-system itself — not something distributed elsewhere.
+description: Publish edits made in this repo (lumenis-design-system) by opening a GitHub PR with a version-bump label, and bumping .claude-plugin/plugin.json's version as part of the same PR. Use when the user says "ship this", "publish this change", "release this", "open a PR", or has finished editing tokens/components/guidelines and wants it live. This is a repo-local skill for maintaining lumenis-design-system itself — not something distributed elsewhere.
 ---
 
 # Propose a design system change
@@ -47,24 +47,42 @@ straight to `master`.
    silently redact; a false positive costs one clarifying question, a false
    negative publishes a leak.
 
-4. **Verify the build still passes.** Run `npm run build` (this also
-   typechecks). If it fails because of the change being proposed, stop and
-   fix it — or tell the user what's broken — before opening a PR.
+4. **Verify the build still passes.** Run `npm run build`. If it fails
+   because of the change being proposed, stop and fix it — or tell the user
+   what's broken — before opening a PR.
 
-5. **Create a branch and commit.**
+5. **Pick a bump level for the PR.** Default to **patch**. Use your judgment
+   on the diff, and don't ask unless it's genuinely unclear:
+   - **none** — docs, workflow, or repo tooling only; no design-system
+     content changed
+   - **patch** — wording tweaks, corrections, small examples, token/guideline
+     fixes, bug fixes
+   - **minor** — a new component, guideline, or ui_kit added; a meaningfully
+     expanded capability
+   - **major** — a component/skill removed or renamed in a way that breaks
+     existing references, restructured layout
+   If the level isn't `none`, run `node scripts/bump-version.mjs <level>` —
+   this bumps `.claude-plugin/plugin.json`'s version (and mirrors it into
+   `package.json`) and stages those file changes to go out in the same PR,
+   so a reviewer sees the version bump in the diff rather than as an
+   invisible follow-up commit. Don't run it at all for `none`.
+
+6. **Create a branch and commit.**
    ```
    git checkout -b claude/<short-slug>
    git add <changed files>
    git commit -m "<plain-language summary of the change>"
    git push -u origin claude/<short-slug>
    ```
+   Include the version-bump files from step 5 (if any) in this commit.
 
-6. **Open the PR.**
+7. **Open the PR** with the bump label attached:
    ```
-   gh pr create --title "<summary>" --body "<what changed and why>"
+   gh pr create --title "<summary>" --body "<what changed and why>" \
+     --label "bump:<level>"
    ```
 
-7. **Switch back to master** once the branch is pushed and the PR is open:
+8. **Switch back to master** once the branch is pushed and the PR is open:
    ```
    git checkout master
    ```
@@ -72,14 +90,16 @@ straight to `master`.
    the next task should start clean, not accidentally stack changes onto a
    branch that's already up for review.
 
-8. **Report back in plain language**, e.g.:
-   > Opened a PR: <url>. It's up for review — once someone approves and
-   > merges it, the GitHub Pages site rebuilds automatically on push to
-   > `master`.
+9. **Report back in plain language**, e.g.:
+   > Opened a PR: <url>, labeled `bump:patch` and bumping to v0.0.2. It's up
+   > for review — once someone approves and merges it, the GitHub Pages site
+   > rebuilds automatically on push to `master`, and a `v0.0.2` git tag gets
+   > created for the merge commit.
 
 ## Notes
 
 - Never invent content changes — only publish what the user actually edited.
 - If nothing changed at all, say so rather than opening an empty PR.
 - This skill's job ends at opening the PR. Merging and approving are handled
-  by a human, not by this skill.
+  by a human, not by this skill. Tagging the merged version happens
+  automatically via `.github/workflows/version-bump.yml`.
