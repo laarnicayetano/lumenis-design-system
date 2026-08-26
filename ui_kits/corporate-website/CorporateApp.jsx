@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import { SiteHeader, SiteFooter } from "../../components";
 import { NAV, FOOTER_COLUMNS } from "./shared";
 import { Home } from "./Home";
@@ -32,4 +31,4 @@ function CorporateApp() {
   );
 }
 const el = document.getElementById("root");
-if (el) ReactDOM.createRoot(el).render(React.createElement(CorporateApp, null));
+if (el) globalThis.ReactDOM.createRoot(el).render(React.createElement(CorporateApp, null));

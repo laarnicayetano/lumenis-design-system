@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import { Nav } from "./Nav";
 import { OptiLightHero } from "./OptiLightHero";
 import { ValueProps, PrismBand, ProductShowcase } from "./Sections";
@@ -25,4 +24,4 @@ function OptiLightApp() {
   );
 }
 const el = document.getElementById("root");
-if (el) ReactDOM.createRoot(el).render(React.createElement(OptiLightApp, null));
+if (el) globalThis.ReactDOM.createRoot(el).render(React.createElement(OptiLightApp, null));
