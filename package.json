@@ -4,19 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "typecheck": "tsc --noEmit",
-    "build": "npm run typecheck && node scripts/build.ts",
-    "dev": "node scripts/dev.ts",
-    "format": "prettier --write \"**/*.{ts,tsx}\" --print-width 100"
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs",
+    "format": "prettier --write \"**/*.{js,jsx,mjs}\" --print-width 100"
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^26.2.0",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
     "esbuild": "^0.24.0",
     "prettier": "^3.9.6",
     "typescript": "^5.6.3"
