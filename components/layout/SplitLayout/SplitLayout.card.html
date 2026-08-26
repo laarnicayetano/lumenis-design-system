@@ -1,0 +1,55 @@
+<!-- @dsCard group="Components" viewport="700x300" name="SplitLayout" subtitle="The base composition: type half, image half" -->
+<link rel="stylesheet" href="../../../styles.css" />
+<script
+  src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+  crossorigin
+></script>
+<script src="../../../_ds_bundle.js"></script>
+<div id="root" style="padding: 0px; background: var(--surface-page)"></div>
+<script type="text/babel">
+  const { SplitLayout, SplitPanel, Headline, Button } =
+    window[
+      Object.keys(window).find(function (k) {
+        return k.indexOf("LumenisDesignSystem") === 0;
+      })
+    ];
+
+  function Demo() {
+    return (
+      <SplitLayout ratio="5fr 6fr" minHeight="300px">
+        <SplitPanel pad="26px" align="space-between">
+          <Headline size="small" style={{ fontSize: "30px" }} heroL="LEADING">
+            Leading technologies for your body.
+          </Headline>
+          <Button size="sm">Discover more</Button>
+        </SplitPanel>
+        <SplitPanel
+          tone="image"
+          pad="0"
+          style={{ display: "grid", placeItems: "center" }}
+        >
+          <span
+            style={{
+              fontSize: "var(--text-caption)",
+              letterSpacing: "var(--tracking-caption)",
+              textTransform: "uppercase",
+              color: "var(--text-muted)",
+              opacity: 0.55,
+            }}
+          >
+            Photography
+          </span>
+        </SplitPanel>
+      </SplitLayout>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>

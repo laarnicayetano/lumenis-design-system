@@ -2,7 +2,7 @@
 export interface ProseProps {
   children?: React.ReactNode;
   /** subtitle 28px · body 18px · small 16px. */
-  size?: keyof typeof PROSE_SIZES;
+  size?: "subtitle" | "body" | "small";
   tone?: string;
   maxWidth?: number | string;
   style?: React.CSSProperties;

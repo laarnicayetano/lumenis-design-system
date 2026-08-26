@@ -5,8 +5,8 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
   padding?: string;
   /** Shadow depth — `none` for a flat bordered block, `sm` for the default resting state, `md` for a lifted/hover state. */
-  elevation?: keyof typeof CARD_ELEVATIONS;
-  tone?: 'page' | 'inverse';
+  elevation?: "none" | "sm" | "md";
+  tone?: "page" | "inverse";
   style?: React.CSSProperties;
 }
 

@@ -3,7 +3,7 @@
  */
 export interface BadgeProps {
   children?: React.ReactNode;
-  tone?: keyof typeof BADGE_TONES;
+  tone?: "neutral" | "accent" | "tone";
   style?: React.CSSProperties;
 }
 

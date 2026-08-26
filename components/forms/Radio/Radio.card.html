@@ -1,0 +1,48 @@
+<!-- @dsCard group="Components" viewport="700x260" name="Radio" subtitle="Single-select option, checked and inverse" -->
+<link rel="stylesheet" href="../../../styles.css" />
+<script
+  src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+  crossorigin
+></script>
+<script src="../../../_ds_bundle.js"></script>
+<div id="root" style="padding: 20px; background: var(--surface-page)"></div>
+<script type="text/babel">
+  const { Radio } =
+    window[
+      Object.keys(window).find(function (k) {
+        return k.indexOf("LumenisDesignSystem") === 0;
+      })
+    ];
+
+  function Demo() {
+    return (
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+          <Radio name="skinType" label="Type II" readOnly />
+          <Radio name="skinType" label="Type III" checked readOnly />
+        </div>
+        <div
+          style={{
+            background: "var(--lum-black)",
+            padding: 16,
+            display: "flex",
+            flexDirection: "column",
+            gap: 14,
+          }}
+        >
+          <Radio name="skinTypeInverse" label="Inverse checked" checked tone="inverse" readOnly />
+          <Radio name="skinTypeInverse" label="Inverse unchecked" tone="inverse" readOnly />
+        </div>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>
