@@ -1,11 +1,19 @@
-name: Tag version on merge
+name: Bump and tag version on merge
 
-# Runs after a PR merges into master. The version bump itself already
-# happened inside the PR (see .claude/skills/propose-change/SKILL.md step 5
-# — it runs scripts/bump-version.mjs and commits the result as part of the
-# PR, so reviewers see the version change in the diff). All this workflow
-# does is read the merged PR's bump:* label and, if it's not "none", tag the
-# merge commit with the version now sitting in .claude-plugin/plugin.json.
+# Runs after a PR merges into master. Reads the merged PR's bump:* label
+# and, if it's not "none", bumps .claude-plugin/plugin.json + package.json
+# via scripts/bump-version.mjs, commits that straight to master, and tags
+# the result vX.Y.Z.
+#
+# The bump happens here — in CI, after merge — rather than inside the PR
+# itself, on purpose: a bump:* label can be attached to a PR by hand
+# (GitHub's UI, `gh pr edit`, or a human just clicking it) without anyone
+# ever running scripts/bump-version.mjs. If the bump lived only in the
+# skill/PR, a label attached any other way would produce a PR that merges
+# fine but never actually bumps the version — and this job would then tag
+# whatever stale version happened to already be in plugin.json, which is
+# worse than not tagging at all. Doing the bump here means the label is
+# the only thing that has to be right; everything else is guaranteed.
 
 on:
   pull_request:
@@ -16,7 +24,7 @@ permissions:
   contents: write
 
 jobs:
-  tag:
+  bump:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
@@ -32,7 +40,7 @@ jobs:
             fi
           done
           if [ -z "$level" ]; then
-            echo "No bump:* label found — skipping tag."
+            echo "No bump:* label found — skipping version bump."
             level="none"
           fi
           echo "level=$level" >> "$GITHUB_OUTPUT"
@@ -43,16 +51,32 @@ jobs:
         with:
           ref: master
 
-      - name: Read version and tag
+      - name: Set up Node
+        if: steps.level.outputs.level != 'none'
+        uses: actions/setup-node@v7
+        with:
+          node-version: latest
+
+      - name: Bump version
+        if: steps.level.outputs.level != 'none'
+        id: bumped
+        run: |
+          node scripts/bump-version.mjs "${{ steps.level.outputs.level }}"
+          version=$(node -p "require('./.claude-plugin/plugin.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Commit, push, and tag
         if: steps.level.outputs.level != 'none'
         run: |
-          version=$(node -p "require('./.claude-plugin/plugin.json').version")
-          tag="v$version"
+          tag="v${{ steps.bumped.outputs.version }}"
           if git rev-parse "$tag" >/dev/null 2>&1; then
-            echo "Tag $tag already exists — skipping (was this PR's version bump actually committed?)."
+            echo "Tag $tag already exists — skipping (already bumped/tagged?)."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .claude-plugin/plugin.json package.json
+          git commit -m "chore: bump version to $tag — PR #${{ github.event.pull_request.number }} (${{ steps.level.outputs.level }})"
+          git push origin master
           git tag -a "$tag" -m "$tag — PR #${{ github.event.pull_request.number }} (${{ steps.level.outputs.level }})"
           git push origin "$tag"
