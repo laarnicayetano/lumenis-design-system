@@ -91,7 +91,7 @@ Get the licensed files from [wherever your team stores them — Drive/SharePoint
 
 The guidelines define a proprietary line-illustration set (p.53-59): clean, geometric, even-stroke outlines — **1pt at small scale** beside type, **2pt at large scale** as an expressive graphic element. Themes shown include Clinic, Customer, Treatment, After-Care. Rules: strokes are one consistent width, never varied, never distorted.
 
-**No icon files were included in the supplied assets, and none are extractable from the PDF.** Rather than hand-draw approximations, `components/icons/Icon/Icon.tsx` wraps **Phosphor Icons Thin/Light** from CDN — the closest available match to the brand's stroke weight and geometry. Host pages load:
+**No icon files were included in the supplied assets, and none are extractable from the PDF.** Rather than hand-draw approximations, `components/icons/Icon/Icon.jsx` wraps **Phosphor Icons Thin/Light** from CDN — the closest available match to the brand's stroke weight and geometry. Host pages load:
 
 ```html
 <link
@@ -108,11 +108,13 @@ The guidelines define a proprietary line-illustration set (p.53-59): clean, geom
 
 ## Build & publish
 
-This is a real npm project — `npm install` then `npm run build` type-checks everything (`tsc --noEmit`) and bundles the library plus every specimen/demo page into `dist/` via esbuild (`scripts/build.ts`). `dist/` is gitignored; it's regenerated, never committed. On push to `master`, `.github/workflows/deploy-pages.yml` runs the same build and publishes `dist/` to GitHub Pages, so the live specimen pages always reflect the current source.
+This is a real npm project — `npm install` then `npm run build` bundles the library plus every ui_kit into `dist/` via esbuild (`scripts/build.mjs`). `dist/` is gitignored; it's regenerated, never committed. On push to `master`, `.github/workflows/deploy-pages.yml` runs the same build and publishes `dist/` to GitHub Pages, so the live specimen pages always reflect the current source.
 
-Each component ships as `.tsx` (implementation + inline prop types — no separate `.d.ts`) plus a `.prompt.md` (LLM-facing usage doc: description, copy-paste example, gotchas — see each component's file for an example). `components/index.ts` is the library barrel; consumers import from there.
+There is no TypeScript or build-time JSX transform anywhere in this repo — plain `.jsx`/`.js`/`.mjs` only. This is deliberate: Claude Design's own canvas sync reads source files directly (not via a bundler), and a TypeScript file with an invalid-for-JS shebang or an unresolvable Node-only import (`node:fs`, `esbuild`, `typescript`, `react-dom/client`) can take its whole compile down. Keeping every design-content file free of TS syntax removes that failure class entirely, for any project this repo is synced into, not just one account's canvas.
 
-`guidelines/*.tsx` and `components/*/*.specimen.tsx` are real React source — readable, type-checked, and the only place to edit specimen content. Each exports a `card` object (the `{ group, viewport, name, subtitle }` metadata shown on the homepage) and a default component. `scripts/build.ts` renders them to static HTML at build time via `react-dom/server` (`renderToStaticMarkup`) and writes the result to `dist/**/*.card.html` — that generated HTML is build output only, never hand-edited and never committed. This intentionally means Claude Design's canvas editor is no longer the source of truth for guidelines/specimens: editing one there won't persist past the next build, since the next `npm run build` regenerates `dist/` from the `.tsx` source.
+Each component ships as `.jsx` (implementation, JSX pre-compiled to `React.createElement` calls) plus a hand-written `.d.ts` (prop types only — never type-checked, kept purely as documentation matching Claude Design's own reference format) and a `.prompt.md` (LLM-facing usage doc: description, copy-paste example, gotchas — see each component's file for an example). `components/index.js` is the library barrel; consumers import from there.
+
+`guidelines/*.card.html` and `components/**/*.card.html` are hand-authored static HTML fragments — no build step, no React, no bundler — matching Claude Design's own native card format exactly. `scripts/build.mjs` only copies them and reads their leading `@dsCard` comment to build the homepage nav.
 
 `templates/*.dc.html` are excluded from the build entirely — they're Claude Design's canvas-editor format (`support.js`/`ds-base.js`), not something this build produces or should touch.
 
@@ -122,7 +124,7 @@ Each component ships as `.tsx` (implementation + inline prop types — no separa
 - `tokens/` — `fonts.css`, `colors.css`, `subbrands.css`, `typography.css`, `spacing.css`, `surfaces.css`, `motion.css`, `base.css`.
 - `assets/` — wordmark + Hero "L" symbol (black/white, SVG + PNG); `assets/fonts/` is gitignored — see [Fonts](#fonts).
 - `research/brand-guidelines.txt` — full extracted text of the 2026 brand guidelines (gitignored, not in the public repo — see source table above).
-- `components/` — one folder per component (`<Category>/<Name>/<Name>.tsx` + `<Name>.prompt.md`), plus `index.ts` as the library barrel and one shared `*.specimen.tsx` demo per category (built to `dist/components/**/*.card.html`):
+- `components/` — one folder per component (`<Category>/<Name>/<Name>.jsx` + `<Name>.d.ts` + `<Name>.prompt.md`), plus `index.js` as the library barrel and one shared `*.card.html` demo per category:
   - `brand/` — **Logotype**, **HeroL**, **Rays**
   - `typography/` — **Headline**, **Prose**, **Eyebrow**, **HighlightBox**
   - `actions/` — **Button**, **TextLink**
@@ -132,8 +134,8 @@ Each component ships as `.tsx` (implementation + inline prop types — no separa
   - `content/` — **Card**, **ProductCard**, **InsightCard**, **Quote**, **StatBlock**
   - `forms/` — **TextField**, **NewsletterSignup**, **Checkbox**, **Radio**, **Select**, **Switch**
   - `indicators/` — **Badge**, **Tag**
-- `guidelines/*.tsx` and `components/*/*.specimen.tsx` — 39 specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component specimens), built to `dist/guidelines/*.card.html` and `dist/components/**/*.card.html`.
-- `ui_kits/` — `.tsx` sources, built to a standalone bundle per kit that needs one:
+- `guidelines/*.card.html` and `components/**/*.card.html` — hand-authored static specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component demos), copied as-is to `dist/`.
+- `ui_kits/` — `.jsx` sources, built to a standalone bundle per kit that needs one:
   - `corporate-website/` — click-through home, product detail (4 sub-brands), contact.
   - `optilift-website/` — OptiLIFT patient-facing marketing site.
   - `optilight-website/` — OptiLIGHT marketing site.
