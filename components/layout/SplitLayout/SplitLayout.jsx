@@ -27,10 +27,10 @@ export function SplitLayout({
   );
 }
 const PANEL_TONES = {
-  page: { background: "var(--surface-page)", color: "var(--text-primary)" },
-  inverse: { background: "var(--surface-inverse)", color: "var(--text-inverse)" },
-  accent: { background: "var(--accent)", color: "var(--accent-contrast)" },
-  image: { background: "var(--surface-image)", color: "var(--text-primary)" },
+  page: { backgroundColor: "var(--surface-page)", color: "var(--text-primary)" },
+  inverse: { backgroundColor: "var(--surface-inverse)", color: "var(--text-inverse)" },
+  accent: { backgroundColor: "var(--accent)", color: "var(--accent-contrast)" },
+  image: { backgroundColor: "var(--surface-image)", color: "var(--text-primary)" },
 };
 export function SplitPanel({
   children,

@@ -1,0 +1,36 @@
+<!-- @dsCard group="Components" viewport="700x330" name="InsightCard" subtitle="Article image, topics, title, read more" -->
+<link rel="stylesheet" href="../../../styles.css" />
+<script
+  src="https://unpkg.com/react@18.3.1/umd/react.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"
+  crossorigin
+></script>
+<script
+  src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"
+  crossorigin
+></script>
+<script src="../../../_ds_bundle.js"></script>
+<div id="root" style="padding: 20px; background: var(--surface-page)"></div>
+<script type="text/babel">
+  const { InsightCard } =
+    window[
+      Object.keys(window).find(function (k) {
+        return k.indexOf("LumenisDesignSystem") === 0;
+      })
+    ];
+
+  function Demo() {
+    return (
+      <div style={{ width: 190 }}>
+        <InsightCard
+          title="FoLix Named Best Laser Treatment for Hair Loss Two Years Running"
+          topics={["FoLix", "News"]}
+        />
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("root")).render(<Demo />);
+</script>

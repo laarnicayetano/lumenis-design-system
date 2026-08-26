@@ -5,8 +5,8 @@ export interface HeadlineProps {
   children?: React.ReactNode;
   as?: keyof JSX.IntrinsicElements;
   /** display 80px · title 56px · small 40px. */
-  size?: keyof typeof HEADLINE_SIZES;
-  align?: 'left' | 'right' | 'center';
+  size?: "display" | "title" | "small";
+  align?: "left" | "right" | "center";
   /** Word whose "L" becomes the Hero "L". Mutually exclusive with `mix`. */
   heroL?: string;
   /** Word to set in Arizona Mix. Mutually exclusive with `heroL`. */

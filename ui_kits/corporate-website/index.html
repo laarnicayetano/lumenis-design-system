@@ -36,51 +36,10 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="text/babel" src="shared.jsx"></script>
-    <script type="text/babel" src="Home.jsx"></script>
-    <script type="text/babel" src="ProductDetail.jsx"></script>
-    <script type="text/babel" src="Contact.jsx"></script>
     <script type="text/babel" data-presets="react">
-      function CorporateApp() {
-        const [view, setView] = React.useState({ page: "home" });
-        const go = (page) => setView({ page });
-        return (
-          <div>
-            <SiteHeader
-              nav={NAV}
-              active={view.page === "home" ? "aesthetics" : view.page}
-              onNavigate={(id) => go(id === "contact" ? "contact" : "home")}
-            />
-            {view.page === "contact" ? (
-              <Contact />
-            ) : view.page === "product" ? (
-              <ProductDetail id={view.id} onBack={() => go("home")} />
-            ) : (
-              <Home
-                onOpenProduct={(id) => setView({ page: "product", id })}
-                onNavigate={go}
-              />
-            )}
-            <SiteFooter
-              columns={FOOTER_COLUMNS}
-              social={[
-                "facebook-logo",
-                "instagram-logo",
-                "linkedin-logo",
-                "x-logo",
-                "youtube-logo",
-              ]}
-              policies={[
-                "Privacy Statement",
-                "Terms of Use",
-                "Safety Information",
-                "Patents",
-              ]}
-            />
-          </div>
-        );
-      }
-      ReactDOM.createRoot(document.getElementById("root")).render(<CorporateApp />);
+      // Mounted from CorporateApp.jsx — scripts/build.mjs buildUiKitHtml
+      // precompiles CorporateApp.jsx to bundle.js and swaps this placeholder
+      // for a script tag pointing at it.
     </script>
   </body>
 </html>

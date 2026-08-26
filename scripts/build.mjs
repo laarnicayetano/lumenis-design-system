@@ -177,19 +177,21 @@ async function buildComponentCards() {
   for (const file of files) {
     const card = await readDsCard(file);
     if (!card) continue;
-    const category = path.basename(path.dirname(file));
-    const slug = path.basename(file, ".card.html");
-    const outFile = path.join(
-      dist,
-      "components",
-      category,
-      `${slug}.card.html`
-    );
+    // Preserve the file's path exactly as it sits under components/ — some
+    // cards live directly in their group folder (components/actions/buttons.card.html,
+    // one card covering several components), others one level deeper in
+    // their own component folder (components/actions/Button/Button.card.html,
+    // one card per component). Flattening either into a fixed depth would
+    // both collide different cards' output paths and break every relative
+    // path (../../styles.css etc.) baked into the source at its real depth.
+    const relPath = path.relative(path.join(root, "components"), file);
+    const category = relPath.split(path.sep)[0];
+    const outFile = path.join(dist, "components", relPath);
     const src = await fs.readFile(file, "utf8");
-    const patched = src.replace(
-      'src="../../_ds_bundle.js"',
-      'src="../../design-system.js"'
-    );
+    // Swap just the filename, whatever depth of ../ precedes it — a literal
+    // "../../_ds_bundle.js" match only worked for cards at the shallower
+    // depth and silently no-op'd for the deeper per-component cards.
+    const patched = src.replace(/_ds_bundle\.js"/, 'design-system.js"');
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, patched);
     const destructureMatch = src.match(/const \{([^}]*)\}\s*=\s*window\[/);
@@ -211,6 +213,7 @@ async function buildComponentCards() {
           html: renderPromptMarkdown(raw)
         });
     }
+    const relKey = relPath.replace(/\.card\.html$/, "").split(path.sep).join("/");
     cards.push({
       group: card.group,
       category: titleCase(category),
@@ -218,8 +221,8 @@ async function buildComponentCards() {
       subtitle: card.subtitle,
       w: card.w,
       h: card.h,
-      href: `components/${category}/${slug}.card.html`,
-      key: `components/${category}/${slug}`,
+      href: `components/${relKey}.card.html`,
+      key: `components/${relKey}`,
       padding: "0px",
       prompts
     });
