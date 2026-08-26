@@ -1,5 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
 import { Header } from "./Header";
 import { OptiLiftHero } from "./OptiLiftHero";
 import { Technology } from "./Technology";
@@ -21,4 +20,4 @@ function OptiLiftApp() {
   );
 }
 const el = document.getElementById("root");
-if (el) ReactDOM.createRoot(el).render(React.createElement(OptiLiftApp, null));
+if (el) globalThis.ReactDOM.createRoot(el).render(React.createElement(OptiLiftApp, null));

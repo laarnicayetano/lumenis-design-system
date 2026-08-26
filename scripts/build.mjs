@@ -56,22 +56,28 @@ async function buildBundles() {
     bundle: true,
     minify: true,
     jsx: "automatic",
-    logLevel: "info"
+    logLevel: "info",
+    // Every consuming page (components/*.card.html, ui_kits/*/index.html)
+    // loads React from a CDN <script> tag before any of these bundles —
+    // alias instead of bundling a private copy, or components' hooks get a
+    // different dispatcher than whatever actually renders them. ReactDOM is
+    // read off globalThis directly in source (see design-system-entry.js
+    // and each ui_kit's App entry) rather than imported from
+    // "react-dom/client", since that subpath import isn't resolvable by
+    // Claude Design's canvas (it only knows "react"/"react-dom" as CDN
+    // globals, not npm subpath exports) — no alias needed for something
+    // nothing imports anymore, but it does mean the CDN react-dom <script>
+    // tag on each ui_kit page must stay (see buildUiKitHtml below).
+    alias: {
+      react: path.join(root, "build/react-global-shim.js")
+    }
   };
   await esbuild.build({
     ...common,
     entryPoints: [path.join(root, "build/design-system-entry.js")],
     outfile: path.join(dist, "design-system.js"),
     format: "iife",
-    globalName: "LumenisDesignSystem",
-    // Consuming pages (components/*.card.html, ui_kits/*/index.html) load
-    // React/ReactDOM from a CDN <script> tag before this bundle — alias
-    // instead of bundling a private copy, or components' hooks get a
-    // different dispatcher than whatever actually renders them.
-    alias: {
-      react: path.join(root, "build/react-global-shim.js"),
-      "react-dom/client": path.join(root, "build/react-dom-global-shim.js")
-    }
+    globalName: "LumenisDesignSystem"
   });
   for (const [kit, entry] of Object.entries(INTERACTIVE_UI_KITS)) {
     await esbuild.build({
@@ -233,14 +239,14 @@ async function copyUiKitStatics() {
 async function buildUiKitHtml(kit) {
   const from = path.join(root, "ui_kits", kit, "index.html");
   let html = await fs.readFile(from, "utf8");
+  // The CDN React/ReactDOM <script> tags stay — bundle.js reads ReactDOM off
+  // globalThis at runtime (see buildBundles' alias comment above), so they
+  // aren't dead weight even though nothing on the page runs JSX through
+  // them anymore. Only the Babel-standalone scripts (no longer needed —
+  // JSX is pre-compiled into bundle.js) and the placeholder they wrapped
+  // get removed/replaced.
   html = html.replace(
-    /<script src="https:\/\/unpkg\.com\/react@[^"]*"[^>]*><\/script>\n?/,
-    ""
-  ).replace(
-    /<script src="https:\/\/unpkg\.com\/react-dom@[^"]*"[^>]*><\/script>\n?/,
-    ""
-  ).replace(
-    /<script src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[^>]*><\/script>\n?/,
+    /<script[^>]*src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[\s\S]*?><\/script>\n?/,
     ""
   ).replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, "").replace(
     /<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/,

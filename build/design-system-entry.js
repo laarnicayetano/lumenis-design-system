@@ -1,4 +1,4 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+const ReactDOM = globalThis.ReactDOM;
 export * from "../components/index";
 export { React, ReactDOM };
