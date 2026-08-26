@@ -1,9 +1,11 @@
 {
   "name": "design-system",
-  "version": "0.0.1",
-  "description": "v0.0.1 — The company-wide Lumenis design system: color tokens, typography, spacing, and core component conventions.",
+  "version": "0.0.2",
+  "description": "v0.0.2 — The company-wide Lumenis design system: color tokens, typography, spacing, and core component conventions.",
   "author": {
     "name": "Lumenis"
   },
-  "skills": ["./"]
+  "skills": [
+    "./"
+  ]
 }
