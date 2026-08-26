@@ -1,28 +1,28 @@
 import ReactDOM from 'react-dom/client';
 import { Header } from './Header';
-import { Hero } from './Hero';
+import { OptiLiftHero } from './OptiLiftHero';
 import { Technology } from './Technology';
 import { Results } from './Results';
-import { FAQ } from './FAQ';
+import { OptiLiftFAQ } from './OptiLiftFAQ';
 import { ProviderForm } from './ProviderForm';
-import { Footer } from './Footer';
+import { OptiLiftFooter } from './OptiLiftFooter';
 
 /* The whole page sits inside [data-subbrand="optilift"] so --accent/
    --accent-contrast resolve to the OptiLIFT violet instead of corporate
    black (see tokens/subbrands.css). */
-function App() {
+function OptiLiftApp() {
   return (
     <div data-subbrand="optilift">
       <Header />
-      <Hero />
+      <OptiLiftHero />
       <Technology />
       <Results />
-      <FAQ />
+      <OptiLiftFAQ />
       <ProviderForm />
-      <Footer />
+      <OptiLiftFooter />
     </div>
   );
 }
 
 const el = document.getElementById('root');
-if (el) ReactDOM.createRoot(el).render(<App />);
+if (el) ReactDOM.createRoot(el).render(<OptiLiftApp />);

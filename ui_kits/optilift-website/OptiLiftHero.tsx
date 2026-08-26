@@ -1,6 +1,6 @@
 import { Badge, Headline, Prose, Button } from '../../components';
 
-export function Hero() {
+export function OptiLiftHero() {
   return (
     <section style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'center', gap: 'var(--space-8)', padding: 'var(--space-9) var(--page-gutter)' }}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-5)', alignItems: 'flex-start' }}>

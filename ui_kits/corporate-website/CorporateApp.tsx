@@ -8,7 +8,7 @@ import { ProductDetail, type ProductId } from './ProductDetail';
 
 type View = { page: 'home' | 'contact' | 'product'; id?: ProductId };
 
-function App() {
+function CorporateApp() {
   const [view, setView] = React.useState<View>({ page: 'home' });
   const go = (page: string) => setView({ page: page === 'contact' ? 'contact' : 'home' });
   return (
@@ -25,4 +25,4 @@ function App() {
 }
 
 const el = document.getElementById('root');
-if (el) ReactDOM.createRoot(el).render(<App />);
+if (el) ReactDOM.createRoot(el).render(<CorporateApp />);

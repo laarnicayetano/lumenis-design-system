@@ -1,6 +1,6 @@
 import { Badge, Headline, Prose, Button, Rays, Eyebrow, StatBlock } from '../../components';
 
-export function Hero({ onBook }: { onBook: () => void }) {
+export function OptiLightHero({ onBook }: { onBook: () => void }) {
   return (
     <section id="top" style={{ position: 'relative', overflow: 'hidden', background: 'var(--surface-page)' }}>
       <div style={{ maxWidth: 'var(--page-max)', margin: '0 auto', padding: 'var(--space-8) var(--page-gutter) var(--space-9)', display: 'grid', gridTemplateColumns: '1.05fr .95fr', gap: 'var(--space-8)', alignItems: 'center', minHeight: 'calc(100vh - 74px)' }}>

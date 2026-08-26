@@ -106,15 +106,19 @@ function titleCase(slug: string): string {
   return slug.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-// Interactive ui_kits — each has an App.tsx entry precompiled to bundle.js
-// and an index.html following the same CDN-script convention (see
+// Interactive ui_kits — each has an App entry precompiled to bundle.js and
+// an index.html following the same CDN-script convention (see
 // buildUiKitHtml below). Static-only kits (social/email/slides) don't need
-// an entry here — see copyUiKitStatics.
-const INTERACTIVE_UI_KITS = [
-  "corporate-website",
-  "optilift-website",
-  "optilight-website",
-];
+// an entry here — see copyUiKitStatics. Entry filenames are unique per kit
+// (CorporateApp, OptiLiftApp, OptiLightApp) rather than all named App.tsx —
+// Claude Design's canvas sync flattens every top-level export into one
+// shared window namespace, so identical names across kits silently
+// collided there even though our own per-kit esbuild bundles never did.
+const INTERACTIVE_UI_KITS: Record<string, string> = {
+  "corporate-website": "CorporateApp.tsx",
+  "optilift-website": "OptiLiftApp.tsx",
+  "optilight-website": "OptiLightApp.tsx",
+};
 
 async function buildBundles() {
   const common = {
@@ -140,10 +144,10 @@ async function buildBundles() {
     },
   });
 
-  for (const kit of INTERACTIVE_UI_KITS) {
+  for (const [kit, entry] of Object.entries(INTERACTIVE_UI_KITS)) {
     await esbuild.build({
       ...common,
-      entryPoints: [path.join(root, "ui_kits", kit, "App.tsx")],
+      entryPoints: [path.join(root, "ui_kits", kit, entry)],
       outfile: path.join(dist, "ui_kits", kit, "bundle.js"),
       format: "iife",
     });
@@ -374,7 +378,7 @@ async function buildUiKitHtml(kit: string) {
 }
 
 async function buildUiKitHtmls() {
-  for (const kit of INTERACTIVE_UI_KITS) await buildUiKitHtml(kit);
+  for (const kit of Object.keys(INTERACTIVE_UI_KITS)) await buildUiKitHtml(kit);
 }
 
 async function buildLandingPage() {

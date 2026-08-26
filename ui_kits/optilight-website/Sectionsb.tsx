@@ -82,7 +82,7 @@ function FAQItem({ q, a, open, onClick }: { q: string; a: string; open: boolean;
   );
 }
 
-export function FAQ() {
+export function OptiLightFAQ() {
   const [open, setOpen] = React.useState(0);
   return (
     <section style={{ padding: 'var(--space-10) var(--page-gutter)', background: '#f7f8fa' }}>
