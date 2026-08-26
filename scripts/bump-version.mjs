@@ -57,4 +57,4 @@ async function run() {
   console.log(`Bumped ${oldVersion} -> ${newVersion} (${level})`);
 }
 
-await run();
+run();

@@ -2,7 +2,13 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ReactDOMServer from "react-dom/server";
-import { bundleAndImportModule, findFiles, parseCssRules, inlineClassesToStyle, escapeAttr } from "../.claude/skills/code-mods/helpers.mjs";
+import {
+  bundleAndImportModule,
+  findFiles,
+  parseCssRules,
+  inlineClassesToStyle,
+  escapeAttr,
+} from "../.claude/skills/code-mods/helpers.mjs";
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const guidelinesDir = path.join(root, "guidelines");
 async function convertFile(file) {
@@ -10,7 +16,9 @@ async function convertFile(file) {
   const card = mod.card;
   const Component = mod.default;
   let html = ReactDOMServer.renderToStaticMarkup(Component());
-  const styleText = [...html.matchAll(/<style>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join("\n");
+  const styleText = [...html.matchAll(/<style>([\s\S]*?)<\/style>/g)]
+    .map((m) => m[1])
+    .join("\n");
   const classCss = parseCssRules(styleText);
   html = inlineClassesToStyle(html, classCss);
   html = html.replace(/(["(])assets\//g, "$1../assets/");
@@ -34,10 +42,10 @@ async function run() {
   const sharedFile = path.join(guidelinesDir, "_shared.ts");
   await fs.unlink(sharedFile).then(
     () => console.log("  removed guidelines/_shared.ts (no longer used)"),
-    () => {
-    }
+    () => {},
   );
   await fs.rm(path.join(root, ".build-tmp"), { recursive: true, force: true });
   console.log(`Converted ${files.length} guideline(s) to static HTML.`);
 }
-await run();
+
+run();

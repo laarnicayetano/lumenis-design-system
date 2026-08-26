@@ -10,7 +10,7 @@ The brand and interface system for **Lumenis** — a global medical-technology c
 | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `Lumenis Brand Guidelines 2026` (97pp, internal)              | The authoritative source. Full extracted text kept at `research/brand-guidelines.txt`; page numbers cited throughout this readme and in code comments. |
 | `Lumenis Corp Full Logo/`, `Lumenis Corporate Branding/Logo/` | Wordmark + Hero "L" symbol, RGB/CMYK, SVG/PNG/PDF. Copied into `assets/`.                                                                              |
-| ABC Arizona Sans / Arizona Mix OTFs (Dinamo)                  | Sans Regular + Light, Mix Regular + Italic. Licensed — **not** in this repo. See [Fonts](#fonts) below. Bold and Medium cuts are still outstanding.  |
+| ABC Arizona Sans / Arizona Mix OTFs (Dinamo)                  | Sans Regular + Light, Mix Regular + Italic. Licensed — **not** in this repo. See [Fonts](#fonts) below. Bold and Medium cuts are still outstanding.    |
 | `Arial.ttf`                                                   | The sanctioned system fallback (guidelines p.32).                                                                                                      |
 | https://lumenis.com/                                          | Live IA, product inventory, and real product copy.                                                                                                     |
 | Instagram [@Lumenis](https://www.instagram.com/Lumenis/)      | Referenced for social tone;                                                                                                                            |
@@ -156,14 +156,5 @@ The guidelines define brand assets and communication formats, not a UI component
 ## Caveats
 
 - **Icons are substituted** (Phosphor Thin/Light). See Iconography.
-- **Photography is absent.** Every image slot in the kits is a labelled grey plate on `#F2F2F2`, never invented artwork.
 - **Motion, hover and press** behaviours are proposed, not specified.
 - **Bold and Medium cuts are missing.** Sans Regular/Light and Mix Regular/Italic are in place; the social high-contrast pairings (p.22-23) that call for Bold or Medium cannot render until those files arrive.
-- **No slide template was supplied**; the seven slide types are derived from the communication-format rules, not copied from an existing deck.
-
-**Open asks for the brand team:**
-
-- The **icon library** (see Iconography).
-- Arizona **Sans Bold/Medium** and **Mix Bold/Light/Medium** cuts.
-- Confirmation of the **motion and hover/press** behaviours inferred above.
-- One or two approved **photography** files (a people shot and a product shot) so kits and slides stop using empty grey placeholders.

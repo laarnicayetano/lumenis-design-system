@@ -15,13 +15,20 @@ function evalObjectLiteral(node) {
     let expr = prop.initializer;
     if (ts.isAsExpression(expr)) expr = expr.expression;
     if (ts.isStringLiteral(expr)) out[key] = expr.text;
-    else if (ts.isArrayLiteralExpression(expr)) out[key] = expr.elements.map((e) => Number(e.getText()));
+    else if (ts.isArrayLiteralExpression(expr))
+      out[key] = expr.elements.map((e) => Number(e.getText()));
   }
   return out;
 }
 async function convertFile(file) {
   const source = await fs.readFile(file, "utf8");
-  const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const sourceFile = ts.createSourceFile(
+    file,
+    source,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TSX,
+  );
   let componentNames = [];
   let card;
   const preamble = [];
@@ -32,10 +39,17 @@ async function convertFile(file) {
       if (clause?.namedBindings && ts.isNamedImports(clause.namedBindings)) {
         componentNames = clause.namedBindings.elements.map((e) => e.name.text);
       }
-    } else if (ts.isVariableStatement(stmt) && stmt.declarationList.declarations[0]?.name.getText() === "card") {
+    } else if (
+      ts.isVariableStatement(stmt) &&
+      stmt.declarationList.declarations[0]?.name.getText() === "card"
+    ) {
       const init = stmt.declarationList.declarations[0].initializer;
-      if (init && ts.isObjectLiteralExpression(init)) card = evalObjectLiteral(init);
-    } else if (ts.isFunctionDeclaration(stmt) && stmt.name?.text.endsWith("Specimen")) {
+      if (init && ts.isObjectLiteralExpression(init))
+        card = evalObjectLiteral(init);
+    } else if (
+      ts.isFunctionDeclaration(stmt) &&
+      stmt.name?.text.endsWith("Specimen")
+    ) {
       const body = stmt.body.getText(sourceFile);
       demoBody = `function Demo() ${body}`;
     } else {
@@ -76,4 +90,5 @@ async function run() {
   }
   console.log(`Converted ${files.length} specimen(s) to .card.html.`);
 }
-await run();
+
+run();

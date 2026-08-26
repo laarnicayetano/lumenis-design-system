@@ -6,14 +6,19 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "dev": "node scripts/dev.mjs",
-    "format": "prettier --write \"**/*.{js,jsx,mjs}\" --print-width 100"
+    "format": "prettier --write \"**/*.{js,jsx,mjs}\" --print-width 100",
+    "check": "npm run validate && npm run typecheck && npm run check:cards",
+    "validate": "node scripts/validate.mjs",
+    "typecheck": "tsc --noEmit",
+    "check:cards": "node scripts/check-cards.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0",
-    "prettier": "^3.9.6"
+    "@types/react": "^18.3.12",
+    "playwright": "^1.62.0",
+    "typescript": "^5.6.3"
   }
 }
