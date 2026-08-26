@@ -1,10 +1,9 @@
 import ts from "typescript";
-import * as esbuild from "esbuild";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
-import { findFiles } from "../.claude/skills/code-mods/helpers.ts";
+import { findFiles, toJsx } from "../.claude/skills/code-mods/helpers.mjs";
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const componentsDir = path.join(root, "components");
 function isExported(stmt) {
@@ -24,23 +23,6 @@ function extractDts(source, fileName) {
     }
   }
   return parts.join("\n\n") + "\n";
-}
-async function toJsx(source, fileName) {
-  const result = await esbuild.transform(source, {
-    loader: "tsx",
-    sourcefile: fileName,
-    jsx: "transform",
-    jsxFactory: "React.createElement",
-    jsxFragment: "React.Fragment",
-    target: "esnext"
-  });
-  let code = result.code.replace(/\/\* @__PURE__ \*\/ ?/g, "");
-  if (/^import React\b/m.test(code)) return code;
-  if (/^import \{([^}]*)\}\s*from ['"]react['"];?/m.test(code)) {
-    return code.replace(/^import \{([^}]*)\}\s*from ['"]react['"];?/m, `import React, {$1} from 'react';`);
-  }
-  return `import React from 'react';
-${code}`;
 }
 async function convertFile(file) {
   const source = await fs.readFile(file, "utf8");

@@ -18,7 +18,7 @@ export function OptiLightHero({ onBook }) {
           gridTemplateColumns: "1.05fr .95fr",
           gap: "var(--space-8)",
           alignItems: "center",
-          minHeight: "calc(100vh - 74px)",
+          minHeight: "calc(900px - 74px)",
         },
       },
       React.createElement(

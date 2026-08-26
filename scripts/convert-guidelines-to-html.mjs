@@ -2,7 +2,7 @@ import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import ReactDOMServer from "react-dom/server";
-import { bundleAndImportModule, findFiles, parseCssRules, inlineClassesToStyle, escapeAttr } from "../.claude/skills/code-mods/helpers.ts";
+import { bundleAndImportModule, findFiles, parseCssRules, inlineClassesToStyle, escapeAttr } from "../.claude/skills/code-mods/helpers.mjs";
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const guidelinesDir = path.join(root, "guidelines");
 async function convertFile(file) {
