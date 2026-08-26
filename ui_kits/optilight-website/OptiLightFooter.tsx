@@ -95,7 +95,7 @@ const FOOTER_COLUMNS = [
   },
 ];
 
-export function Footer() {
+export function OptiLightFooter() {
   return (
     <footer
       style={{

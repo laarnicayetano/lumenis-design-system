@@ -6,7 +6,7 @@ Migrated from the standalone `OptiLIFT Design System/ui_kits/marketing-site/` ex
 
 **Screens** — single scrolling page: sticky `Header`, `Hero`, dark `Technology` band with a treatment-area picker, `Results` testimonials, `FAQ` tabs, `ProviderForm` lead form, `Footer`.
 
-**Sub-brand scoping** — the whole page sits inside `<div data-subbrand="optilift">` (`App.tsx`), so `--accent`/`--accent-contrast` resolve to the OptiLIFT violet everywhere `variant="accent"` is used, per `tokens/subbrands.css`.
+**Sub-brand scoping** — the whole page sits inside `<div data-subbrand="optilift">` (`OptiLiftApp.tsx`), so `--accent`/`--accent-contrast` resolve to the OptiLIFT violet everywhere `variant="accent"` is used, per `tokens/subbrands.css`.
 
 **Photography/renders** are real OptiLIFT assets (`assets/optilift/...`), not placeholder grey plates — unlike `corporate-website`, real files were available for this brand.
 

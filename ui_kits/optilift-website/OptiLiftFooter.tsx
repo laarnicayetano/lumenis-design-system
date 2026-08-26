@@ -1,4 +1,4 @@
-export function Footer() {
+export function OptiLiftFooter() {
   return (
     <footer
       style={{

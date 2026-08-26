@@ -7,7 +7,7 @@ const FAQS: Record<string, string> = {
   'Results timeline': 'Initial tightening is visible right away; full collagen remodeling results develop over 60–90 days.',
 };
 
-export function FAQ() {
+export function OptiLiftFAQ() {
   const [tab, setTab] = React.useState('What to expect');
   return (
     <section id="faq" style={{ padding: 'var(--space-9) var(--page-gutter)', maxWidth: 720, margin: '0 auto' }}>
