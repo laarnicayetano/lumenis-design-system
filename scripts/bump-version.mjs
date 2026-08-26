@@ -1,12 +1,13 @@
 // Bumps this repo's single .claude-plugin/plugin.json (and package.json, to
 // keep them in sync) by one semver level. Run via `node scripts/bump-version.mjs
-// <patch|minor|major>` — called by the propose-change skill as part of
-// opening a PR (see .claude/skills/propose-change/SKILL.md), so the version
-// bump is committed and reviewable in the PR diff itself, not a separate
-// post-merge bot commit. .github/workflows/version-bump.yml only tags the
-// merge commit afterward; it doesn't run this script. Plain JSON parsing +
-// hand-rolled increment: versions here are always plain X.Y.Z, no
-// pre-release tags, so a real semver dependency would be more than this needs.
+// <patch|minor|major>` — called by .github/workflows/version-bump.yml after
+// a PR merges, based on its bump:* label. Deliberately not run by the
+// propose-change skill itself: a label can be attached to a PR by hand
+// without the skill ever running, so CI has to be the thing that actually
+// performs the bump, or that path would merge without ever bumping the
+// version. Plain JSON parsing + hand-rolled increment: versions here are
+// always plain X.Y.Z, no pre-release tags, so a real semver dependency would
+// be more than this needs.
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
