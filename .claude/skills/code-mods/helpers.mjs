@@ -77,3 +77,22 @@ export function inlineClassesToStyle(html, classCss) {
 export function escapeAttr(s) {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 }
+export async function toJsx(source, fileName) {
+  const result = await esbuild.transform(source, {
+    loader: "tsx",
+    sourcefile: fileName,
+    jsx: "transform",
+    jsxFactory: "React.createElement",
+    jsxFragment: "React.Fragment",
+    target: "esnext",
+  });
+  let code = result.code.replace(/\/\* @__PURE__ \*\/ ?/g, "");
+  if (/^import React\b/m.test(code)) return code;
+  if (/^import \{([^}]*)\}\s*from ['"]react['"];?/m.test(code)) {
+    return code.replace(
+      /^import \{([^}]*)\}\s*from ['"]react['"];?/m,
+      `import React, {$1} from 'react';`,
+    );
+  }
+  return `import React from 'react';\n${code}`;
+}

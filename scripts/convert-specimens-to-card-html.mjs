@@ -2,7 +2,7 @@ import ts from "typescript";
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { findFiles, escapeAttr } from "../.claude/skills/code-mods/helpers.ts";
+import { findFiles, escapeAttr } from "../.claude/skills/code-mods/helpers.mjs";
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const componentsDir = path.join(root, "components");
 const REACT = "18.3.1";
