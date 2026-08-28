@@ -75,17 +75,7 @@ A full stop at the end of a headline is used deliberately for finality ("BEAUTYT
 
 ABC Arizona (Sans + Mix) is a **licensed Dinamo typeface and is not distributed in this repo.** `assets/fonts/` and `uploads/` are gitignored — nothing under either path is ever committed. `tokens/fonts.css` declares the font families by name only; each `@font-face` rule tries an OS-installed copy first (`local(...)`), then a local file, and falls through cleanly to the system stack (`Arial`/`Georgia`) in `typography.css` if neither is present. Nothing breaks without the fonts — text renders in the fallback face.
 
-**If you're working in Claude Code (or any local clone) and have the licensed files:** drop them into `assets/fonts/` using these exact names, and they'll be picked up automatically:
-
-```
-assets/fonts/ABCArizonaSans-Regular.otf
-assets/fonts/ABCArizonaSans-Light.otf
-assets/fonts/ABCArizonaMix-Regular.otf
-assets/fonts/ABCArizonaMix-RegularItalic.otf
-assets/fonts/Arial.ttf
-```
-
-Get the licensed files from [wherever your team stores them — Drive/SharePoint, not this repo]. Never commit them, open a PR that adds them, or paste them into a chat that syncs to this repo — `.gitignore` blocks the paths but treat it as a backstop, not a substitute for not doing it.
+For exactly where to get the licensed files and which paths to drop them at, see [GETTING_STARTED.md → Fonts](GETTING_STARTED.md#fonts--where-to-get-them-where-they-go). Never commit them, open a PR that adds them, or paste them into a chat that syncs to this repo — `.gitignore` blocks the paths but treat it as a backstop, not a substitute for not doing it.
 
 ## Iconography
 
@@ -108,7 +98,7 @@ The guidelines define a proprietary line-illustration set (p.53-59): clean, geom
 
 ## Build & publish
 
-This is a real npm project — `npm install` then `npm run build` bundles the library plus every ui_kit into `dist/` via esbuild (`scripts/build.mjs`). `dist/` is gitignored; it's regenerated, never committed. On push to `master`, `.github/workflows/deploy-pages.yml` runs the same build and publishes `dist/` to GitHub Pages, so the live specimen pages always reflect the current source.
+This is a real npm project — see [GETTING_STARTED.md](GETTING_STARTED.md) for the exact commands to run it locally and what happens when a change is published. Internally, `npm run build` bundles the library plus every ui_kit into `dist/` via esbuild (`scripts/build.mjs`); `dist/` is gitignored and regenerated, never committed.
 
 There is no TypeScript or build-time JSX transform anywhere in this repo — plain `.jsx`/`.js`/`.mjs` only. This is deliberate: Claude Design's own canvas sync reads source files directly (not via a bundler), and a TypeScript file with an invalid-for-JS shebang or an unresolvable Node-only import (`node:fs`, `esbuild`, `typescript`, `react-dom/client`) can take its whole compile down. Keeping every design-content file free of TS syntax removes that failure class entirely, for any project this repo is synced into, not just one account's canvas.
 

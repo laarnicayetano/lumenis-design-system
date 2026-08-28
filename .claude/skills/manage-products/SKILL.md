@@ -103,10 +103,23 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
    much bigger task — mention it as a natural follow-up if relevant, don't
    generate one here.
 
-7. **Verify**: `npm run build` (must succeed) and
+7. **Add the product to root `SKILL.md`'s "Product-specific overrides"
+   list.** This is the file that's loaded as context automatically —
+   `products/<Name>/README.md` isn't, so a product missing from this list
+   is invisible to an agent unless it happens to go looking. Append one
+   line matching the existing format:
+   ```
+   - [<Name>](products/<Name>/README.md) — <Name> (one-line description): <accent-name> accent, <motif> motif.
+   ```
+   Condense the description from the README's opening paragraph. Name the
+   accent by its plain color name (not the hex or CSS variable). Only
+   mention a motif if step 5 produced a genuinely distinctive one — drop
+   that clause if there isn't one yet.
+
+8. **Verify**: `npm run build` (must succeed) and
    `node scripts/validate.mjs` (must report 0 errors).
 
-8. **Report** what was created (including whether the color-ramp card is
+9. **Report** what was created (including whether the color-ramp card is
    confirmed or sampled/unconfirmed) and what was deliberately left open (no
    accent color yet, no logo/motif card yet, etc.), and that
    `propose-change` is the next step when the user wants to publish.
@@ -129,7 +142,11 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
    Flow A step 5 — or if the accent hex itself changed, regenerate the
    existing card's ramp to match.
 
-4. **Verify** (build + validate) and hand off to `propose-change`, same as
+4. **If the accent color or the one-line positioning changed**, update
+   that product's existing line in root `SKILL.md`'s "Product-specific
+   overrides" list to match (Flow A step 7) — don't add a second line.
+
+5. **Verify** (build + validate) and hand off to `propose-change`, same as
    Flow A.
 
 ## Notes
@@ -141,6 +158,9 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
   truth for accent colors. `products/<Name>/README.md` documents and
   references them (by variable name) — it never restates a hex value that
   could drift out of sync with the token file.
+- Root `SKILL.md`'s product list is the other thing that must stay in
+  sync — it's easy to scaffold a product folder and forget it, since
+  nothing else in the build fails if that line is missing.
 - Don't scaffold anything "just in case." An empty `guidelines/` folder or
   a `ui_kit/` nobody asked for is clutter, not groundwork. The one standing
   exception is the color-ramp card (Flow A step 5) — that one's mandatory
