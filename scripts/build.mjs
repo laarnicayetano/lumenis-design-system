@@ -170,6 +170,7 @@ async function buildGuidelineCards() {
     );
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, padded);
+    const productMatch = relKey.match(/^products\/([^/]+)\//);
     cards.push({
       group: card.group,
       category: card.group,
@@ -180,6 +181,7 @@ async function buildGuidelineCards() {
       href: relKey,
       key: relKey.replace(/\.card\.html$/, ""),
       padding: "0px",
+      product: productMatch ? productMatch[1] : null,
     });
   }
   return cards;
@@ -391,17 +393,34 @@ async function buildHomePage(guidelineCards, componentCards) {
   for (const product of await productDirs()) {
     const uiKitDir = path.join(root, "products", product, "ui_kit");
     if (await dirExists(uiKitDir)) {
-      productUiCards.push(...(await collectDsCards(uiKitDir, ".html")));
+      productUiCards.push(
+        ...(await collectDsCards(uiKitDir, ".html")).map((c) => ({
+          ...c,
+          product,
+        })),
+      );
     }
   }
   const uiCards = [
     ...(await collectDsCards(path.join(root, "ui_kits"), ".html")),
     ...productUiCards,
   ];
-  const kits = uiCards.filter((c) => c.group !== "Slides");
+  const kits = uiCards.filter((c) => c.group !== "Slides" && !c.product);
   const slides = uiCards
     .filter((c) => c.group === "Slides")
     .sort((a, b) => a.href.localeCompare(b.href));
+  const productGuidelines = guidelineCards.filter((c) => c.product);
+  const sharedGuidelines = guidelineCards.filter((c) => !c.product);
+  // Everything specific to one product (its guideline cards and its
+  // marketing-site ui kit) gets one combined nav section named after the
+  // product, instead of the kit landing in the generic "UI Kits" list and
+  // its guidelines landing wherever their @dsCard group happens to match.
+  const productNames = [
+    ...new Set([
+      ...productUiCards.map((c) => c.product),
+      ...productGuidelines.map((c) => c.product),
+    ]),
+  ].sort();
   const nav = [
     {
       title: "UI Kits",
@@ -429,7 +448,34 @@ async function buildHomePage(guidelineCards, componentCards) {
           ],
         }
       : null,
-    ...[...groupBy(guidelineCards, (c) => c.category)].map(
+    ...productNames.map((product) => ({
+      title: product,
+      items: [
+        ...productUiCards
+          .filter((c) => c.product === product)
+          .map((c) => ({
+            name: c.name,
+            subtitle: c.subtitle,
+            kind: "page",
+            key: `ui-kits/${slugifyName(c.name)}`,
+            href: c.href,
+            w: c.w,
+            h: c.h,
+          })),
+        ...productGuidelines
+          .filter((c) => c.product === product)
+          .map((c) => ({
+            name: c.name,
+            subtitle: c.subtitle,
+            kind: "page",
+            key: c.key,
+            href: c.href,
+            w: c.w,
+            h: c.h,
+          })),
+      ],
+    })),
+    ...[...groupBy(sharedGuidelines, (c) => c.category)].map(
       ([title, items]) => ({
         title,
         items: items.map((c) => ({
@@ -479,7 +525,11 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 .brand-pill{margin:0 var(--space-5) var(--space-5);padding:var(--space-2) var(--space-4);background:var(--panel-3);border:1px solid var(--line-strong);border-radius:999px;font-size:var(--text-caption);font-weight:var(--weight-regular);letter-spacing:.02em;display:inline-flex;align-items:center;gap:var(--space-2);width:fit-content}
 .brand-pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-ui)}
 .nav-group{margin-bottom:var(--space-5)}
-.nav-group h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);margin:0 var(--space-5) var(--space-2);font-weight:var(--weight-regular)}
+.nav-group h2{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-dim);margin:0 var(--space-5) var(--space-2);font-weight:var(--weight-regular);cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between;gap:var(--space-2)}
+.nav-group h2:hover{color:var(--ink)}
+.nav-group h2::after{content:"";width:5px;height:5px;flex-shrink:0;border-style:solid;border-width:0 1.5px 1.5px 0;border-color:currentColor;transform:rotate(45deg);transition:transform var(--dur-fast) var(--ease-brand)}
+.nav-group.collapsed h2::after{transform:rotate(-45deg)}
+.nav-group.collapsed .nav-item{display:none}
 .nav-item{display:block;width:calc(100% - 20px);text-align:left;background:none;border:none;color:var(--ink-dim);font-family:inherit;font-size:var(--text-form);line-height:1.3;padding:7px 12px;margin:0 10px 1px;cursor:pointer;border-radius:var(--radius-sm);transition:background var(--dur-fast) var(--ease-brand),color var(--dur-fast) var(--ease-brand)}
 .nav-item:hover{background:var(--panel-2);color:var(--ink)}
 .nav-item.active{background:color-mix(in srgb, var(--accent-ui) 16%, var(--panel-2));color:#fff}
@@ -534,11 +584,33 @@ const groups = JSON.parse(document.getElementById('ds-data').textContent);
 const navEl = document.getElementById('nav-groups');
 const contentEl = document.getElementById('content');
 
+const COLLAPSE_KEY = 'ds-collapsed-groups';
+let collapsedGroups;
+try { collapsedGroups = new Set(JSON.parse(localStorage.getItem(COLLAPSE_KEY) || '[]')); }
+catch { collapsedGroups = new Set(); }
+function saveCollapsed() {
+  try { localStorage.setItem(COLLAPSE_KEY, JSON.stringify([...collapsedGroups])); } catch {}
+}
+function setGroupCollapsed(title, collapsed) {
+  const groupEl = [...navEl.querySelectorAll('.nav-group')].find((g) => g.dataset.group === title);
+  if (!groupEl) return;
+  groupEl.classList.toggle('collapsed', collapsed);
+  if (collapsed) collapsedGroups.add(title); else collapsedGroups.delete(title);
+}
+
 navEl.innerHTML = groups.map((g) => \`
-  <div class="nav-group">
+  <div class="nav-group\${collapsedGroups.has(g.title) ? ' collapsed' : ''}" data-group="\${g.title}">
     <h2>\${g.title}</h2>
     \${g.items.map((it) => \`<button class="nav-item" data-key="\${it.key}">\${it.name}</button>\`).join('')}
   </div>\`).join('');
+
+navEl.addEventListener('click', (e) => {
+  const header = e.target.closest('.nav-group > h2');
+  if (!header) return;
+  const groupEl = header.parentElement;
+  setGroupCollapsed(groupEl.dataset.group, !groupEl.classList.contains('collapsed'));
+  saveCollapsed();
+});
 
 function fitFrame(el, w, h, maxWidth) {
   const scale = Math.min(1, maxWidth / w);
@@ -619,8 +691,10 @@ crumbEl.textContent = 'Design System';
 function open(key, push) {
   const item = findItem(key);
   if (!item) return;
+  const groupTitle = findGroupTitle(key);
+  if (collapsedGroups.has(groupTitle)) { setGroupCollapsed(groupTitle, false); saveCollapsed(); }
   document.querySelectorAll('.nav-item').forEach((b) => b.classList.toggle('active', b.dataset.key === key));
-  crumbEl.innerHTML = 'Design System / ' + findGroupTitle(key) + ' / <b>' + item.name + '</b>';
+  crumbEl.innerHTML = 'Design System / ' + groupTitle + ' / <b>' + item.name + '</b>';
   if (item.kind === 'deck') renderDeck(item);
   else renderPage(item);
   if (push) location.hash = key;
