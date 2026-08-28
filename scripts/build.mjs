@@ -234,13 +234,11 @@ async function buildComponentCards() {
   for (const file of files) {
     const card = await readDsCard(file);
     if (!card) continue;
-    // Preserve the file's path exactly as it sits under components/ — some
-    // cards live directly in their group folder (components/actions/buttons.card.html,
-    // one card covering several components), others one level deeper in
-    // their own component folder (components/actions/Button/Button.card.html,
-    // one card per component). Flattening either into a fixed depth would
-    // both collide different cards' output paths and break every relative
-    // path (../../styles.css etc.) baked into the source at its real depth.
+    // Preserve the file's path exactly as it sits under components/ — each
+    // card lives one level deeper than its category, in its own component
+    // folder (components/actions/Button/Button.card.html). Flattening that
+    // would break every relative path (../../styles.css etc.) baked into
+    // the source at its real depth.
     const relPath = path.relative(path.join(root, "components"), file);
     const category = relPath.split(path.sep)[0];
     const outFile = path.join(dist, "components", relPath);
