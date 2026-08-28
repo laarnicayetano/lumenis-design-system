@@ -122,7 +122,7 @@ The guidelines define a proprietary line-illustration set: clean, geometric, eve
 - `dist/` — build output (gitignored). Published to GitHub Pages on push to `master`.
 - `templates/`
   - `corporate-page/` — editable corporate page starting point (accent + product list are tweakable).
-  - `slide-deck/` — 7-slide 1920×1080 deck on the deck stage (keyboard nav, thumbnail rail, print to PDF).
+  - `slides/` — 7-slide 1920×1080 deck on the deck stage (keyboard nav, thumbnail rail, print to PDF).
 
 ## Intentional additions
 

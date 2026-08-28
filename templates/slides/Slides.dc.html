@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <!-- @template name="Slides" description="Lumenis 16:9 deck: title, section divider, split content, proof points, quote, product grid, closing" -->
+      <helmet>
+        <script src="./ds-base.js"></script>
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css"
+        />
+        <link rel="stylesheet" href="./deck.css" />
+        <style>
+          /* This generic deck has no [data-subbrand], so .slide--accent
+             would otherwise fall back to corporate black — override with
+             a neutral blue so the section divider keeps its own accent.
+             A per-product deck instead sets data-subbrand="<slug>" on
+             <body> and gets its real accent from tokens/subbrands.css. */
+          :root {
+            --accent: #578fff;
+            --accent-contrast: #fff;
+          }
+        </style>
+      </helmet>
+      <x-import
+        component-from-global-scope="deck-stage"
+        from="./deck-stage.js"
+        width="1920"
+        height="1080"
+        hint-size="100%,100%"
+      >
+        <section
+          data-label="Title"
+          data-screen-label="01"
+          class="slide slide--stack slide--dark"
+        >
+          <p class="eyebrow">Corporate overview · 2026</p>
+          <h1 class="h-hero">
+            Empowering you, <span class="serif">your way</span>
+          </h1>
+          <div class="footer-row">
+            <img
+              src="../../assets/logo/wordmark-white.svg"
+              alt="Lumenis"
+              class="logo logo--lg"
+            />
+            <span class="eyebrow">Lumenis™</span>
+          </div>
+        </section>
+        <section
+          data-label="Section"
+          data-screen-label="02"
+          class="slide slide--stack slide--accent"
+        >
+          <i class="ph-thin ph-eye section-icon"></i>
+          <h2 class="h-hero">01<br />Vision</h2>
+          <div class="footer-row">
+            <img
+              src="../../assets/logo/wordmark-white.svg"
+              alt="Lumenis"
+              class="logo"
+            />
+            <span class="eyebrow">Dry eye · glaucoma · retina</span>
+          </div>
+        </section>
+        <section
+          data-label="Split content"
+          data-screen-label="03"
+          class="slide slide--row slide--light"
+        >
+          <div class="split-text">
+            <p class="eyebrow">The expert tool</p>
+            <div class="split-body">
+              <h2 class="h-lg">
+                Elevate your <span class="serif">practice</span>
+              </h2>
+              <p class="lead">
+                Stellar M22 is a powerful modular multi-application platform.
+                Treat different indications across skin types, ages and genders
+                — without disposables.
+              </p>
+              <span class="btn-outline">Discover more</span>
+            </div>
+            <img
+              src="../../assets/logo/wordmark-black.svg"
+              alt="Lumenis"
+              class="logo"
+            />
+          </div>
+          <div class="split-media">
+            <img
+              src="../../products/Stellar%20M22/assets/product/stellar-m22-front.webp"
+              alt="Stellar M22 device"
+            />
+          </div>
+        </section>
+        <section
+          data-label="Proof points"
+          data-screen-label="04"
+          class="slide slide--stack slide--light"
+        >
+          <p class="eyebrow">Why Lumenis</p>
+          <div>
+            <h2 class="h-md">60 years of pushing boundaries</h2>
+            <div class="stats">
+              <div>
+                <div class="stat-rule"></div>
+                <div class="stat-number">88+</div>
+                <div class="stat-label">Countries</div>
+                <div class="stat-sublabel">Worldwide</div>
+              </div>
+              <div>
+                <div class="stat-rule"></div>
+                <div class="stat-number">90k+</div>
+                <div class="stat-label">Devices</div>
+                <div class="stat-sublabel">Installed worldwide</div>
+              </div>
+              <div>
+                <div class="stat-rule"></div>
+                <div class="stat-number">60+</div>
+                <div class="stat-label">Years</div>
+                <div class="stat-sublabel">Of industry leadership</div>
+              </div>
+              <div>
+                <div class="stat-rule"></div>
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Clinical</div>
+                <div class="stat-sublabel">Publications</div>
+              </div>
+            </div>
+          </div>
+          <img
+            src="../../assets/logo/wordmark-black.svg"
+            alt="Lumenis"
+            class="logo"
+          />
+        </section>
+        <section
+          data-label="Quote"
+          data-screen-label="05"
+          class="slide slide--stack slide--dark"
+        >
+          <img
+            src="../../assets/logo/symbol-white.svg"
+            alt=""
+            style="height: 84px; display: block"
+          />
+          <div class="quote">
+            <p class="quote-text">
+              Lumenis products have been such a success in my clinic, achieving
+              amazing results with my clients.
+            </p>
+            <div class="rule-short"></div>
+            <p class="eyebrow">Evie Rose — Aesthetic Clinic, London</p>
+          </div>
+          <img
+            src="../../assets/logo/wordmark-white.svg"
+            alt="Lumenis"
+            class="logo"
+          />
+        </section>
+        <section
+          data-label="Product grid"
+          data-screen-label="06"
+          class="slide slide--stack slide--light"
+        >
+          <div class="footer-row">
+            <h2 class="h-grid">Our products</h2>
+            <span class="eyebrow">Aesthetics · Vision</span>
+          </div>
+          <div class="product-grid">
+            <div>
+              <div class="product-photo">
+                <span class="product-photo-label">Device</span>
+              </div>
+              <div class="product-name">FoLix™</div>
+            </div>
+            <div>
+              <div class="product-photo">
+                <img
+                  src="../../products/triLIFT%202.0/assets/product/trilift-full-front.webp"
+                  alt="triLift device"
+                />
+              </div>
+              <div class="product-name">triLift</div>
+            </div>
+            <div>
+              <div class="product-photo">
+                <img
+                  src="../../products/Stellar%20M22/assets/product/stellar-m22-front.webp"
+                  alt="Stellar M22 device"
+                />
+              </div>
+              <div class="product-name">Stellar M22™</div>
+            </div>
+            <div>
+              <div class="product-photo">
+                <img
+                  src="../../products/OptiLIGHT/assets/product/optilight-device-tabletop.webp"
+                  alt="OptiLIGHT device"
+                />
+              </div>
+              <div class="product-name">OptiLIGHT</div>
+            </div>
+            <div>
+              <div class="product-photo">
+                <span class="product-photo-label">Device</span>
+              </div>
+              <div class="product-name">Digital Duet</div>
+            </div>
+          </div>
+          <img
+            src="../../assets/logo/wordmark-black.svg"
+            alt="Lumenis"
+            class="logo"
+          />
+        </section>
+        <section
+          data-label="Closing"
+          data-screen-label="07"
+          class="slide slide--stack slide--light slide--end"
+        >
+          <p class="eyebrow">Thank you</p>
+          <h2 class="h-close">
+            BeautyTech<br />for <span class="serif">life</span>.
+          </h2>
+          <div class="footer-row" style="gap: 36px">
+            <span class="eyebrow">www.lumenis.com</span>
+            <img
+              src="../../assets/logo/wordmark-black.svg"
+              alt="Lumenis"
+              class="logo logo--lg"
+            />
+          </div>
+        </section>
+      </x-import>
+    </x-dc>
+  </body>
+</html>
