@@ -527,7 +527,9 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 .nav-group h2:hover{color:var(--ink)}
 .nav-group h2::after{content:"";width:5px;height:5px;flex-shrink:0;border-style:solid;border-width:0 1.5px 1.5px 0;border-color:currentColor;transform:rotate(45deg);transition:transform var(--dur-fast) var(--ease-brand)}
 .nav-group.collapsed h2::after{transform:rotate(-45deg)}
-.nav-group.collapsed .nav-item{display:none}
+.nav-items{display:grid;grid-template-rows:1fr;opacity:1;transition:grid-template-rows var(--dur-base) var(--ease-brand),opacity var(--dur-base) var(--ease-brand)}
+.nav-items>div{overflow:hidden;min-height:0}
+.nav-group.collapsed .nav-items{grid-template-rows:0fr;opacity:0}
 .nav-item{display:block;width:calc(100% - 20px);text-align:left;background:none;border:none;color:var(--ink-dim);font-family:inherit;font-size:var(--text-form);line-height:1.3;padding:7px 12px;margin:0 10px 1px;cursor:pointer;border-radius:var(--radius-sm);transition:background var(--dur-fast) var(--ease-brand),color var(--dur-fast) var(--ease-brand)}
 .nav-item:hover{background:var(--panel-2);color:var(--ink)}
 .nav-item.active{background:color-mix(in srgb, var(--accent-ui) 16%, var(--panel-2));color:#fff}
@@ -571,7 +573,7 @@ main{overflow-y:auto;background:var(--bg)}
   <main>
     <div class="topbar">
       <div class="crumb" id="crumb"></div>
-      <a class="gh-link" href="https://github.com/laarnicayetano/lumenis-design-system" target="_blank" rel="noopener">View on GitHub \u2197</a>
+      <a class="gh-link" id="gh-link" href="https://github.com/laarnicayetano/lumenis-design-system" target="_blank" rel="noopener">View on GitHub \u2197</a>
     </div>
     <div id="content" class="content"></div>
   </main>
@@ -581,6 +583,8 @@ main{overflow-y:auto;background:var(--bg)}
 const groups = JSON.parse(document.getElementById('ds-data').textContent);
 const navEl = document.getElementById('nav-groups');
 const contentEl = document.getElementById('content');
+const ghLinkEl = document.getElementById('gh-link');
+const REPO_URL = 'https://github.com/laarnicayetano/lumenis-design-system';
 
 const COLLAPSE_KEY = 'ds-collapsed-groups';
 let collapsedGroups;
@@ -599,7 +603,9 @@ function setGroupCollapsed(title, collapsed) {
 navEl.innerHTML = groups.map((g) => \`
   <div class="nav-group\${collapsedGroups.has(g.title) ? ' collapsed' : ''}" data-group="\${g.title}">
     <h2>\${g.title}</h2>
-    \${g.items.map((it) => \`<button class="nav-item" data-key="\${it.key}">\${it.name}</button>\`).join('')}
+    <div class="nav-items"><div>
+      \${g.items.map((it) => \`<button class="nav-item" data-key="\${it.key}">\${it.name}</button>\`).join('')}
+    </div></div>
   </div>\`).join('');
 
 navEl.addEventListener('click', (e) => {
@@ -693,6 +699,7 @@ function open(key, push) {
   if (collapsedGroups.has(groupTitle)) { setGroupCollapsed(groupTitle, false); saveCollapsed(); }
   document.querySelectorAll('.nav-item').forEach((b) => b.classList.toggle('active', b.dataset.key === key));
   crumbEl.innerHTML = 'Design System / ' + groupTitle + ' / <b>' + item.name + '</b>';
+  ghLinkEl.href = item.href ? REPO_URL + '/blob/master/' + item.href : REPO_URL;
   if (item.kind === 'deck') renderDeck(item);
   else renderPage(item);
   if (push) location.hash = key;
