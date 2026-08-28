@@ -8,24 +8,28 @@ The brand and interface system for **Lumenis** — a global medical-technology c
 
 | Source                                                        | Notes                                                                                                                                                  |
 | ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `Lumenis Brand Guidelines 2026` (97pp, internal)              | The authoritative source. Full extracted text kept at `research/brand-guidelines.txt`; page numbers cited throughout this readme and in code comments. |
+| `Lumenis Brand Guidelines 2026`                               | The authoritative source. Full extracted text kept at `research/brand-guidelines.txt`; page numbers cited throughout this readme and in code comments. |
 | `Lumenis Corp Full Logo/`, `Lumenis Corporate Branding/Logo/` | Wordmark + Hero "L" symbol, RGB/CMYK, SVG/PNG/PDF. Copied into `assets/`.                                                                              |
 | ABC Arizona Sans / Arizona Mix OTFs (Dinamo)                  | Sans Regular + Light, Mix Regular + Italic. Licensed — **not** in this repo. See [Fonts](#fonts) below. Bold and Medium cuts are still outstanding.    |
-| `Arial.ttf`                                                   | The sanctioned system fallback (guidelines p.32).                                                                                                      |
+| `Arial.ttf`                                                   | The sanctioned system fallback                                                                                                                         |
 | https://lumenis.com/                                          | Live IA, product inventory, and real product copy.                                                                                                     |
 | Instagram [@Lumenis](https://www.instagram.com/Lumenis/)      | Referenced for social tone;                                                                                                                            |
 
 ## Company & product context
 
+Brand platform (p.5-8): purpose — _a leading tech company that empowers people by broadening the horizons of health and celebrating a beauty that matters_; ambition — _by 2027, be a market disruptor and category leader_; trajectory — **"Empowering you, your way."**
+
 Two market-facing halves, each with its own product family and accent colour:
 
-**Aesthetics** — triLift (facial muscle stimulation), Stellar M22 / M22 (IPL platform), SPLENDOR X (hair removal), LightSheer QUATTRO, FoLix (hair loss), NuEra Tight (RF body), Legend Pro / Pro+ (RF micro-needling), ULTRApulse Alpha + AcuPulse (CO2), FemTouch (women's health), and the treatment brands PhotoFABULOUS, ResurFX, SmoothGlo, XPL.
+### Aesthetics
 
-**Vision** — OptiLIGHT, OptiLIFT, OptiPLUS (dry eye), Digital Duet / Digital Trio / Selecta (SLT+YAG glaucoma), Smart532, Vision One, Array LaserLink (photocoagulators).
+triLift (facial muscle stimulation), Stellar M22 / M22 (IPL platform), SPLENDOR X (hair removal), LightSheer QUATTRO, FoLix (hair loss), NuEra Tight (RF body), Legend Pro / Pro+ (RF micro-needling), ULTRApulse Alpha + AcuPulse (CO2), FemTouch (women's health), and the treatment brands PhotoFABULOUS, ResurFX, SmoothGlo, XPL.
+
+### Vision
+
+OptiLIGHT, OptiLIFT, OptiPLUS (dry eye), Digital Duet / Digital Trio / Selecta (SLT+YAG glaucoma), Smart532, Vision One, Array LaserLink (photocoagulators).
 
 Audiences, in this order: **practitioners and clinic owners** (the primary customer — "your success is our mission"), **patients** (via satellite sites like trilift.me, TreatMyDryEye, Aesthetipedia), and **employees/investors**.
-
-Brand platform (p.5-8): purpose — _a leading tech company that empowers people by broadening the horizons of health and celebrating a beauty that matters_; ambition — _by 2027, be a market disruptor and category leader_; trajectory — **"Empowering you, your way."**
 
 ## Content fundamentals
 
@@ -57,85 +61,68 @@ A full stop at the end of a headline is used deliberately for finality ("BEAUTYT
 
 ## Visual foundations
 
-**Colour.** The primary palette is _black and white only_ (p.42) — it carries every corporate surface. Secondary colours belong to sub-brands and are strictly rationed: **one** secondary colour visible at a time, occupying **no more than ~20%** of a format; a scrollable digital page may use up to 3 down its length, one per section (p.46). Mixing two accents side by side is explicitly a misuse. `#F2F2F2` grey exists for one purpose only: the backdrop behind product and people photography. Tokens live in `tokens/colors.css`; each sub-brand's accent is a `[data-subbrand="…"]` scope in `tokens/subbrands.css` that rebinds `--accent`.
+### Colour
 
-**Type.** ABC Arizona (Dinamo) throughout. Arizona **Sans Regular** is the workhorse; Arizona **Mix** appears _only_ to highlight 1–2 words. Titles: all caps, "as big as can be", leading 88–92% of the font size, tracking 0, optical kerning. Subtitle 20–40% of title size, leading 106–116%. Paragraph 50–65% of subtitle, leading 120–130%. Exactly one emphasis device per headline — Hero "L" _or_ Mix — never both, never repeated (p.27-29). Bold/Medium cuts are permitted only for high-contrast social pairings, never standalone. Since neither Sans nor Mix ships a bold weight yet (see Caveats), **colour is the general-purpose emphasis mechanism** in the meantime: colour the operative phrase in a headline, key terms/figures in body copy, eyebrows, links, or table header rows — one accent per composition, one to four words per highlight, never a large fill.
+The primary palette is _black and white only_ — it carries every corporate surface. Secondary colours belong to sub-brands and are strictly rationed: **one** secondary colour visible at a time, occupying **no more than ~20%** of a format; a scrollable digital page may use up to 3 down its length, one per section. Mixing two accents side by side is explicitly a misuse. `#F2F2F2` grey exists for one purpose only: the backdrop behind product and people photography. Tokens live in `tokens/colors.css`; each sub-brand's accent is a `[data-subbrand="…"]` scope in `tokens/subbrands.css` that rebinds `--accent`.
 
-**The Hero "L".** The wordmark's slanted serif L, promoted to an independent asset: dropped into a word in a headline, or used as a corner signature. One per message.
+### Type
 
-**Layout.** Everything derives from a split: the format divides horizontally or vertically, type on one half (white, black, or one accent), photography on the other (p.63-64). Type is left- or right-aligned, never both in one composition; centring is reserved for a short standalone headline. Social formats are 1080×1080 on a 6×6 grid of 36 squares with 56px margins, the wordmark exactly 2 columns wide and the Hero "L" 1 row (or ½ row) tall, always in a corner.
+ABC Arizona (Dinamo) throughout. Arizona **Sans Regular** is the workhorse; Arizona **Mix** appears _only_ to highlight 1–2 words. Titles: all caps, "as big as can be", leading 88–92% of the font size, tracking 0, optical kerning. Subtitle 20–40% of title size, leading 106–116%. Paragraph 50–65% of subtitle, leading 120–130%. Exactly one emphasis device per headline — Hero "L" _or_ Mix — never both, never repeated. Bold/Medium cuts are permitted only for high-contrast social pairings, never standalone. Since neither Sans nor Mix ships a bold weight yet (see Caveats), **colour is the general-purpose emphasis mechanism** in the meantime: colour the operative phrase in a headline, key terms/figures in body copy, eyebrows, links, or table header rows — one accent per composition, one to four words per highlight, never a large fill.
 
-**Imagery.** Four principles: sublime technology, an open dialogue, plug and play, dare to imagine. People photography ranges from spontaneous and everyday to dreamy and conceptual, always refined and **warm** in cast. Product photography is sleek — full/half device shots, concrete part isolations, abstract close-ups, extreme detail — on white or `#F2F2F2`. Never place type over a visually loaded image.
+### The Hero "L"
 
-**Surfaces, borders, radii.** The printed guideline's rule is squared and flat (`--radius-none: 0` everywhere, no cards, no elevation) — that stays true for print/photography specimens and the inline text `HighlightBox`. **Digital surfaces deliberately depart from it**: buttons, form controls, chips/tags/badges, and content cards round softly (`--radius-sm` 6px on controls, `--radius-md` 10px on cards/image tiles, `--radius-lg` 18px on large panels, `--radius-pill` on tags/badges/switches) and carry light, diffuse, cool-neutral shadows (`--shadow-sm/md/lg`, tinted from the corporate ink, not an imported grey) rather than none at all — the flat/hairline print rule reads as too austere for an interactive website. The one accent-tied exception is `--shadow-accent`, a colored glow reserved for the single primary/accent CTA on screen, echoing the "one accent color at a time" rule. This is a considered policy choice, not an oversight — see `tokens/surfaces.css`'s own comment for the reasoning, and `Card` (`components/content/Card/`) for the canonical bordered/rounded/shadowed surface. Transparency and blur are still not brand devices — for legibility over photography use a plain black scrim (`--scrim-image`), not a frosted capsule.
+The wordmark's slanted serif L, promoted to an independent asset: dropped into a word in a headline, or used as a corner signature. One per message.
 
-**Motion (inferred — not specified in the guidelines).** Fades and slow reveals; no bounce, no spring, no parallax gimmicks. `--dur-fast 160ms` for state changes, `--dur-base 320ms` for entrances, `--ease-brand cubic-bezier(.22,1,.36,1)`. **Hover:** opacity to 60% (buttons) or an underline reveal (links) — never a colour shift. **Press:** opacity to 40%, no scale change. Flag: confirm with the brand team.
+### Layout
+
+Everything derives from a split: the format divides horizontally or vertically, type on one half (white, black, or one accent), photography on the other. Type is left- or right-aligned, never both in one composition; centring is reserved for a short standalone headline. Social formats are 1080×1080 on a 6×6 grid of 36 squares with 56px margins, the wordmark exactly 2 columns wide and the Hero "L" 1 row (or ½ row) tall, always in a corner.
+
+### Imagery
+
+Four principles: sublime technology, an open dialogue, plug and play, dare to imagine. People photography ranges from spontaneous and everyday to dreamy and conceptual, always refined and **warm** in cast. Product photography is sleek — full/half device shots, concrete part isolations, abstract close-ups, extreme detail — on white or `#F2F2F2`. Never place type over a visually loaded image.
+
+### Surfaces, borders, radii
+
+The printed guideline's rule is squared and flat (`--radius-none: 0` everywhere, no cards, no elevation) — that stays true for print/photography specimens and the inline text `HighlightBox`. **Digital surfaces deliberately depart from it**: buttons, form controls, chips/tags/badges, and content cards round softly (`--radius-sm` 6px on controls, `--radius-md` 10px on cards/image tiles, `--radius-lg` 18px on large panels, `--radius-pill` on tags/badges/switches) and carry light, diffuse, cool-neutral shadows (`--shadow-sm/md/lg`, tinted from the corporate ink, not an imported grey) rather than none at all — the flat/hairline print rule reads as too austere for an interactive website. The one accent-tied exception is `--shadow-accent`, a colored glow reserved for the single primary/accent CTA on screen, echoing the "one accent color at a time" rule. This is a considered policy choice, not an oversight — see `tokens/surfaces.css`'s own comment for the reasoning, and `Card` (`components/content/Card/`) for the canonical bordered/rounded/shadowed surface. Transparency and blur are still not brand devices — for legibility over photography use a plain black scrim (`--scrim-image`), not a frosted capsule.
+
+### Motion
+
+Fades and slow reveals; no bounce, no spring, no parallax gimmicks. `--dur-fast 160ms` for state changes, `--dur-base 320ms` for entrances, `--ease-brand cubic-bezier(.22,1,.36,1)`. **Hover:** opacity to 60% (buttons) or an underline reveal (links) — never a colour shift. **Press:** opacity to 40%, no scale change. Flag: confirm with the brand team.
 
 ## Fonts
 
 ABC Arizona (Sans + Mix) is a **licensed Dinamo typeface and is not distributed in this repo.** `assets/fonts/` and `uploads/` are gitignored — nothing under either path is ever committed. `tokens/fonts.css` declares the font families by name only; each `@font-face` rule tries an OS-installed copy first (`local(...)`), then a local file, and falls through cleanly to the system stack (`Arial`/`Georgia`) in `typography.css` if neither is present. Nothing breaks without the fonts — text renders in the fallback face.
 
-For exactly where to get the licensed files and which paths to drop them at, see [GETTING_STARTED.md → Fonts](GETTING_STARTED.md#fonts--where-to-get-them-where-they-go). Never commit them, open a PR that adds them, or paste them into a chat that syncs to this repo — `.gitignore` blocks the paths but treat it as a backstop, not a substitute for not doing it.
+For exactly where to get the licensed files and which paths to drop them at, see [GETTING_STARTED.md → Fonts](GETTING_STARTED.md#fonts--where-to-get-them-where-they-go).
 
 ## Iconography
 
-The guidelines define a proprietary line-illustration set (p.53-59): clean, geometric, even-stroke outlines — **1pt at small scale** beside type, **2pt at large scale** as an expressive graphic element. Themes shown include Clinic, Customer, Treatment, After-Care. Rules: strokes are one consistent width, never varied, never distorted.
-
-**No icon files were included in the supplied assets, and none are extractable from the PDF.** Rather than hand-draw approximations, `components/icons/Icon/Icon.jsx` wraps **Phosphor Icons Thin/Light** from CDN — the closest available match to the brand's stroke weight and geometry. Host pages load:
-
-```html
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/light/style.css"
-/>
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/thin/style.css"
-/>
-```
-
-**Please send the real icon library** (the AI/SVG set behind guidelines p.55-58) and I will swap it in and delete the substitution. No emoji, ever. No unicode glyphs standing in for icons.
-
-## Build & publish
-
-This is a real npm project — see [GETTING_STARTED.md](GETTING_STARTED.md) for the exact commands to run it locally and what happens when a change is published. Internally, `npm run build` bundles the library plus every ui_kit into `dist/` via esbuild (`scripts/build.mjs`); `dist/` is gitignored and regenerated, never committed.
-
-There is no TypeScript or build-time JSX transform anywhere in this repo — plain `.jsx`/`.js`/`.mjs` only. This is deliberate: Claude Design's own canvas sync reads source files directly (not via a bundler), and a TypeScript file with an invalid-for-JS shebang or an unresolvable Node-only import (`node:fs`, `esbuild`, `typescript`, `react-dom/client`) can take its whole compile down. Keeping every design-content file free of TS syntax removes that failure class entirely, for any project this repo is synced into, not just one account's canvas.
-
-Each component ships as `.jsx` (implementation, JSX pre-compiled to `React.createElement` calls) plus a hand-written `.d.ts` (prop types only — never type-checked, kept purely as documentation matching Claude Design's own reference format) and a `.prompt.md` (LLM-facing usage doc: description, copy-paste example, gotchas — see each component's file for an example). `components/index.js` is the library barrel; consumers import from there.
-
-`guidelines/*.card.html` and `components/**/*.card.html` are hand-authored static HTML fragments — no build step, no React, no bundler — matching Claude Design's own native card format exactly. `scripts/build.mjs` only copies them and reads their leading `@dsCard` comment to build the homepage nav.
-
-`templates/*.dc.html` are excluded from the build entirely — they're Claude Design's canvas-editor format (`support.js`/`ds-base.js`), not something this build produces or should touch.
+The guidelines define a proprietary line-illustration set: clean, geometric, even-stroke outlines — **1pt at small scale** beside type, **2pt at large scale** as an expressive graphic element. Themes shown include Clinic, Customer, Treatment, After-Care. Rules: strokes are one consistent width, never varied, never distorted.
 
 ## Index
 
 - `styles.css` — the single entry point consumers link. `@import` lines only.
-- `tokens/` — `fonts.css`, `colors.css`, `subbrands.css`, `typography.css`, `spacing.css`, `surfaces.css`, `motion.css`, `base.css`.
-- `assets/` — wordmark + Hero "L" symbol (black/white, SVG + PNG); `assets/fonts/` is gitignored — see [Fonts](#fonts).
-- `research/brand-guidelines.txt` — full extracted text of the 2026 brand guidelines (gitignored, not in the public repo — see source table above).
-- `components/` — one folder per component (`<Category>/<Name>/<Name>.jsx` + `<Name>.d.ts` + `<Name>.prompt.md`), plus `index.js` as the library barrel and one shared `*.card.html` demo per category:
-  - `brand/` — **Logotype**, **HeroL**, **Rays**
-  - `typography/` — **Headline**, **Prose**, **Eyebrow**, **HighlightBox**
-  - `actions/` — **Button**, **TextLink**
-  - `icons/` — **Icon** (substituted set)
-  - `layout/` — **SplitLayout**, **SplitPanel**
-  - `navigation/` — **SiteHeader**, **SiteFooter**, **Tabs**
-  - `content/` — **Card**, **ProductCard**, **InsightCard**, **Quote**, **StatBlock**
-  - `forms/` — **TextField**, **NewsletterSignup**, **Checkbox**, **Radio**, **Select**, **Switch**
-  - `indicators/` — **Badge**, **Tag**
-- `guidelines/*.card.html` and `components/**/*.card.html` — hand-authored static specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component demos), copied as-is to `dist/`, shared across every sub-brand.
+- `tokens/`
+- `assets/` global brand assets
+  - `fonts/` is gitignored — see [Fonts](#fonts).
+  - `logo/` global lumenis logos
+  - `photography/` general stock photos to be used
+- `components/` — one folder per component (`<Category>/<Name>/<Name>.jsx` + `<Name>.dts` + `<Name>.prompt.md`), plus `index.js` as the library barrel and one shared `*.card.html` demo per category:
+- `guidelines/*.card.html` and `components/**/*.card.html` — hand-authored static specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component demos)
 - `ui_kits/` — `.jsx` sources, built to a standalone bundle per kit that needs one:
   - `corporate-website/` — click-through home, product detail (4 sub-brands), contact.
-  - `social/` — four 1080² Instagram recipes on the 6×6 grid.
-  - `slides/` — seven 1280×720 slide types.
-  - `email/` — 640px table-based template in Arial.
-- `products/<Name>/` — everything specific to one sub-brand lives together: `README.md` (product-specific overrides — accent, imagery, voice), `assets/`, `guidelines/` (its own `*.card.html` cards, alongside the shared ones in `guidelines/`), `ui_kit/` (its marketing-site `.jsx` sources, built the same way as `ui_kits/`). Currently `OptiLIFT/` and `OptiLIGHT/` — the two Vision sub-brands with the deepest bespoke material. Other sub-brands inherit purely from `tokens/subbrands.css` with no override doc yet.
+  - `social/` — four Instagram recipes on the 6×6 grid.
+  - `slides/` — base slides for global brand.
+  - `email/` — table-based template.
+- `products/<Name>/` — specific to a product:
+  - `README.md` product-specific overrides — accent, imagery, voice
+  - `assets/` logos, product shots for a product
+  - `guidelines/` its own `*.card.html` cards
+  - `ui_kit/`
 - `dist/` — build output (gitignored). Published to GitHub Pages on push to `master`.
 - `templates/`
-  - `corporate-page/CorporatePage.dc.html` — editable corporate page starting point (accent + product list are tweakable).
-  - `slide-deck/SlideDeck.dc.html` — 7-slide 1920×1080 deck on the deck stage (keyboard nav, thumbnail rail, print to PDF).
-- `thumbnail.html` — homepage tile · `SKILL.md` — Agent Skills wrapper.
+  - `corporate-page/` — editable corporate page starting point (accent + product list are tweakable).
+  - `slide-deck/` — 7-slide 1920×1080 deck on the deck stage (keyboard nav, thumbnail rail, print to PDF).
 
 ## Intentional additions
 
@@ -143,6 +130,4 @@ The guidelines define brand assets and communication formats, not a UI component
 
 ## Caveats
 
-- **Icons are substituted** (Phosphor Thin/Light). See Iconography.
 - **Motion, hover and press** behaviours are proposed, not specified.
-- **Bold and Medium cuts are missing.** Sans Regular/Light and Mix Regular/Italic are in place; the social high-contrast pairings (p.22-23) that call for Bold or Medium cannot render until those files arrive.
