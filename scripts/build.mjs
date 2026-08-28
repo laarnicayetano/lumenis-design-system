@@ -125,12 +125,31 @@ async function copyStaticAssets() {
     path.join(dist, "assets"),
     (p) => !p.includes(`${path.sep}fonts${path.sep}`),
   );
+  // templates/ (starting points like templates/slides/) are self-contained
+  // pages a consuming project copies wholesale, but they're also just as
+  // valid to preview here — and products/<Name>/templates/ (per-product
+  // decks) reference these shared files by relative path, so both need to
+  // land in dist/ together or the per-product copies 404 on their own
+  // runtime.
+  await copyDirFiltered(
+    path.join(root, "templates"),
+    path.join(dist, "templates"),
+    () => true,
+  );
   for (const product of await productDirs()) {
     const from = path.join(root, "products", product, "assets");
     if (await dirExists(from)) {
       await copyDirFiltered(
         from,
         path.join(dist, "products", product, "assets"),
+        () => true,
+      );
+    }
+    const templatesFrom = path.join(root, "products", product, "templates");
+    if (await dirExists(templatesFrom)) {
+      await copyDirFiltered(
+        templatesFrom,
+        path.join(dist, "products", product, "templates"),
         () => true,
       );
     }
