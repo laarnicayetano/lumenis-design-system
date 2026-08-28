@@ -107,8 +107,8 @@ The guidelines define a proprietary line-illustration set: clean, geometric, eve
   - `fonts/` is gitignored — see [Fonts](#fonts).
   - `logo/` global lumenis logos
   - `photography/` general stock photos to be used
-- `components/` — one folder per component (`<Category>/<Name>/<Name>.jsx` + `<Name>.dts` + `<Name>.prompt.md`), plus `index.js` as the library barrel and one shared `*.card.html` demo per category:
-- `guidelines/*.card.html` and `components/**/*.card.html` — hand-authored static specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component demos)
+- `components/` — one folder per component (`<Category>/<Name>/<Name>.jsx` + `<Name>.dts` + `<Name>.prompt.md` + `<Name>.card.html`), plus `index.js` as the library barrel. A component that's used together with others (a form's fields, a page's header/footer) is shown that way in `ui_kits/`/`templates/`, not by giving it a second, group-level card — one card per component, one owner, nothing to keep in sync.
+- `guidelines/*.card.html` and `components/**/*.card.html` — hand-authored static specimen/guideline cards (Colors, Type, Spacing, Brand, plus one demo per component)
 - `ui_kits/` — `.jsx` sources, built to a standalone bundle per kit that needs one:
   - `corporate-website/` — click-through home, product detail (4 sub-brands), contact.
   - `social/` — four Instagram recipes on the 6×6 grid.
