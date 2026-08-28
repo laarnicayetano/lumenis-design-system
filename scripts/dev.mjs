@@ -10,6 +10,7 @@ const watchDirs = [
   "build",
   "components",
   "guidelines",
+  "products",
   "templates",
   "tokens",
   "ui_kits",

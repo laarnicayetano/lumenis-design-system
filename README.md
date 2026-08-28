@@ -134,20 +134,18 @@ Each component ships as `.jsx` (implementation, JSX pre-compiled to `React.creat
   - `content/` — **Card**, **ProductCard**, **InsightCard**, **Quote**, **StatBlock**
   - `forms/` — **TextField**, **NewsletterSignup**, **Checkbox**, **Radio**, **Select**, **Switch**
   - `indicators/` — **Badge**, **Tag**
-- `guidelines/*.card.html` and `components/**/*.card.html` — hand-authored static specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component demos), copied as-is to `dist/`.
+- `guidelines/*.card.html` and `components/**/*.card.html` — hand-authored static specimen/guideline cards (Colors, Type, Spacing, Brand, plus per-category component demos), copied as-is to `dist/`, shared across every sub-brand.
 - `ui_kits/` — `.jsx` sources, built to a standalone bundle per kit that needs one:
   - `corporate-website/` — click-through home, product detail (4 sub-brands), contact.
-  - `optilift-website/` — OptiLIFT patient-facing marketing site.
-  - `optilight-website/` — OptiLIGHT marketing site.
   - `social/` — four 1080² Instagram recipes on the 6×6 grid.
   - `slides/` — seven 1280×720 slide types.
   - `email/` — 640px table-based template in Arial.
+- `products/<Name>/` — everything specific to one sub-brand lives together: `README.md` (product-specific overrides — accent, imagery, voice), `assets/`, `guidelines/` (its own `*.card.html` cards, alongside the shared ones in `guidelines/`), `ui_kit/` (its marketing-site `.jsx` sources, built the same way as `ui_kits/`). Currently `OptiLIFT/` and `OptiLIGHT/` — the two Vision sub-brands with the deepest bespoke material. Other sub-brands inherit purely from `tokens/subbrands.css` with no override doc yet.
 - `dist/` — build output (gitignored). Published to GitHub Pages on push to `master`.
 - `templates/`
   - `corporate-page/CorporatePage.dc.html` — editable corporate page starting point (accent + product list are tweakable).
   - `slide-deck/SlideDeck.dc.html` — 7-slide 1920×1080 deck on the deck stage (keyboard nav, thumbnail rail, print to PDF).
 - `thumbnail.html` — homepage tile · `SKILL.md` — Agent Skills wrapper.
-- `OptiLIFT.md`, `OptiLIGHT.md` — product-specific overrides (accent, imagery, voice) for the two Vision sub-brands with the deepest bespoke material. Other sub-brands inherit purely from `tokens/subbrands.css` with no override doc yet.
 
 ## Intentional additions
 

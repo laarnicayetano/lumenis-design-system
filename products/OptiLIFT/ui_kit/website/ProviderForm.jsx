@@ -1,5 +1,5 @@
 import React from "react";
-import { Headline, Prose, TextField, Select, Checkbox, Button } from "../../components";
+import { Headline, Prose, TextField, Select, Checkbox, Button } from "../../../../components";
 export function ProviderForm() {
   const [sent, setSent] = React.useState(false);
   const [consent, setConsent] = React.useState(false);

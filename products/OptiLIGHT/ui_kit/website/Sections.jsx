@@ -1,5 +1,5 @@
 import React from "react";
-import { Eyebrow, Headline, Prose, Card, Icon, Tabs, Badge, Rays } from "../../components";
+import { Eyebrow, Headline, Prose, Card, Icon, Tabs, Badge, Rays } from "../../../../components";
 const VALUE_PROPS = [
   {
     icon: "eye",
@@ -106,7 +106,7 @@ export function PrismBand() {
       },
     },
     React.createElement("img", {
-      src: "../../assets/photography/people-rainbow-face.webp",
+      src: "../../../../assets/photography/people-rainbow-face.webp",
       alt: "",
       style: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" },
     }),
@@ -217,7 +217,7 @@ export function ProductShowcase() {
           style: { position: "absolute", inset: 0, width: "100%", height: "100%", opacity: 0.5 },
         }),
         React.createElement("img", {
-          src: "../../assets/optilight/product/optilight-device-tabletop.webp",
+          src: "../../assets/product/optilight-device-tabletop.webp",
           alt: "OptiLIGHT device",
           style: {
             position: "relative",

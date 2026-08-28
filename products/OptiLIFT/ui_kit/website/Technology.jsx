@@ -1,5 +1,5 @@
 import React from "react";
-import { Eyebrow, Headline, Prose, Tag } from "../../components";
+import { Eyebrow, Headline, Prose, Tag } from "../../../../components";
 const AREAS = ["Face", "Neck", "Jawline"];
 export function Technology() {
   const [area, setArea] = React.useState("Face");
@@ -57,7 +57,7 @@ export function Technology() {
         ),
       ),
       React.createElement("img", {
-        src: "../../assets/optilift/product/black-bg/lumenis_02.756.webp",
+        src: "../../assets/product/black-bg/lumenis_02.756.webp",
         style: { width: "100%" },
         alt: "OptiLIFT console detail",
       }),

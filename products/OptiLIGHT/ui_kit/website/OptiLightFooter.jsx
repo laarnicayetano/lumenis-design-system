@@ -9,7 +9,7 @@ import {
   Icon,
   Card,
   TextField,
-} from "../../components";
+} from "../../../../components";
 export function ProviderCTA({ onBook }) {
   return React.createElement(
     "section",
