@@ -437,10 +437,10 @@ async function buildHomePage(guidelineCards, componentCards) {
           title: "UI Kits",
           items: [
             {
-              name: "Slide Deck",
+              name: "Slides",
               subtitle: `${slides.length} slides, keyboard nav`,
               kind: "deck",
-              key: "ui-kits/slide-deck",
+              key: "ui-kits/slides",
               slides,
             },
           ],
