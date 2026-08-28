@@ -16,7 +16,7 @@ export function OptiLiftFooter() {
       },
     },
     React.createElement("img", {
-      src: "../../assets/optilift/logo/white.png",
+      src: "../../assets/logo/white.png",
       style: { height: 22 },
       alt: "OptiLIFT",
     }),

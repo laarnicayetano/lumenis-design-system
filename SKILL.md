@@ -10,8 +10,8 @@ Global baseline. If a product-specific design skill is loaded, its overrides win
 
 ## Product-specific overrides
 
-- [OptiLIFT.md](OptiLIFT.md) — OptiLIFT (non-invasive facial/neck contouring): violet accent, sunburst motif.
-- [OptiLIGHT.md](OptiLIGHT.md) — OptiLIGHT (IPL dry-eye therapy): blue accent, the rays-of-light system, prism imagery.
+- [OptiLIFT](products/OptiLIFT/README.md) — OptiLIFT (non-invasive facial/neck contouring): violet accent, sunburst motif.
+- [OptiLIGHT](products/OptiLIGHT/README.md) — OptiLIGHT (IPL dry-eye therapy): blue accent, the rays-of-light system, prism imagery.
 
 ## Color
 

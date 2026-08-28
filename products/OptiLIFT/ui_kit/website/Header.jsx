@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../../components";
+import { Button } from "../../../../components";
 export function Header() {
   return React.createElement(
     "header",
@@ -18,7 +18,7 @@ export function Header() {
       },
     },
     React.createElement("img", {
-      src: "../../assets/optilift/logo/ByLUMENIS_black.png",
+      src: "../../assets/logo/ByLUMENIS_black.png",
       style: { height: 32 },
       alt: "OptiLIFT by Lumenis",
     }),

@@ -18,47 +18,48 @@ Read this file for what's specific to OptiLIGHT. Everything not overridden here 
 - **Person**: addresses both the eye-care professional ("the procedure **you** want") and the patient ("the therapy **your patients** need") — know which you're writing for.
 - **No emoji. Ever.**
 - **Demand-generation pages** (customer-facing, speaking to eye-care professionals/practice owners): never reference internal workbooks, playbooks, sales-training guidance, talk tracks, or sales-team workflows in visible copy. Frame next steps around the customer's decision ("Request pricing," "Talk with a representative"), not internal phrasing ("sales flow," "ROI discussion").
-- **Calculator/form specifics**: inputs need units directly in the label wherever ambiguous, especially `%` fields (prevalence, conversion). Lead forms are single-column, heading and intro copy inside the same container; style submit buttons to brand (blue background, white text, never default HubSpot orange/black) and keep select carets visible.
 
 ## Visual foundations
 
 ### Color
+
 Structural pair is Lumenis Black `#000000` / White `#FFFFFF`; OptiLIGHT Blue is the one brand color; `#F2F2F2` is the prescribed product-photography background. Extended blue tints/neutrals for UI surfaces are derivations, not printed brand colors — keep them quiet and let blue/black/white lead.
 
 ### The "rays of light" graphic system
+
 Thin straight lines ("rays") that **cross the entire format from a single shared starting point**:
+
 1. Stroke only · 2. Stroke + color fill · 3. Stroke + image fill · 4. Stroke + multiple images · 5. Stroke + background image.
+
 - Digital stroke weight is always **4px**. Strokes are Lumenis White or OptiLIGHT Blue only.
-- The wedge *between* two rays fills with blue, white, or an image.
+- The wedge _between_ two rays fills with blue, white, or an image.
 - A stroke crossing a blue fill turns white (and vice versa); a stroke over an image is white unless legibility forces blue.
 - **At least 3 rays.** Avoid: rays that don't cross the full frame, mismatched start points, starting on the margin/edge, mismatched stroke widths.
 
 ### Imagery
-Refined, warm, clean, **bright** — never cold, gritty, or heavily graded. Three subjects: people (face close-ups, ≥1 eye visible, natural light, optimistic, models ~30–50), nature/sky (bright skies or sunlit forests with natural light rays), product (sleek renders on `#F2F2F2`, may bleed off the edge). Signature treatment: a **colorful prism** rainbow glare over one eye (people) or through the scene (nature), in *Screen* blend mode.
+
+Refined, warm, clean, **bright** — never cold, gritty, or heavily graded. Three subjects: people (face close-ups, ≥1 eye visible, natural light, optimistic, models ~30–50), nature/sky (bright skies or sunlit forests with natural light rays), product (sleek renders on `#F2F2F2`, may bleed off the edge). Signature treatment: a **colorful prism** rainbow glare over one eye (people) or through the scene (nature), in _Screen_ blend mode.
 
 ### Layout
+
 Diagonal 40-unit construction (divide the format diagonally into 40 units → 1 unit = 1x = margin; inner area split into 6 columns). Otherwise inherits the root system's split-layout composition, digital-surface radius/shadow tokens (`--radius-sm/md/lg`, `--shadow-sm/md/lg/accent`), and 8pt spacing scale — no OptiLIGHT-specific deviation there. (OptiLIGHT's own `colors_and_type.css` radius/shadow scale, including the accent-tied `--shadow-blue` glow, was the direct inspiration for the root system's `--shadow-accent` — its own file already called it "not in the printed guideline, tuned to sit harmoniously," which held up.)
 
 ## Iconography
 
 Near icon-free. The one logo-native element is the **"sun" mark** beside the wordmark (also the logo's clear-space unit) — a logo element, not a general-purpose icon; don't reuse it as a UI glyph. For UI work that genuinely needs icons, this system used **Lucide** at 1.5px stroke as a documented substitution (parallel to the root system's own Phosphor substitution for corporate work) — flag it as a substitution if used, and keep it minimal/monochrome.
 
-## Fonts
-
-Same ABC Arizona family as the root system (Mix for display/Hero-L, Sans for body/UI) — see root [README.md](README.md#fonts) for how licensed files are wired locally. No OptiLIGHT-specific font deviation.
-
 ## In this repo
 
 - `tokens/subbrands.css` → `[data-subbrand="optilight"]`, `tokens/colors.css` → `--lum-blue`, `guidelines/colors-vision.tsx` already documents the accent alongside OptiLIFT's.
 - `components/brand/Rays/` — the rays-of-light system as a real shared component (not inline SVG), carrying the "never cross live text" masking rule (`clear="center"/"left"/"right"`).
-- `guidelines/brand-optilight-rays.tsx`, `-prism.tsx` — migrated specimen cards; `guidelines/brand-photography.tsx` covers photography for both OptiLIFT and OptiLIGHT together.
+- `products/OptiLIGHT/guidelines/brand-optilight-rays.card.html`, `-prism.card.html` — migrated specimen cards; `guidelines/brand-photography.card.html` (shared, stays at repo root) covers photography for both OptiLIFT and OptiLIGHT together.
 - `assets/photography/` — prism-on-eye portraits, warm close-ups, nature/sky imagery (shared with OptiLIFT's photography, no per-subbrand split).
-- `assets/optilight/product/` — device renders (cart, tabletop, handpiece).
-- `ui_kits/optilight-website/` — the full 11-section marketing site, built from this system's real components.
+- `products/OptiLIGHT/assets/product/` — device renders (cart, tabletop, handpiece).
+- `products/OptiLIGHT/ui_kit/` — the full 11-section marketing site, built from this system's real components.
 
 ## Shipping to HubSpot
 
-The original standalone system pointed to a `../HubSpot Landing Pages/` skill as the authority on HubSpot-side mechanics — naming, page architecture, the shared image library, lead forms, and portal quirks (form fields added by double-click not drag; the forms API returns the *published* form so it reads stale after edits; "Create new contacts for new email addresses" defaults **off**, silently dropping net-new leads). **That skill does not exist in this repo** and wasn't found elsewhere on this machine as of the migration. Until it's located or rebuilt, treat HubSpot build mechanics as undocumented here — the rules above under "Calculator/form specifics" are as far as this file goes.
+The original standalone system pointed to a `../HubSpot Landing Pages/` skill as the authority on HubSpot-side mechanics — naming, page architecture, the shared image library, lead forms, and portal quirks (form fields added by double-click not drag; the forms API returns the _published_ form so it reads stale after edits; "Create new contacts for new email addresses" defaults **off**, silently dropping net-new leads). **That skill does not exist in this repo** and wasn't found elsewhere on this machine as of the migration. Until it's located or rebuilt, treat HubSpot build mechanics as undocumented here — the rules above under "Calculator/form specifics" are as far as this file goes.
 
 ## Caveats (carried over from the original system, still unresolved)
 

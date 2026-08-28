@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Headline, Prose, Button } from "../../components";
+import { Badge, Headline, Prose, Button } from "../../../../components";
 export function OptiLiftHero() {
   return React.createElement(
     "section",
@@ -37,7 +37,7 @@ export function OptiLiftHero() {
       ),
     ),
     React.createElement("img", {
-      src: "../../assets/optilift/product/grey-bg/lumenis_02.764.webp",
+      src: "../../assets/product/grey-bg/lumenis_02.764.webp",
       style: { width: "100%" },
       alt: "OptiLIFT device",
     }),

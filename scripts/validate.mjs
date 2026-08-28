@@ -90,7 +90,7 @@ async function main() {
   // ── D. no unresolvable bare imports in swept source ──────────────────────
   for (const f of files) {
     if (!src(f) || inTemplates(f)) continue;
-    if (!/^(components|ui_kits|gamma)\//.test(f)) continue;
+    if (!/^(components|ui_kits|gamma|products\/[^/]+\/ui_kit)\//.test(f)) continue;
     for (const m of read(f).matchAll(
       /(?:from|import)\s*\(?\s*["']([^."'/][^"']*)["']/g,
     ))
@@ -196,11 +196,19 @@ async function main() {
   }
 
   // ── I. no orphaned or unmounted kit components ───────────────────────────
-  for (const dir of readdirSync(join(ROOT, "ui_kits"), {
+  const kits = readdirSync(join(ROOT, "ui_kits"), { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => `ui_kits/${d.name}`);
+  // OptiLIFT/OptiLIGHT moved to products/<Name>/ui_kit so everything about a
+  // product lives in one folder — still a "kit" for this check's purposes.
+  for (const dir of readdirSync(join(ROOT, "products"), {
     withFileTypes: true,
   })) {
     if (!dir.isDirectory()) continue;
-    const kit = `ui_kits/${dir.name}`;
+    const kitDir = `products/${dir.name}/ui_kit/website`;
+    if (existsSync(join(ROOT, kitDir))) kits.push(kitDir);
+  }
+  for (const kit of kits) {
     const index = `${kit}/index.html`;
     if (!existsSync(join(ROOT, index))) continue;
     const html = read(index);

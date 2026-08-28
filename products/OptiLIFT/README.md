@@ -1,8 +1,8 @@
 # OptiLIFT
 
-Non-invasive, in-office optical energy device for facial and neck skin tightening/contouring — a premium capital device sold to aesthetic and dermatology practices, with matching patient-facing marketing materials. OptiLIFT is one of Lumenis' Vision-adjacent* device lines; materials always tie back to the parent brand via a "by Lumenis" endorsement lockup.
+Non-invasive, in-office optical energy device for facial and neck skin tightening/contouring — a premium capital device sold to aesthetic and dermatology practices, with matching patient-facing marketing materials. OptiLIFT is one of Lumenis' Vision-adjacent\* device lines; materials always tie back to the parent brand via a "by Lumenis" endorsement lockup.
 
-*(Lumenis groups its product families as Aesthetics/Vision — see the root [README.md](README.md#company--product-context). OptiLIFT ships facial-contouring copy closer to Aesthetics positioning; treat it as its own line rather than assuming either family's defaults.)*
+_(Lumenis groups its product families as Aesthetics/Vision — see the root [README.md](README.md#company--product-context). OptiLIFT ships facial-contouring copy closer to Aesthetics positioning; treat it as its own line rather than assuming either family's defaults.)_
 
 Read this file for what's specific to OptiLIFT. Everything not overridden here inherits from the root [SKILL.md](SKILL.md) / [README.md](README.md) — casing rules, the split-layout system, motion, build/publish mechanics.
 
@@ -24,21 +24,15 @@ Read this file for what's specific to OptiLIFT. Everything not overridden here i
 - **Color**: near-black ink (`#161413`) and white carry almost all weight; violet is used sparingly for CTAs, links, and small highlights. Neutrals lean warm/greige (not cool grey) — matches the mauve-toned photography backdrops in the source stock photography. This warm-neutral direction is a genuine visual departure from the root system's cool `--lum-shine-grey`; treat it as OptiLIFT-specific, not a correction to the corporate default.
 - **Type**: ABC Arizona Mix (serif) for headlines/pull-quotes, set large and tight, italic for softer sub-headlines. ABC Arizona Sans Light is the default body weight (airy, editorial feel) rather than Regular.
 - **Photography**: two modes — warm greige-backdrop studio portraits of patients, and clean neutral-grey/black-background product renders (isolated cutouts). No color grading/grain — bright, clean, true-to-life.
-- **Sunburst motif**: the accent stroke that forms the dot of the "i" in the wordmark, reused decoratively (see `guidelines/brand-optilift-sunburst.tsx`). This is the one recurring graphic device — no functional icon set exists in the source material.
+- **Sunburst motif**: the accent stroke that forms the dot of the "i" in the wordmark, reused decoratively (see `products/OptiLIFT/guidelines/brand-optilift-sunburst.card.html`). This is the one recurring graphic device — no functional icon set exists in the source material.
 - Otherwise inherits the root system's digital-surface radius/shadow tokens (`--radius-sm/md/lg`, `--shadow-sm/md/lg/accent` — see README.md "Surfaces, borders, radii") and split-layout composition — no OptiLIFT-specific deviation there.
 
 ## In this repo
 
-- `guidelines/brand-optilift-logo.tsx`, `-sublogo.tsx`, `-sunburst.tsx`, `-color.tsx` — migrated specimen cards. Photography is documented jointly with OptiLIGHT in `guidelines/brand-photography.tsx`.
-- `assets/optilift/` — logo lockups (`logo/`, all 12 variants), product renders (`product/`), photography (`photography/`).
-- `ui_kits/optilift-website/` — the OptiLIFT patient marketing site, built from this system's real components.
+- `products/OptiLIFT/guidelines/brand-optilift-logo.card.html`, `-sublogo.card.html`, `-sunburst.card.html`, `-color.card.html` — migrated specimen cards. Photography is documented jointly with OptiLIGHT in `guidelines/brand-photography.card.html` (shared, stays at repo root).
+- `products/OptiLIFT/assets/` — logo lockups (`logo/`, all 12 variants), product renders (`product/`), photography (`photography/`).
+- `products/OptiLIFT/ui_kit/` — the OptiLIFT patient marketing site, built from this system's real components.
 - **Not yet migrated**: OptiLIFT's own 10-step purple/neutral color ramps (`--purple-50…900`, `--neutral-0…900`) and semantic states (`--success`, `--error`) were deliberately **not** ported — those remain a real architecture mismatch (the root system has no ramp/semantic-state vocabulary) and were partly inferred rather than confirmed against real brand material. Its radius/shadow scale (`--radius-s/m/l`, `--shadow-card/raised`), however, is now superseded rather than skipped — the root system adopted its own digital radius/shadow tokens (see above), so there's nothing left to port on that front.
-
-## Shipping to HubSpot
-
-The original standalone system pointed to a `../HubSpot Landing Pages/` skill as the authority on HubSpot-side mechanics (naming, page architecture, the shared image library, lead-form quirks) — that skill **does not exist in this repo** and wasn't found elsewhere on this machine as of the migration. If you have it, say where it should live; until then, treat any HubSpot-specific build guidance as missing, not covered by this file.
-
-The source also noted six image-library assets were cleared for OptiLIFT specifically (`allowedBrands`) — unverified here, re-confirm before reusing.
 
 ## Caveats (carried over from the original system, still unresolved)
 

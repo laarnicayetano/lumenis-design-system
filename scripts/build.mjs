@@ -46,10 +46,33 @@ async function findFiles(dir, matchExt) {
 function titleCase(slug) {
   return slug.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 }
+async function dirExists(p) {
+  try {
+    await fs.access(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
+// dir is each kit's real source location — corporate-website (and the
+// static-only social/email/slides kits handled elsewhere) still live under
+// ui_kits/, but OptiLIFT/OptiLIGHT moved under products/<Name>/ui_kit/ so
+// everything about a product lives in one folder. dist output always
+// mirrors dir's path relative to root (see buildBundles/buildUiKitHtml),
+// so this is the only place a kit's source location needs to be named.
 const INTERACTIVE_UI_KITS = {
-  "corporate-website": "CorporateApp.jsx",
-  "optilift-website": "OptiLiftApp.jsx",
-  "optilight-website": "OptiLightApp.jsx"
+  "corporate-website": {
+    dir: path.join(root, "ui_kits", "corporate-website"),
+    entry: "CorporateApp.jsx",
+  },
+  "optilift-website": {
+    dir: path.join(root, "products", "OptiLIFT", "ui_kit", "website"),
+    entry: "OptiLiftApp.jsx",
+  },
+  "optilight-website": {
+    dir: path.join(root, "products", "OptiLIGHT", "ui_kit", "website"),
+    entry: "OptiLightApp.jsx",
+  },
 };
 async function buildBundles() {
   const common = {
@@ -69,22 +92,22 @@ async function buildBundles() {
     // nothing imports anymore, but it does mean the CDN react-dom <script>
     // tag on each ui_kit page must stay (see buildUiKitHtml below).
     alias: {
-      react: path.join(root, "build/react-global-shim.js")
-    }
+      react: path.join(root, "build/react-global-shim.js"),
+    },
   };
   await esbuild.build({
     ...common,
     entryPoints: [path.join(root, "build/design-system-entry.js")],
     outfile: path.join(dist, "design-system.js"),
     format: "iife",
-    globalName: "LumenisDesignSystem"
+    globalName: "LumenisDesignSystem",
   });
-  for (const [kit, entry] of Object.entries(INTERACTIVE_UI_KITS)) {
+  for (const { dir, entry } of Object.values(INTERACTIVE_UI_KITS)) {
     await esbuild.build({
       ...common,
-      entryPoints: [path.join(root, "ui_kits", kit, entry)],
-      outfile: path.join(dist, "ui_kits", kit, "bundle.js"),
-      format: "iife"
+      entryPoints: [path.join(dir, entry)],
+      outfile: path.join(dist, path.relative(root, dir), "bundle.js"),
+      format: "iife",
     });
   }
 }
@@ -95,28 +118,55 @@ async function copyStaticAssets() {
   }
   await minifyCssFile(
     path.join(root, "styles.css"),
-    path.join(dist, "styles.css")
+    path.join(dist, "styles.css"),
   );
   await copyDirFiltered(
     path.join(root, "assets"),
     path.join(dist, "assets"),
-    (p) => !p.includes(`${path.sep}fonts${path.sep}`)
+    (p) => !p.includes(`${path.sep}fonts${path.sep}`),
   );
+  for (const product of await productDirs()) {
+    const from = path.join(root, "products", product, "assets");
+    if (await dirExists(from)) {
+      await copyDirFiltered(
+        from,
+        path.join(dist, "products", product, "assets"),
+        () => true,
+      );
+    }
+  }
+}
+async function productDirs() {
+  const entries = await fs
+    .readdir(path.join(root, "products"), { withFileTypes: true })
+    .catch(() => []);
+  return entries.filter((e) => e.isDirectory()).map((e) => e.name);
 }
 const GUIDELINE_PADDING = 20;
 async function buildGuidelineCards() {
-  const files = await findFiles(path.join(root, "guidelines"), ".card.html");
+  // Shared cards live flat under guidelines/; product-specific ones (moved
+  // out of guidelines/ so everything about a product lives in one place)
+  // live nested under products/<Name>/guidelines/ — findFiles over
+  // products/ picks up exactly those, nothing else there ends in
+  // .card.html. Output mirrors each file's real relative-path depth (same
+  // approach as buildComponentCards below), so a card's own "../styles.css"
+  // etc. stays correct for wherever it actually sits — including for these
+  // deeper product cards, hence the depth-agnostic regex below.
+  const files = [
+    ...(await findFiles(path.join(root, "guidelines"), ".card.html")),
+    ...(await findFiles(path.join(root, "products"), ".card.html")),
+  ];
   const cards = [];
   for (const file of files) {
     const card = await readDsCard(file);
     if (!card) continue;
-    const slug = path.basename(file, ".card.html");
-    const outFile = path.join(dist, "guidelines", `${slug}.card.html`);
+    const relKey = path.relative(root, file).split(path.sep).join("/");
+    const outFile = path.join(dist, relKey);
     const src = await fs.readFile(file, "utf8");
     const padded = src.replace(
-      /<link[^>]*href="\.\.\/styles\.css"[^>]*>/,
+      /<link[^>]*href="[^"]*styles\.css"[^>]*>/,
       `$&
-<style>body{margin:0;padding:${GUIDELINE_PADDING}px;box-sizing:border-box}</style>`
+<style>body{margin:0;padding:${GUIDELINE_PADDING}px;box-sizing:border-box}</style>`,
     );
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, padded);
@@ -127,9 +177,9 @@ async function buildGuidelineCards() {
       subtitle: card.subtitle,
       w: card.w + GUIDELINE_PADDING * 2,
       h: card.h + GUIDELINE_PADDING * 2,
-      href: `guidelines/${slug}.card.html`,
-      key: `guidelines/${slug}`,
-      padding: "0px"
+      href: relKey,
+      key: relKey.replace(/\.card\.html$/, ""),
+      padding: "0px",
     });
   }
   return cards;
@@ -137,13 +187,16 @@ async function buildGuidelineCards() {
 async function buildComponentPromptMap() {
   const indexSrc = await fs.readFile(
     path.join(root, "components/index.js"),
-    "utf8"
+    "utf8",
   );
   const map = new Map();
   const exportRe = /^export \{([^}]*)\} from '(\.[^']+)';$/gm;
   let m;
-  while (m = exportRe.exec(indexSrc)) {
-    const names = m[1].split(",").map((n) => n.trim()).filter(Boolean);
+  while ((m = exportRe.exec(indexSrc))) {
+    const names = m[1]
+      .split(",")
+      .map((n) => n.trim())
+      .filter(Boolean);
     const modulePath = path.join(root, "components", m[2] + ".prompt.md");
     for (const name of names) map.set(name, modulePath);
   }
@@ -157,17 +210,19 @@ function inlineMarkdown(text) {
 }
 function renderPromptMarkdown(md) {
   const blocks = md.trim().split(/\n\s*\n/);
-  return blocks.map((block) => {
-    if (block.startsWith("```")) {
-      const code = block.replace(/^```\w*\n?/, "").replace(/```$/, "");
-      return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
-    }
-    const lines = block.split("\n").filter(Boolean);
-    if (lines.length && lines.every((l) => l.trim().startsWith("- "))) {
-      return `<ul>${lines.map((l) => `<li>${inlineMarkdown(l.trim().slice(2))}</li>`).join("")}</ul>`;
-    }
-    return `<p>${inlineMarkdown(block.trim())}</p>`;
-  }).join("");
+  return blocks
+    .map((block) => {
+      if (block.startsWith("```")) {
+        const code = block.replace(/^```\w*\n?/, "").replace(/```$/, "");
+        return `<pre><code>${escapeHtml(code.trim())}</code></pre>`;
+      }
+      const lines = block.split("\n").filter(Boolean);
+      if (lines.length && lines.every((l) => l.trim().startsWith("- "))) {
+        return `<ul>${lines.map((l) => `<li>${inlineMarkdown(l.trim().slice(2))}</li>`).join("")}</ul>`;
+      }
+      return `<p>${inlineMarkdown(block.trim())}</p>`;
+    })
+    .join("");
 }
 async function buildComponentCards() {
   const files = await findFiles(path.join(root, "components"), ".card.html");
@@ -195,7 +250,12 @@ async function buildComponentCards() {
     await fs.mkdir(path.dirname(outFile), { recursive: true });
     await fs.writeFile(outFile, patched);
     const destructureMatch = src.match(/const \{([^}]*)\}\s*=\s*window\[/);
-    const importedNames = destructureMatch ? destructureMatch[1].split(",").map((n) => n.trim()).filter(Boolean) : [];
+    const importedNames = destructureMatch
+      ? destructureMatch[1]
+          .split(",")
+          .map((n) => n.trim())
+          .filter(Boolean)
+      : [];
     const seenPromptFiles = new Set();
     const prompts = [];
     for (const name of importedNames) {
@@ -210,10 +270,13 @@ async function buildComponentCards() {
       if (raw)
         prompts.push({
           name: path.basename(promptFile, ".prompt.md"),
-          html: renderPromptMarkdown(raw)
+          html: renderPromptMarkdown(raw),
         });
     }
-    const relKey = relPath.replace(/\.card\.html$/, "").split(path.sep).join("/");
+    const relKey = relPath
+      .replace(/\.card\.html$/, "")
+      .split(path.sep)
+      .join("/");
     cards.push({
       group: card.group,
       category: titleCase(category),
@@ -224,7 +287,7 @@ async function buildComponentCards() {
       href: `components/${relKey}.card.html`,
       key: `components/${relKey}`,
       padding: "0px",
-      prompts
+      prompts,
     });
   }
   return cards;
@@ -232,15 +295,14 @@ async function buildComponentCards() {
 async function copyUiKitStatics() {
   for (const sub of ["social", "email", "slides"]) {
     const from = path.join(root, "ui_kits", sub);
-    await copyDirFiltered(
-      from,
-      path.join(dist, "ui_kits", sub),
-      (p) => p.endsWith(".html")
+    await copyDirFiltered(from, path.join(dist, "ui_kits", sub), (p) =>
+      p.endsWith(".html"),
     );
   }
 }
 async function buildUiKitHtml(kit) {
-  const from = path.join(root, "ui_kits", kit, "index.html");
+  const { dir } = INTERACTIVE_UI_KITS[kit];
+  const from = path.join(dir, "index.html");
   let html = await fs.readFile(from, "utf8");
   // The CDN React/ReactDOM <script> tags stay — bundle.js reads ReactDOM off
   // globalThis at runtime (see buildBundles' alias comment above), so they
@@ -248,14 +310,17 @@ async function buildUiKitHtml(kit) {
   // them anymore. Only the Babel-standalone scripts (no longer needed —
   // JSX is pre-compiled into bundle.js) and the placeholder they wrapped
   // get removed/replaced.
-  html = html.replace(
-    /<script[^>]*src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[\s\S]*?><\/script>\n?/,
-    ""
-  ).replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, "").replace(
-    /<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/,
-    '<script src="./bundle.js"><\/script>'
-  );
-  const to = path.join(dist, "ui_kits", kit, "index.html");
+  html = html
+    .replace(
+      /<script[^>]*src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[\s\S]*?><\/script>\n?/,
+      "",
+    )
+    .replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, "")
+    .replace(
+      /<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/,
+      '<script src="./bundle.js"><\/script>',
+    );
+  const to = path.join(dist, path.relative(root, dir), "index.html");
   await fs.mkdir(path.dirname(to), { recursive: true });
   await fs.writeFile(to, html);
 }
@@ -265,10 +330,11 @@ async function buildUiKitHtmls() {
 async function buildLandingPage() {
   await copyFile(
     path.join(root, "thumbnail.html"),
-    path.join(dist, "thumbnail.html")
+    path.join(dist, "thumbnail.html"),
   );
 }
-const DS_CARD_RE = /<!--\s*@dsCard\s+group="([^"]*)"\s+viewport="([^"]*)"\s+name="([^"]*)"\s+subtitle="([^"]*)"\s*-->/;
+const DS_CARD_RE =
+  /<!--\s*@dsCard\s+group="([^"]*)"\s+viewport="([^"]*)"\s+name="([^"]*)"\s+subtitle="([^"]*)"\s*-->/;
 async function readDsCard(file) {
   const head = await fs.readFile(file, "utf8");
   const m = head.match(DS_CARD_RE);
@@ -281,7 +347,7 @@ async function readDsCard(file) {
     subtitle,
     w,
     h,
-    href: path.relative(root, file).split(path.sep).join("/")
+    href: path.relative(root, file).split(path.sep).join("/"),
   };
 }
 async function collectDsCards(dir, ext) {
@@ -290,12 +356,16 @@ async function collectDsCards(dir, ext) {
   for (const f of files) {
     const card = await readDsCard(f);
     if (card) {
-      const key = path.relative(root, f).split(path.sep).join("/").replace(/\.[^.]+$/, "");
+      const key = path
+        .relative(root, f)
+        .split(path.sep)
+        .join("/")
+        .replace(/\.[^.]+$/, "");
       cards.push({
         ...card,
         category: titleCase(path.basename(path.dirname(f))),
         key,
-        padding: "0px"
+        padding: "0px",
       });
     }
   }
@@ -311,12 +381,27 @@ function groupBy(items, key) {
   return map;
 }
 function slugifyName(name) {
-  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 async function buildHomePage(guidelineCards, componentCards) {
-  const uiCards = await collectDsCards(path.join(root, "ui_kits"), ".html");
+  const productUiCards = [];
+  for (const product of await productDirs()) {
+    const uiKitDir = path.join(root, "products", product, "ui_kit");
+    if (await dirExists(uiKitDir)) {
+      productUiCards.push(...(await collectDsCards(uiKitDir, ".html")));
+    }
+  }
+  const uiCards = [
+    ...(await collectDsCards(path.join(root, "ui_kits"), ".html")),
+    ...productUiCards,
+  ];
   const kits = uiCards.filter((c) => c.group !== "Slides");
-  const slides = uiCards.filter((c) => c.group === "Slides").sort((a, b) => a.href.localeCompare(b.href));
+  const slides = uiCards
+    .filter((c) => c.group === "Slides")
+    .sort((a, b) => a.href.localeCompare(b.href));
   const nav = [
     {
       title: "UI Kits",
@@ -327,21 +412,23 @@ async function buildHomePage(guidelineCards, componentCards) {
         key: `ui-kits/${slugifyName(c.name)}`,
         href: c.href,
         w: c.w,
-        h: c.h
-      }))
+        h: c.h,
+      })),
     },
-    slides.length ? {
-      title: "UI Kits",
-      items: [
-        {
-          name: "Slide Deck",
-          subtitle: `${slides.length} slides, keyboard nav`,
-          kind: "deck",
-          key: "ui-kits/slide-deck",
-          slides
+    slides.length
+      ? {
+          title: "UI Kits",
+          items: [
+            {
+              name: "Slide Deck",
+              subtitle: `${slides.length} slides, keyboard nav`,
+              kind: "deck",
+              key: "ui-kits/slide-deck",
+              slides,
+            },
+          ],
         }
-      ]
-    } : null,
+      : null,
     ...[...groupBy(guidelineCards, (c) => c.category)].map(
       ([title, items]) => ({
         title,
@@ -352,23 +439,25 @@ async function buildHomePage(guidelineCards, componentCards) {
           key: c.key,
           href: c.href,
           w: c.w,
-          h: c.h
-        }))
-      })
+          h: c.h,
+        })),
+      }),
     ),
     {
       title: "Components",
-      items: componentCards.map((c) => ({
-        name: c.name,
-        subtitle: c.subtitle,
-        kind: "page",
-        key: c.key,
-        href: c.href,
-        w: c.w,
-        h: c.h,
-        prompts: c.prompts
-      })).sort((a, b) => a.name.localeCompare(b.name))
-    }
+      items: componentCards
+        .map((c) => ({
+          name: c.name,
+          subtitle: c.subtitle,
+          kind: "page",
+          key: c.key,
+          href: c.href,
+          w: c.w,
+          h: c.h,
+          prompts: c.prompts,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    },
   ];
   const merged = [];
   for (const section of nav) {
@@ -566,7 +655,7 @@ export async function build() {
     buildUiKitHtmls(),
     buildLandingPage(),
     buildGuidelineCards(),
-    buildComponentCards()
+    buildComponentCards(),
   ]);
   await buildHomePage(guidelineCards, componentCards);
   await fs.writeFile(path.join(dist, ".nojekyll"), "");

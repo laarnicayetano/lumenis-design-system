@@ -1,5 +1,5 @@
 import React from "react";
-import { Headline, Prose, Eyebrow, Quote, Icon, Rays } from "../../components";
+import { Headline, Prose, Eyebrow, Quote, Icon, Rays } from "../../../../components";
 const STEPS = [
   {
     n: "01",
@@ -166,7 +166,7 @@ export function Testimonial() {
               },
             },
             React.createElement("img", {
-              src: "../../assets/photography/people-warm-closeup.webp",
+              src: "../../../../assets/photography/people-warm-closeup.webp",
               alt: "",
               style: { width: "100%", height: "100%", objectFit: "cover" },
             }),

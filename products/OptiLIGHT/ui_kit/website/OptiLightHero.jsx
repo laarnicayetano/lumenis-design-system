@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, Headline, Prose, Button, Rays, Eyebrow, StatBlock } from "../../components";
+import { Badge, Headline, Prose, Button, Rays, Eyebrow, StatBlock } from "../../../../components";
 export function OptiLightHero({ onBook }) {
   return React.createElement(
     "section",
@@ -94,7 +94,7 @@ export function OptiLightHero({ onBook }) {
           },
         },
         React.createElement("img", {
-          src: "../../assets/photography/people-prism-eye.webp",
+          src: "../../../../assets/photography/people-prism-eye.webp",
           alt: "Patient with prism light over the eye",
           style: { width: "100%", height: "100%", objectFit: "cover" },
         }),

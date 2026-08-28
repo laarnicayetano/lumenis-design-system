@@ -1,5 +1,5 @@
 import React from "react";
-import { Headline, Prose, Tabs } from "../../components";
+import { Headline, Prose, Tabs } from "../../../../components";
 const FAQS = {
   "What to expect":
     "Sessions take about 30 minutes with no anesthesia required. Most patients describe a warm, comfortable sensation.",
