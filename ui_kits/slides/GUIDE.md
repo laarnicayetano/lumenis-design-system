@@ -92,7 +92,7 @@ content for — don't fabricate to fill the slot.
 
 As a rough visual-weight target — photography, motifs, icons, and logos
 combined, weighed against headline/body/caption text — **low density decks
-skew ~50–60% visual**, **high density decks skew ~20–30% visual**. This is a
+skew ~40–50% visual**, **high density decks skew ~10–20% visual**. This is a
 deck-wide average to shoot for, not a per-slide rule: a title or
 section-divider slide is fine at 100% visual, a stats or quote slide is fine
 at 100% text. Don't force an image onto a slide that doesn't need one just
@@ -100,5 +100,5 @@ to hit the number, and don't strip one from a slide that needs it.
 
 If you're unsure how many images the deck should use, ask the user rather
 than guessing. Don't reuse the same photo twice within one deck unless the
-user specifically asks for it — a repeated *motif* (see #3) is intentional
-system design, a repeated *photo* just reads as recycled.
+user specifically asks for it — a repeated _motif_ (see #3) is intentional
+system design, a repeated _photo_ just reads as recycled.
