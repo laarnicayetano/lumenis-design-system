@@ -76,7 +76,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add .claude-plugin/plugin.json package.json
-          git commit -m "chore: bump version to $tag — PR #${{ github.event.pull_request.number }} (${{ steps.level.outputs.level }})"
+          git commit -m "Bump to $tag — PR #${{ github.event.pull_request.number }} (${{ steps.level.outputs.level }})"
           git push origin master
           git tag -a "$tag" -m "$tag — PR #${{ github.event.pull_request.number }} (${{ steps.level.outputs.level }})"
           git push origin "$tag"
