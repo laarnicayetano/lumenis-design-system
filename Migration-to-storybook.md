@@ -1,11 +1,30 @@
 # Migration to Storybook
 
-Status: **proposed, not started.** Nothing in this repo has changed yet. This
-is the plan to get from where we are today — plain `.jsx` components, no
+Status: **implemented, ahead of this document.** All 27 components are
+`.tsx` + `.stories.tsx` (Phases 0–3 done). `guidelines/`, `ui_kits/`, and
+`products/*/guidelines`+`ui_kit` are now mirrored into Storybook too
+(`scripts/generate-storybook-foundations.mjs`) — the opposite of what this
+doc's "What does *not* change" section below originally said. `scripts/
+build.mjs` and `scripts/dev.mjs` are deleted; `deploy-pages.yml` builds and
+publishes `storybook-static/` directly. Storybook is the only public site
+now — there's no separate "Components" section to repoint (Phase 6) because
+there's no separate site left. `/design-sync` is still on `"shape":
+"package"` (Phase 5 — switching it to `"storybook"` shape and picking a
+target Claude Design project — hasn't happened yet). The phase list and
+"what does not change" section below are kept as the historical record of
+the original plan; where reality diverged, a note says so inline rather
+than silently rewriting history.
+
+<details>
+<summary>Original framing (now superseded in several places — see notes below)</summary>
+
+This is the plan to get from where we started — plain `.jsx` components, no
 Storybook, `/design-sync` running in `"package"` shape — to a `.tsx` +
 `.stories.tsx` world where Storybook is the source of truth for how a
 component looks and behaves, and `/design-sync` runs in `"storybook"` shape
 against it.
+
+</details>
 
 ## Why
 
@@ -33,21 +52,31 @@ against it.
 
 ## What does *not* change
 
-- **`guidelines/`, `ui_kits/`, `templates/` are entirely unaffected.**
-  `scripts/build.mjs`'s `buildGuidelineCards()` / `buildUiKitHtmls()` /
-  `copyStaticAssets()` read these directly off disk via each file's
-  `@dsCard` marker or by verbatim copy — none of that goes through
-  `components/`, `design-system.js`, or `/design-sync` today, and nothing in
-  this migration touches that path. They keep working exactly as they do
-  now, regardless of what shape `components/` syncs under.
-- **How guidelines/ui_kits/templates reach Claude Design doesn't change
-  either.** We already confirmed `/design-sync`'s `guidelinesGlob` mechanism
-  is hard-restricted to `.md`/`.mdx` (our content is `.html`, so it's
-  skipped either way) and that `ui_kits`/`templates` have zero mentions
-  anywhere in the converter, Storybook shape included. The only path in for
-  them is a separate, manual `DesignSync(write_files)` upload keyed off the
-  `@dsCard` marker they already carry — unrelated to this migration, and not
-  scheduled as part of it. Tracked as its own follow-up.
+> **Superseded.** The first bullet below turned out not to hold once GitHub
+> Pages moved to being a pure Storybook build (there was no longer a
+> separate old site for guidelines/ui_kits to keep working on): `guidelines/`
+> and `ui_kits/` (shared and per-product) are now mirrored into Storybook by
+> `scripts/generate-storybook-foundations.mjs`, as MDX docs pages that
+> iframe the real, unmodified source files — `scripts/build.mjs`, which used
+> to own that job, is deleted. This wasn't part of the original migration
+> scope; it happened because the actual GitHub Pages cutover ended up more
+> complete than Phase 6 below originally planned. The second and third
+> bullets (`/design-sync` doesn't read guidelines/ui_kits, nothing here is
+> scheduled) are both still accurate.
+
+- ~~`guidelines/`, `ui_kits/`, `templates/` are entirely unaffected.~~ See
+  note above — no longer true for `guidelines/`/`ui_kits/`.
+  `templates/` genuinely is still untouched.
+- **How guidelines/ui_kits/templates reach Claude Design doesn't change.**
+  We already confirmed `/design-sync`'s `guidelinesGlob` mechanism is
+  hard-restricted to `.md`/`.mdx` (our content is `.html`, so it's skipped
+  either way) and that `ui_kits`/`templates` have zero mentions anywhere in
+  the converter, Storybook shape included. The only path in for them is a
+  separate, manual `DesignSync(write_files)` upload keyed off the `@dsCard`
+  marker they already carry — unrelated to this migration, and not
+  scheduled as part of it. Tracked as its own follow-up. (Storybook now
+  *displaying* these files is unrelated to whether `/design-sync` reads
+  them — it still doesn't.)
 - **Nothing here is scheduled or automatic.** `/design-sync` still runs when
   someone runs it. See [Open questions](#open-questions) for the
   scheduling idea raised separately.
@@ -180,6 +209,15 @@ for what these files currently feed it.** Deleting them earlier breaks the
 
 ### Phase 6 — Repoint the public site's "Components" section at Storybook
 
+> **Superseded — done differently.** What actually happened: `scripts/
+> build.mjs` was deleted outright rather than kept alongside Storybook, so
+> there's no separate "Components" section left to repoint — GitHub Pages
+> now publishes `storybook-static/` directly, with guidelines/ui_kits
+> mirrored in as MDX pages (see the note under "What does *not* change"
+> above) rather than kept on a surviving old site. The plan below (build
+> both, link from one to the other) is what was originally scoped; it's not
+> what shipped.
+
 - Add a step that builds Storybook's static output — `storybook build -o
   dist/storybook` — alongside `scripts/build.mjs`'s existing `dist/` output.
 - Change `buildHomePage()`'s "Components" nav entries in `scripts/build.mjs`
@@ -286,18 +324,16 @@ Order of verification, cheapest/safest first:
 - **Story coverage: `Default` only, or every documented variant?** Directly
   affects how much grading the first storybook-shape sync costs — more
   stories per component means more images to judge before anything ships.
-- **Should guidelines/ui_kits/templates ever get mirrored into Storybook
-  itself, as MDX docs-only pages, purely as an additional human-browsing
-  surface?** Confirmed technically safe to do without it leaking into
-  design-sync's component pipeline (`source-storybook.mjs` explicitly skips
-  `type === 'docs'` entries during story discovery) — but not something this
-  plan currently calls for, since `scripts/build.mjs`'s existing site
-  already covers that need. Worth deciding explicitly rather than doing by
-  default.
-- **Does `npm run storybook`'s dev server stay a separate local process
-  from `npm run dev`, or should they eventually merge into one?** No
-  proposal here — flagging that today's plan leaves two independent dev
-  servers running side by side.
+- ~~Should guidelines/ui_kits/templates ever get mirrored into Storybook
+  itself, as MDX docs-only pages~~ **Resolved: yes, done.** `guidelines/`
+  and `ui_kits/` (shared and per-product) are mirrored via
+  `scripts/generate-storybook-foundations.mjs`, once `scripts/build.mjs`
+  was removed and there was no other site left to show them on.
+  `templates/` was not — nothing currently reads or displays it anywhere.
+- ~~Does `npm run storybook`'s dev server stay a separate local process from
+  `npm run dev`, or should they eventually merge into one?~~ **Resolved:
+  merged.** `npm run dev` is now an alias for `npm run storybook` — there's
+  only one local dev server, not two running side by side.
 - **Auto-running `/design-sync` on a schedule** — raised separately, not
   part of this migration, but relevant once storybook shape is live: the
   re-sync driver (`resync.mjs`) is cheap and idempotent on a quiet repo, but

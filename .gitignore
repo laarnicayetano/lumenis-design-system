@@ -27,3 +27,15 @@ TODO.md
 _ds_bundle.js
 _ds_manifest.json
 _adherence.oxlintrc.json
+*storybook.log
+storybook-static
+
+# Generated Storybook docs pages mirroring guidelines/ui_kits — regenerated
+# by scripts/generate-storybook-foundations.mjs before `storybook`/
+# `build-storybook` run. Never hand-edited, never version controlled.
+stories/generated/
+
+# One-off codemods (see .claude/skills/code-mods/SKILL.md) — already run,
+# kept locally for reference, not meant to live in version control once
+# their result is committed.
+scripts/migrations/
