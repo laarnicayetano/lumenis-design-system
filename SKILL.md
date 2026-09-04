@@ -10,10 +10,10 @@ Global baseline. If a product-specific design skill is loaded, its overrides win
 
 ## Product-specific overrides
 
-- [OptiLIFT](products/OptiLIFT/README.md) — OptiLIFT (non-invasive facial/neck contouring): violet accent, sunburst motif.
-- [OptiLIGHT](products/OptiLIGHT/README.md) — OptiLIGHT (IPL dry-eye therapy): blue accent, the rays-of-light system, prism imagery.
-- [triLIFT 2.0](products/triLIFT%202.0/README.md) — triLIFT 2.0 (non-invasive RF facial/muscle contouring): rose gold accent, triangle motif.
-- [Stellar M22](products/Stellar%20M22/README.md) — Stellar M22 (multi-application IPL/Nd:YAG aesthetic platform): silken rose accent, shine motif.
+- [OptiLIFT](products/OptiLIFT/README.md) ([design skill](products/OptiLIFT/SKILL.md)) — OptiLIFT (non-invasive facial/neck contouring): violet accent, sunburst motif.
+- [OptiLIGHT](products/OptiLIGHT/README.md) ([design skill](products/OptiLIGHT/SKILL.md)) — OptiLIGHT (IPL dry-eye therapy): blue accent, the rays-of-light system, prism imagery.
+- [triLIFT 2.0](products/triLIFT%202.0/README.md) ([design skill](products/triLIFT%202.0/SKILL.md)) — triLIFT 2.0 (non-invasive RF facial/muscle contouring): rose gold accent, triangle motif.
+- [Stellar M22](products/Stellar%20M22/README.md) ([design skill](products/Stellar%20M22/SKILL.md)) — Stellar M22 (multi-application IPL/Nd:YAG aesthetic platform): silken rose accent, shine motif.
 
 ## Color
 

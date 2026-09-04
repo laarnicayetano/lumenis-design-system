@@ -55,6 +55,15 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
    if you haven't already this session — they're the two reference
    examples the template was extracted from.
 
+2b. **Write `products/<Name>/SKILL.md`** from
+   `.claude/skills/manage-products/templates/PRODUCT_SKILL.md`, derived
+   from the README you just wrote — copy its Non-negotiables and Visual
+   foundations sections almost verbatim; never author a fact here that
+   isn't already in the README. This is what makes the product's design
+   rules auto-load as a real skill (root `SKILL.md` already promises
+   "that product's design skill" exists) rather than only a README a
+   Claude has to go looking for.
+
 3. **Create only the subfolders that get real content right now** —
    `products/<Name>/assets/`, `guidelines/`, `ui_kit/`, `templates/` are not scaffolded
    empty. Drop any provided files under `assets/`. If a photography or
@@ -114,7 +123,7 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
    is invisible to an agent unless it happens to go looking. Append one
    line matching the existing format:
    ```
-   - [<Name>](products/<Name>/README.md) — <Name> (one-line description): <accent-name> accent, <motif> motif.
+   - [<Name>](products/<Name>/README.md) ([design skill](products/<Name>/SKILL.md)) — <Name> (one-line description): <accent-name> accent, <motif> motif.
    ```
    Condense the description from the README's opening paragraph. Name the
    accent by its plain color name (not the hex or CSS variable). Only
@@ -131,10 +140,10 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
 
 ## Flow B — Update an existing product
 
-1. **Read `products/<Name>/README.md` in full first.** Don't overwrite it
-   — merge the new input into the existing structure, and only touch the
-   sections the new input actually speaks to. Leave everything else
-   exactly as it is.
+1. **Read `products/<Name>/README.md` and `products/<Name>/SKILL.md` in
+   full first.** Don't overwrite either — merge the new input into the
+   existing structure, and only touch the sections the new input actually
+   speaks to. Leave everything else exactly as it is.
 
 2. **New or changed asset files** get the same treatment as Flow A step 3
    (drop into `assets/`, hand oversized masters to `format-image-for-web`).
@@ -147,6 +156,11 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
    Flow A step 5 — or if the accent hex itself changed, regenerate the
    existing card's ramp to match.
 
+3b. **If Non-negotiables or Visual foundations changed** in the README,
+   update `products/<Name>/SKILL.md` to match in the same pass — it's a
+   derived copy of exactly those two sections, and it's easy to fix the
+   README and forget the skill has the old wording.
+
 4. **If the accent color or the one-line positioning changed**, update
    that product's existing line in root `SKILL.md`'s "Product-specific
    overrides" list to match (Flow A step 7) — don't add a second line.
@@ -156,98 +170,10 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
 
 ## Flow C — Generate a per-product slide deck
 
-Only when the user asks for it (a deck, a slide template, "a presentation for
-`<Product>`") — never generate this proactively as part of Flow A/B.
-
-**Prerequisite**: the product needs an accent already wired in
-`tokens/subbrands.css` (Flow A step 4). If it's not there yet, do that first
-— don't invent a color to unblock a deck.
-
-Four worked examples already exist and are the reference to copy the *shape*
-of, not the literal content: `products/Stellar M22/templates/Slides.dc.html`,
-`products/triLIFT 2.0/templates/Slides.dc.html`,
-`products/OptiLIFT/templates/Slides.dc.html`,
-`products/OptiLIGHT/templates/Slides.dc.html`. Read at least one in full
-before starting — it shows every pattern below in context.
-
-1. **Scaffold `products/<Name>/templates/`** with two files:
-   - `Slides.dc.html` — copy the structure of `templates/slides/Slides.dc.html`
-     (7 sections inside one `x-import component-from-global-scope="deck-stage"`).
-     Reference the *shared* runtime directly by relative path rather than
-     copying it — `from="../../../templates/slides/deck-stage.js"`,
-     `<script src="../../../templates/slides/support.js">`,
-     `<link rel="stylesheet" href="../../../templates/slides/deck.css">`.
-     Those files have no per-product content in them; there's nothing to
-     fork. Set `<body data-subbrand="<slug>">` — this alone resolves
-     `--accent`/`--accent-contrast`/`--accent-soft` for the whole deck via
-     `tokens/subbrands.css`.
-   - `ds-base.js` — a **local copy** of `templates/slides/ds-base.js` with
-     its `base` constant changed from `'../..'` to `'../../..'` (one level
-     deeper: `products/<Name>/templates/` vs `templates/slides/`). This file
-     resolves its stylesheet/bundle path relative to the *page* that loads
-     it, not its own location, so it can't be shared by reference the way
-     deck-stage.js/support.js/deck.css can — copy
-     `products/Stellar M22/templates/ds-base.js` verbatim, don't rewrite it
-     from scratch.
-
-2. **Motif — read the product's own usage rule before drawing anything.**
-   Pull the real SVG geometry from `products/<Name>/guidelines/brand-*.card.html`
-   (never invent geometry; if no card exists yet, e.g. no vector asset was
-   ever supplied, author one first following an existing card's shape, as
-   `products/triLIFT 2.0/guidelines/brand-triangle.card.html` did from the
-   README's stated angles). Two real patterns, pick per that product's own
-   documented rule:
-   - **Full-bleed system** (shine/rays/triangle-style — crosses the whole
-     format): a `.motif` div (from `deck.css`) containing the SVG, `fill`/
-     `stroke="var(--accent)"`. Add `.motif--clear-h` so it doesn't paint
-     behind the headline (mirrors `components/Brand/Rays/Rays.jsx`'s own
-     "never place rays over live text" masking rule — generalized to every
-     motif here, not just Rays). If the shape has a full-width edge (a
-     triangle's base, unlike a shape that tapers to a point), also add
-     `.motif--above-footer` so that edge doesn't collide with the footer
-     row — check this visually, don't assume either mask is enough on its
-     own.
-   - **Small decorative accent** (OptiLIFT's sunburst-style — the product's
-     README says it's small/decorative, not a full-bleed system): don't
-     blow it up to fill the slide. Place it modestly sized (a few hundred
-     px) in one corner via a plain `position:absolute` div, same as
-     `products/OptiLIFT/templates/Slides.dc.html`'s section-divider slide.
-     Forcing a small motif to full-bleed just because the mechanism exists
-     is the one mistake to avoid here.
-
-   Motifs are static inline SVG copied from the guideline card's geometry —
-   **not** a live `dc-import`/`x-import` of a `components/Brand/*.jsx`
-   component. No `.dc.html` in this repo does that today (it would route
-   through an untested Babel-from-CDN path), and `deck-stage.js`'s own
-   authoring guidance prefers static, directly-editable slide markup anyway.
-
-3. **Photography and copy — every line must trace to something real.**
-   Split-content slide: a real photo from `products/<Name>/assets/product/`
-   (`object-fit:cover` inside `.split-media`, same as the generic deck).
-   Never invent a customer testimonial for the quote slide — use the
-   product's own real tagline/positioning line from its README instead (an
-   unattributed brand statement, not a fabricated person). The product-grid
-   slide doesn't make sense for a single product — replace it with a
-   benefits grid (`.stats`) of 3–4 real claims: named sub-technologies where
-   they exist (Stellar M22's four modalities, triLIFT 2.0's three), or real
-   differentiator claims from the README's own wording for a single-
-   technology product (OptiLIFT, OptiLIGHT). If a product has no confirmed
-   tagline yet (this happened with OptiLIGHT), don't invent one — use its
-   real, attributed positioning sentence instead and say so if asked.
-
-4. **Verify visually** — this is layout-sensitive content (motif placement,
-   text-over-motif contrast, footer overflow on long tag text), not just a
-   build check. Serve the repo root with a static file server and check
-   every slide in a browser (see `templates/slides/README.md`-adjacent
-   verification notes, or just follow what was done for the four existing
-   decks). `npm run build` alone will not catch a motif painting behind
-   unreadable text.
-
-5. **Report** which slides got a real motif treatment vs. a plain
-   black/white fallback (a product's own rules may genuinely not sanction a
-   large motif, e.g. OptiLIFT), and flag any copy gaps (missing tagline,
-   missing logo asset) the same way Flow A step 9 does — don't paper over
-   them.
+Moved to the `design-slides` skill (`.claude/skills/design-slides/SKILL.md`) — it's
+medium-output work, not product onboarding. Use it once the product's
+accent is wired (Flow A step 4); never generate a deck proactively as part
+of Flow A/B here.
 
 ## Notes
 
@@ -261,6 +187,11 @@ before starting — it shows every pattern below in context.
 - Root `SKILL.md`'s product list is the other thing that must stay in
   sync — it's easy to scaffold a product folder and forget it, since
   nothing else in the build fails if that line is missing.
+- `products/<Name>/SKILL.md` must stay in sync with its README's
+  Non-negotiables/Visual foundations — regenerate its body whenever those
+  sections change (Flow B step 3b). It's a derived artifact: the README
+  is the one place a brand fact is authored, the skill just repackages it
+  for auto-loading.
 - Don't scaffold anything "just in case." An empty `guidelines/` folder or
   a `ui_kit/` nobody asked for is clutter, not groundwork. The one standing
   exception is the color-ramp card (Flow A step 5) — that one's mandatory

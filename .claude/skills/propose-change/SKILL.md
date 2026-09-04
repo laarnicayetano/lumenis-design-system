@@ -16,10 +16,12 @@ straight to `master`.
 1. **Start from an up-to-date master before doing anything else**, so a new
    branch never forks off stale code or an old feature branch the user
    happens to be sitting on:
+
    ```
    git checkout master
    git pull origin master
    ```
+
    If there are uncommitted changes in the working tree that aren't related
    to what the user wants to publish, stop and ask rather than switching
    branches out from under them — don't discard or carry over unrelated work
@@ -31,7 +33,7 @@ straight to `master`.
 3. **Check for sensitive content.** This repo is public — read the actual
    diff content (not just filenames) and look for:
    - API keys, tokens, passwords, or credentials (e.g. `sk-`, `AKIA`, `-----BEGIN
-     PRIVATE KEY-----`, bearer tokens, `.env`-style `KEY=value` secrets)
+PRIVATE KEY-----`, bearer tokens, `.env`-style `KEY=value` secrets)
    - Real customer/personal data (names + emails, phone numbers, addresses,
      account IDs) rather than placeholder/example data
    - Internal-only material that reads as confidential (unreleased pricing,
@@ -61,13 +63,14 @@ straight to `master`.
      expanded capability
    - **major** — a component/skill removed or renamed in a way that breaks
      existing references, restructured layout
-   If truly ambiguous, ask the user in one short sentence rather than
-   guessing on a major bump. Don't run `scripts/bump-version.ts` yourself
-   here or touch `.claude-plugin/plugin.json`/`package.json`'s version —
-   the merge-triggered workflow does that (see step 9's note on why it's
-   CI's job, not this skill's).
+     If truly ambiguous, ask the user in one short sentence rather than
+     guessing on a major bump. Don't run `scripts/bump-version.ts` yourself
+     here or touch `.claude-plugin/plugin.json`/`package.json`'s version —
+     the merge-triggered workflow does that (see step 9's note on why it's
+     CI's job, not this skill's).
 
 6. **Create a branch and commit.**
+
    ```
    git checkout -b claude/<short-slug>
    git add <changed files>
@@ -76,15 +79,18 @@ straight to `master`.
    ```
 
 7. **Open the PR** with the bump label attached:
+
    ```
    gh pr create --title "<summary>" --body "<what changed and why>" \
      --label "bump:<level>"
    ```
 
 8. **Switch back to master** once the branch is pushed and the PR is open:
+
    ```
    git checkout master
    ```
+
    Don't leave the working directory sitting on the just-opened PR branch —
    the next task should start clean, not accidentally stack changes onto a
    branch that's already up for review.
@@ -92,7 +98,7 @@ straight to `master`.
 9. **Report back in plain language**, e.g.:
    > Opened a PR: <url>, labeled `bump:patch`. It's up for review — once
    > someone approves and merges it, the GitHub Pages site rebuilds
-   > automatically, and CI bumps the version and tags the release to match.
+   > automatically, and CI bumps the version and tags the release to match. Include the local brand name as a response.
 
 ## Notes
 
