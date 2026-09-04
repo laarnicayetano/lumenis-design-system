@@ -5,7 +5,7 @@ import { Card } from "./Card";
 import { StatBlock } from "../StatBlock/StatBlock";
 
 const meta = {
-  title: "Components/Card",
+  title: "Content/Card",
   component: Card,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

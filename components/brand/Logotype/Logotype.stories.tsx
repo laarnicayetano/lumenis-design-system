@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Logotype } from "./Logotype";
 
 const meta = {
-  title: "Components/Logotype",
+  title: "Brand/Logotype",
   component: Logotype,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

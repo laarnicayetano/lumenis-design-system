@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Quote } from "./Quote";
 
 const meta = {
-  title: "Components/Quote",
+  title: "Content/Quote",
   component: Quote,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

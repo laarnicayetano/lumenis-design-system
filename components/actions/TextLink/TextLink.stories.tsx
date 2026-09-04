@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { TextLink } from "./TextLink";
 
 const meta = {
-  title: "Components/TextLink",
+  title: "Actions/TextLink",
   component: TextLink,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

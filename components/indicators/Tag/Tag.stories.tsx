@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Tag } from "./Tag";
 
 const meta = {
-  title: "Components/Tag",
+  title: "Indicators/Tag",
   component: Tag,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

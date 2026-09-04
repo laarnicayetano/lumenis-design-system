@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { HighlightBox } from "./HighlightBox";
 
 const meta = {
-  title: "Components/HighlightBox",
+  title: "Typography/HighlightBox",
   component: HighlightBox,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

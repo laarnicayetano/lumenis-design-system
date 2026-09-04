@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ProductCard } from "./ProductCard";
 
 const meta = {
-  title: "Components/ProductCard",
+  title: "Content/ProductCard",
   component: ProductCard,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

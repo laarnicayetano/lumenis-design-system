@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { HeroL } from "./HeroL";
 
 const meta = {
-  title: "Components/HeroL",
+  title: "Brand/HeroL",
   component: HeroL,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

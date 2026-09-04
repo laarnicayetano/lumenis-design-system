@@ -2,11 +2,15 @@
   "pkg": "lumenis-design-system",
   "globalName": "LumenisDesignSystem",
   "shape": "storybook",
-  "buildCmd": "npm run build",
+  "entry": "components/index.js",
   "projectId": "f2c14a45-2fb3-46d5-8a2c-8ad811f1012d",
   "cssEntry": "styles.css",
   "storybookConfigDir": ".storybook",
-  "storybookStatic": "storybook-static",
+  "storybookStatic": ".design-sync/sb-reference",
+  "readmeHeader": ".design-sync/conventions.md",
+  "overrides": {
+    "SiteHeader": { "cardMode": "column" }
+  },
   "componentSrcMap": {
     "Button": "components/actions/Button/Button.tsx",
     "TextLink": "components/actions/TextLink/TextLink.tsx",
@@ -28,7 +32,7 @@
     "Badge": "components/indicators/Badge/Badge.tsx",
     "Tag": "components/indicators/Tag/Tag.tsx",
     "SplitLayout": "components/layout/SplitLayout/SplitLayout.tsx",
-    "SplitPanel": "components/layout/SplitLayout/SplitLayout.jsx",
+    "SplitPanel": "components/layout/SplitLayout/SplitLayout.tsx",
     "SiteFooter": "components/navigation/SiteFooter/SiteFooter.tsx",
     "SiteHeader": "components/navigation/SiteHeader/SiteHeader.tsx",
     "Tabs": "components/navigation/Tabs/Tabs.tsx",

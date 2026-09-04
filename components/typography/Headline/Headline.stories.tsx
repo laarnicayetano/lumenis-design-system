@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Headline } from "./Headline";
 
 const meta = {
-  title: "Components/Headline",
+  title: "Typography/Headline",
   component: Headline,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

@@ -39,3 +39,12 @@ stories/generated/
 # kept locally for reference, not meant to live in version control once
 # their result is committed.
 scripts/migrations/
+
+# design-sync (claude.ai/design) — build artifact, transient scratch,
+# verification working state, staged scripts. Never version controlled.
+.design-sync/sb-reference/
+.design-sync/learnings/
+.design-sync/.cache/
+.design-sync/node_modules
+.ds-sync/
+ds-bundle/

@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { InsightCard } from "./InsightCard";
 
 const meta = {
-  title: "Components/InsightCard",
+  title: "Content/InsightCard",
   component: InsightCard,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

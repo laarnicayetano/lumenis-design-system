@@ -1,9 +1,10 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { SplitLayout } from "./SplitLayout";
+import { SplitLayout, SplitPanel } from "./SplitLayout";
 
 const meta = {
-  title: "Components/SplitLayout",
+  title: "Layout/SplitLayout",
   component: SplitLayout,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
@@ -12,6 +13,18 @@ const meta = {
   },
   args: {
     ratio: "5fr 7fr",
+    minHeight: "320px",
+    style: { width: "560px" },
+    children: (
+      <>
+        <SplitPanel tone="page">
+          <span>Left panel</span>
+        </SplitPanel>
+        <SplitPanel tone="inverse">
+          <span>Right panel</span>
+        </SplitPanel>
+      </>
+    ),
   },
 } satisfies Meta<typeof SplitLayout>;
 

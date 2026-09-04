@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { NewsletterSignup } from "./NewsletterSignup";
 
 const meta = {
-  title: "Components/NewsletterSignup",
+  title: "Forms/NewsletterSignup",
   component: NewsletterSignup,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

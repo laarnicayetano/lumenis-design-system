@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SiteHeader } from "./SiteHeader";
 
 const meta = {
-  title: "Components/SiteHeader",
+  title: "Navigation/SiteHeader",
   component: SiteHeader,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

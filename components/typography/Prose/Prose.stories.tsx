@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { Prose } from "./Prose";
 
 const meta = {
-  title: "Components/Prose",
+  title: "Typography/Prose",
   component: Prose,
   parameters: { layout: "padded" },
   tags: ["autodocs"],

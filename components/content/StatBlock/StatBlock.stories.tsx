@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { StatBlock } from "./StatBlock";
 
 const meta = {
-  title: "Components/StatBlock",
+  title: "Content/StatBlock",
   component: StatBlock,
   parameters: { layout: "centered" },
   tags: ["autodocs"],

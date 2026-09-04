@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { SiteFooter } from "./SiteFooter";
 
 const meta = {
-  title: "Components/SiteFooter",
+  title: "Navigation/SiteFooter",
   component: SiteFooter,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
