@@ -2,7 +2,7 @@
 
 Non-invasive, in-office triple-modality RF platform for facial muscle, skin, and volume — combining triFX™ (RF microneedling), TriPollar® RF, and DMSt (Dynamic Muscle Stimulation) in one device to produce a face-lift-like effect without injections or surgery. Positioned as a natural alternative to injectables, including for patients addressing post-weight-loss skin laxity. One of Lumenis' Aesthetics device lines.
 
-Read this file for what's specific to triLIFT 2.0. Everything not overridden here inherits from the root [SKILL.md](../../SKILL.md) / [README.md](../../README.md) — casing rules, the split-layout system, motion, build/publish mechanics.
+Read this file for what's specific to triLIFT 2.0. Everything not overridden here inherits from the root [SKILL.md](../../SKILL.md) / [BRAND_GUIDELINES.md](../../BRAND_GUIDELINES.md) — casing rules, the split-layout system, motion, build/publish mechanics.
 
 ## Non-negotiables
 

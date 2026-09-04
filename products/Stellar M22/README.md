@@ -2,7 +2,7 @@
 
 Lumenis' flagship multi-application aesthetic platform — one device combining four energy-based technologies (XPL™ broad-spectrum IPL, ResurFX® non-ablative fractional resurfacing, Multi-Spot™ Nd:YAG, and Q-Switched Nd:YAG) to deliver 30+ FDA-cleared/unique treatments without disposables. Tagline: **"The Expert Tool to Elevate Your Practice."** Positioned for dermatologic surgeons and aesthetic practices wanting broad, integrated treatment capability backed by three decades of Lumenis' IPL heritage.
 
-Read this file for what's specific to Stellar M22. Everything not overridden here inherits from the root [SKILL.md](../../SKILL.md) / [README.md](../../README.md) — casing rules, the split-layout system, motion, build/publish mechanics.
+Read this file for what's specific to Stellar M22. Everything not overridden here inherits from the root [SKILL.md](../../SKILL.md) / [BRAND_GUIDELINES.md](../../BRAND_GUIDELINES.md) — casing rules, the split-layout system, motion, build/publish mechanics.
 
 ## Non-negotiables
 
