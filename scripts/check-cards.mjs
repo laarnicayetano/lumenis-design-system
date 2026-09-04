@@ -37,7 +37,10 @@ async function main() {
 
   function walk(dir, out = []) {
     for (const e of readdirSync(dir, { withFileTypes: true })) {
-      if (e.name.startsWith(".") || ["node_modules", "dist"].includes(e.name))
+      if (
+        e.name.startsWith(".") ||
+        ["node_modules", "dist", "storybook-static", "generated"].includes(e.name)
+      )
         continue;
       const p = join(dir, e.name);
       if (e.isDirectory()) walk(p, out);

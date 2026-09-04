@@ -7,10 +7,15 @@ description: Add a new product/sub-brand to this design system, or update an exi
 
 Everything specific to one product lives under `products/<Name>/` —
 `README.md` (brand overrides), `assets/`, `guidelines/` (its own specimen
-cards), `ui_kit/` (its marketing site, if it has one). `scripts/build.mjs`
-already discovers anything under `products/*` automatically, so this
-skill's job is just getting the right files into that folder — it never
-touches `dist/`, `scripts/`, or git.
+cards), `ui_kit/` (its marketing site, if it has one).
+`scripts/generate-storybook-foundations.mjs` already discovers any
+`products/*/guidelines/*.card.html` automatically, so this skill's job is
+just getting the right files into that folder — it never touches
+`storybook-static/`, `scripts/`, or git. The one exception: if the new
+product has an interactive JSX `ui_kit/website` (not just static
+guidelines), that needs a matching entry added to
+`compileInteractiveKit()`'s calls in that script's `main()` before it'll
+show up in Storybook — flag that rather than assuming it's automatic.
 
 This skill only edits files. When the user is ready to publish, run the
 `propose-change` skill separately — don't open a PR from here.

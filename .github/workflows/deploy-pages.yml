@@ -1,8 +1,9 @@
 name: Build and deploy to GitHub Pages
 
-# Builds the component library and every specimen/demo page (npm run build,
-# see scripts/build.ts) and publishes dist/ to GitHub Pages. dist/ is
-# gitignored — this is the only place the built output is produced.
+# Builds Storybook (npm run build-storybook, see .storybook/main.ts and
+# scripts/generate-storybook-foundations.mjs) and publishes storybook-static/
+# to GitHub Pages. storybook-static/ is gitignored — this is the only place
+# the built output is produced.
 
 on:
   push:
@@ -27,13 +28,13 @@ jobs:
           lfs: true
       - uses: actions/setup-node@v7
         with:
-          node-version: latest
+          node-version: 26
           cache: npm
       - run: npm ci
-      - run: npm run build
+      - run: npm run build-storybook
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          path: storybook-static
 
   deploy:
     needs: build

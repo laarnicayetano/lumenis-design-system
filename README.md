@@ -119,7 +119,7 @@ The guidelines define a proprietary line-illustration set: clean, geometric, eve
   - `assets/` logos, product shots for a product
   - `guidelines/` its own `*.card.html` cards
   - `ui_kit/`
-- `dist/` — build output (gitignored). Published to GitHub Pages on push to `master`.
+- `storybook-static/` — Storybook build output (gitignored). Published to GitHub Pages on push to `master`.
 - `templates/`
   - `corporate-page/` — editable corporate page starting point (accent + product list are tweakable).
   - `slides/` — 7-slide 1920×1080 deck on the deck stage (keyboard nav, thumbnail rail, print to PDF).

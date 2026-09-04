@@ -7,7 +7,7 @@ This page is the short, plain-language version: how to use this design system ac
 ## Using this across Claude products
 
 - **Claude Code** — this repo is itself a [Claude Code plugin](https://github.com/laarnicayetano/lumenis-design-system/blob/master/.claude-plugin/plugin.json) with a root `SKILL.md`. Working in this directory (or installing it as a plugin) gives Claude Code the design system as project context automatically — brand rules, tokens, and where to find deeper detail. There's also a [`propose-change skill`](https://github.com/laarnicayetano/lumenis-design-system/blob/master/.claude/skills/propose-change/SKILL.md) for opening a PR once you've made an edit — say "ship this" or "open a PR."
-- **Claude Design** — this repo is synced with a Claude Design project (same brand/tokens, edited live in the canvas). If you have access, your team lead can share the project link — it's not published in this repo since it's a personal/workspace-scoped URL, not a public one.
+- **Claude Design** — not yet wired up. `/design-sync` is the real mechanism that pushes a repo's shipped components into a Claude Design project, and this repo doesn't have the `.design-sync/config.json` or per-component type info that pipeline needs — that setup hasn't been done.
 - **Claude Desktop / Claude.ai** — Agent Skills like this one can be uploaded or enabled for a workspace on both of these; the exact steps depend on your organization's admin settings, which I don't have visibility into from inside this repo. Check with whoever manages your Claude workspace if you want this design system available there. (I'd rather point you to check than give you specific menu steps I'm not certain are current.)
 
 ## Fonts — where to get them, where they go

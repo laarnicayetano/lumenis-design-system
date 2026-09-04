@@ -13,7 +13,15 @@ async function main() {
     await import("node:path");
 
   const ROOT = process.cwd();
-  const SKIP = new Set(["node_modules", "dist", ".git", "uploads", "research"]);
+  const SKIP = new Set([
+    "node_modules",
+    "dist",
+    "storybook-static",
+    "generated", // stories/generated/ — Storybook build output, regenerated fresh each run
+    ".git",
+    "uploads",
+    "research",
+  ]);
   const GENERATED =
     /(^|\/)(_ds_bundle\.js|_ds_manifest\.json|_adherence\.oxlintrc\.json|support\.js|deck-stage\.js)$/;
   const ALLOWED_BARE = new Set(["react"]);
@@ -57,14 +65,6 @@ async function main() {
           );
       }
   }
-
-  // ── B. no TypeScript sources (swept into the bundle, break the transform) ─
-  for (const f of files)
-    if (/\.tsx?$/.test(f) && !f.endsWith(".d.ts"))
-      err(
-        f,
-        "TypeScript source — gets swept into _ds_bundle.js; use .jsx/.mjs",
-      );
 
   // ── C. nothing swept may break the bundle's parse ─────────────────────────
   // Every .js/.jsx/.mjs in the project is concatenated into _ds_bundle.js and

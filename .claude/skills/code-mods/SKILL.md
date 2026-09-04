@@ -1,6 +1,6 @@
 ---
 name: code-mods
-description: Write and run one-off codemod scripts against this repo's source (e.g. bulk-converting or restructuring guidelines/components/tokens). Use when a change needs to be applied mechanically across many files rather than hand-edited one at a time. Reusable helpers (bundling a .jsx to read its exports, CSS parsing, etc.) live in this skill; each mod's actual transform is a disposable script in scripts/.
+description: Write and run one-off codemod scripts against this repo's source (e.g. bulk-converting or restructuring guidelines/components/tokens). Use when a change needs to be applied mechanically across many files rather than hand-edited one at a time. Reusable helpers (bundling a .jsx to read its exports, CSS parsing, etc.) live in this skill; each mod's actual transform is a disposable script in scripts/migrations/ (gitignored).
 ---
 
 # Code mods
@@ -18,12 +18,15 @@ why, separate from the diff it produced.
   small CSS text into a class → declaration map, that kind of thing. Add to
   `helpers.mjs` only once a second mod actually needs the same logic — don't
   pre-build helpers for hypothetical future mods.
-- **`scripts/`** holds the one-off mod itself — e.g.
-  `scripts/convert-guidelines-to-html.mjs`. It imports from this skill's
-  `helpers.mjs`, does the specific transform, and is meant to be run once (or
-  re-run if the input changes before it's applied) — not wired into
-  `npm run build` or CI like `scripts/build.mjs` is. Write new mods as plain
-  `.mjs` (no TypeScript) — see "No TypeScript" below.
+- **`scripts/migrations/`** holds the one-off mod itself — e.g.
+  `scripts/migrations/convert-guidelines-to-html.mjs`. It imports from this
+  skill's `helpers.mjs`, does the specific transform, and is meant to be run
+  once (or re-run if the input changes before it's applied) — not wired
+  into `npm run build-storybook` or CI like
+  `scripts/generate-storybook-foundations.mjs` is. This folder is
+  gitignored: once a mod's result is committed, the mod script itself is
+  disposable — kept locally for reference, not in version control. Write
+  new mods as plain `.mjs` (no TypeScript) — see "No TypeScript" below.
 
 ## Workflow
 
@@ -32,17 +35,22 @@ why, separate from the diff it produced.
    examples, an existing file in the target format, etc.). Don't guess at a
    format from a written description alone when real examples exist.
 2. Write the mod as a script in `scripts/`, pulling shared logic from
-   `helpers.mjs` rather than re-deriving it (check `scripts/build.mjs` too —
-   several of these helpers were first extracted from there).
-3. Run it, then verify: `npm run build` (or whatever the affected area's
-   equivalent check is) to catch regressions the mod introduced.
-4. If the mod touches how `scripts/build.mjs` reads a directory (e.g.
-   changing what file extension a folder's source lives in), that's a
-   separate decision from the mod itself — flag it rather than silently
-   patching `build.mjs` as a side effect of an unrelated request.
+   `helpers.mjs` rather than re-deriving it (several of these helpers were
+   first extracted from the old `scripts/build.mjs`, since replaced by
+   `scripts/generate-storybook-foundations.mjs` — check that file too for
+   similar directory-scanning/marker-parsing patterns).
+3. Run it, then verify: `npm run build-storybook` (or whatever the affected
+   area's equivalent check is) to catch regressions the mod introduced.
+4. If the mod touches how `scripts/generate-storybook-foundations.mjs` reads
+   a directory (e.g. changing what file extension a folder's source lives
+   in), that's a separate decision from the mod itself — flag it rather
+   than silently patching that file as a side effect of an unrelated
+   request.
 5. A mod script is disposable once it's run and its result is committed —
    it doesn't need to run again unless the same transform is needed again
-   later (e.g. the input format reference gets more examples added).
+   later (e.g. the input format reference gets more examples added). Leave
+   it in `scripts/migrations/` (gitignored) rather than deleting it outright
+   — kept locally for reference without cluttering version control.
 
 ## Notes
 
@@ -50,8 +58,15 @@ why, separate from the diff it produced.
   conventions under `guidelines/`/`components/`, the `_ds_manifest.json`
   schema) fall under this repo's `CLAUDE.md` guidance: ask before assuming
   how the scanner will react, rather than inferring it from source alone.
-- **No TypeScript, anywhere in this repo.** Claude Design's own canvas sync
-  reads source files directly; a `.ts`/`.tsx` file with an invalid-for-JS
-  shebang or an unresolvable Node-only import (`node:fs`, `esbuild`,
-  `typescript`) can take its whole compile down. Write new mods, and convert
-  anything you touch, as plain `.jsx`/`.js`/`.mjs`.
+- **Component source is TypeScript now** (`components/**/*.tsx` +
+  `*.stories.tsx`, migrated off `.jsx`/hand-written `.d.ts` — see
+  `Migration-to-storybook.md`). The mod *scripts* themselves (the files
+  living in `scripts/`) should still stay plain `.mjs`, no TypeScript — that
+  part hasn't changed, it's just Node tooling and doesn't need a build step.
+  The old blanket "no TypeScript anywhere, it breaks Claude Design's
+  concatenated `_ds_bundle.js` scan" restriction no longer applies: that
+  scan is specific to `.design-sync/config.json`'s `"package"` shape, which
+  this repo is moving off of as part of the Storybook migration (once
+  stories exist for everything, `/design-sync` switches to `"storybook"`
+  shape, which reads real `.tsx` types directly instead of concatenating
+  plain JS). `scripts/validate.mjs` no longer flags `.tsx` component source.
