@@ -34,6 +34,7 @@ storybook-static
 # by scripts/build-storybook-content.ts before `storybook`/
 # `build-storybook` run. Never hand-edited, never version controlled.
 stories/generated/
+stories/
 
 # One-off codemods (see .claude/skills/code-mods/SKILL.md) — already run,
 # kept locally for reference, not meant to live in version control once

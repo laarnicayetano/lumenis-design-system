@@ -170,7 +170,7 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
 
 ## Flow C — Generate a per-product slide deck
 
-Moved to the `slides` skill (`.claude/skills/slides/SKILL.md`) — it's
+Moved to the `design-slides` skill (`.claude/skills/design-slides/SKILL.md`) — it's
 medium-output work, not product onboarding. Use it once the product's
 accent is wired (Flow A step 4); never generate a deck proactively as part
 of Flow A/B here.
