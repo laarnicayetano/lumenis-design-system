@@ -158,7 +158,7 @@ body {
   bottom: 230px;
 }
 /* Keeps a full-bleed motif from painting behind the slide's own headline —
-   mirrors components/brand/Rays.jsx's own masking rule ("never place rays
+   mirrors components/Brand/Rays.jsx's own masking rule ("never place rays
    over live text"), generalized to every full-bleed motif in this deck. */
 .motif--clear-h {
   -webkit-mask-image: linear-gradient(

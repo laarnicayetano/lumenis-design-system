@@ -1,19 +1,22 @@
 # Migration to Storybook
 
-Status: **implemented, ahead of this document.** All 27 components are
-`.tsx` + `.stories.tsx` (Phases 0–3 done). `guidelines/`, `ui_kits/`, and
-`products/*/guidelines`+`ui_kit` are now mirrored into Storybook too
-(`scripts/generate-storybook-foundations.mjs`) — the opposite of what this
-doc's "What does *not* change" section below originally said. `scripts/
-build.mjs` and `scripts/dev.mjs` are deleted; `deploy-pages.yml` builds and
-publishes `storybook-static/` directly. Storybook is the only public site
-now — there's no separate "Components" section to repoint (Phase 6) because
-there's no separate site left. `/design-sync` is still on `"shape":
-"package"` (Phase 5 — switching it to `"storybook"` shape and picking a
-target Claude Design project — hasn't happened yet). The phase list and
-"what does not change" section below are kept as the historical record of
-the original plan; where reality diverged, a note says so inline rather
-than silently rewriting history.
+Status: **fully implemented, ahead of this document — all phases done.**
+All 27 components are `.tsx` + `.stories.tsx` (Phases 0–3). `guidelines/`,
+`ui_kits/`, and `products/*/guidelines`+`ui_kit` are now mirrored into
+Storybook too (`scripts/generate-storybook-foundations.mjs`) — the opposite
+of what this doc's "What does *not* change" section below originally said.
+`scripts/build.mjs` and `scripts/dev.mjs` are deleted; `deploy-pages.yml`
+builds and publishes `storybook-static/` directly. Storybook is the only
+public site now — there's no separate "Components" section to repoint
+(Phase 6) because there's no separate site left. `/design-sync` runs in
+`"storybook"` shape against the re-adopted "Lumenis Design System" Claude
+Design project (Phase 5). The per-component `.card.html`/`.prompt.md` files
+are deleted (Phase 4) — each component's usage prose was folded into its
+`.stories.tsx` as `parameters.docs.description.component` first, so nothing
+was lost, just relocated to where Storybook's autodocs renders it. The
+phase list and "what does not change" section below are kept as the
+historical record of the original plan; where reality diverged, a note
+says so inline rather than silently rewriting history.
 
 <details>
 <summary>Original framing (now superseded in several places — see notes below)</summary>
@@ -185,9 +188,18 @@ Each component's conversion is done when:
 
 ### Phase 4 — Retire hand-authored `.card.html` / `.prompt.md`
 
-**Only after Phase 6 gives `scripts/build.mjs`'s public site a replacement
-for what these files currently feed it.** Deleting them earlier breaks the
-"Components" section of this repo's own site with no fallback.
+> **Done — unblocked earlier than expected.** Phase 6 shipped by deleting
+> `scripts/build.mjs` outright rather than keeping it alongside Storybook,
+> so the "only after Phase 6" blocker never applied — there was no surviving
+> "Components" section relying on these files by the time this ran. Each
+> `.prompt.md`'s prose was rolled into its `.stories.tsx` as
+> `parameters.docs.description.component` (a codemod,
+> `scripts/migrations/roll-prompt-md-into-stories.mjs`) before both file
+> types were deleted, so the usage guidance moved rather than disappeared.
+> `check:cards` was left as-is: it never validated per-component
+> `.card.html` specifically (only the `@dsCard`-marker files under
+> `guidelines/`/`ui_kits/`/`products/*/guidelines`), so nothing needed
+> repointing there.
 
 - Confirm the Storybook story's rendered output is an equal-or-better
   substitute for each retired `.card.html` before deleting it — not a
@@ -197,6 +209,10 @@ for what these files currently feed it.** Deleting them earlier breaks the
   repointed at story coverage instead.
 
 ### Phase 5 — Switch `/design-sync` to `"storybook"` shape
+
+> **Done.** `.design-sync/config.json` is on `"shape": "storybook"`,
+> re-adopting the existing populated "Lumenis Design System" Claude Design
+> project rather than creating a fresh one.
 
 - Update `.design-sync/config.json`: `"shape": "storybook"`,
   `storybookConfigDir`, `storybookStatic`.

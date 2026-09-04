@@ -1,6 +1,6 @@
 # OptiLIGHT website UI kit
 
-OptiLIGHT's patient/professional-facing homepage, built entirely from this system's real components (`Button`, `Badge`, `Card`, `Headline`, `Prose`, `Tabs`, `TextField`, `Quote`, `Eyebrow`, `Icon`, `Logotype`) plus the newly-ported `Rays` component (`components/brand/Rays/`) — OptiLIGHT's signature graphic system, promoted to a first-class shared component rather than duplicated inline SVG, since it's reused across five different sections here plus `guidelines/brand-optilight-rays.card.html`.
+OptiLIGHT's patient/professional-facing homepage, built entirely from this system's real components (`Button`, `Badge`, `Card`, `Headline`, `Prose`, `Tabs`, `TextField`, `Quote`, `Eyebrow`, `Icon`, `Logotype`) plus the newly-ported `Rays` component (`components/Brand/Rays/`) — OptiLIGHT's signature graphic system, promoted to a first-class shared component rather than duplicated inline SVG, since it's reused across five different sections here plus `guidelines/brand-optilight-rays.card.html`.
 
 Migrated from the standalone `OptiLight Lumenis Design System/ui_kits/optilight-website/` export — that version used its own bespoke icon set (a documented Lucide-style substitution) and referenced Lumenis logo files that turned out to be byte-identical duplicates of this repo's own corporate logo assets (already deleted during the asset migration). This version reuses this repo's existing Phosphor-based `Icon` component instead of adding a second icon library, and `Logotype` instead of a raw `<img>` reference.
 

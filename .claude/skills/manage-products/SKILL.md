@@ -200,7 +200,7 @@ before starting — it shows every pattern below in context.
    - **Full-bleed system** (shine/rays/triangle-style — crosses the whole
      format): a `.motif` div (from `deck.css`) containing the SVG, `fill`/
      `stroke="var(--accent)"`. Add `.motif--clear-h` so it doesn't paint
-     behind the headline (mirrors `components/brand/Rays/Rays.jsx`'s own
+     behind the headline (mirrors `components/Brand/Rays/Rays.jsx`'s own
      "never place rays over live text" masking rule — generalized to every
      motif here, not just Rays). If the shape has a full-width edge (a
      triangle's base, unlike a shape that tapers to a point), also add
@@ -216,7 +216,7 @@ before starting — it shows every pattern below in context.
      is the one mistake to avoid here.
 
    Motifs are static inline SVG copied from the guideline card's geometry —
-   **not** a live `dc-import`/`x-import` of a `components/brand/*.jsx`
+   **not** a live `dc-import`/`x-import` of a `components/Brand/*.jsx`
    component. No `.dc.html` in this repo does that today (it would route
    through an untested Babel-from-CDN path), and `deck-stage.js`'s own
    authoring guidance prefers static, directly-editable slide markup anyway.

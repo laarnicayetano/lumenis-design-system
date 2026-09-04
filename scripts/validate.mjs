@@ -152,15 +152,6 @@ async function main() {
         );
   }
 
-  // ── F. every component directory is complete ─────────────────────────────
-  for (const f of files) {
-    const m = f.match(/^(components\/[^/]+\/([A-Z]\w*))\/\2\.jsx$/);
-    if (!m) continue;
-    for (const ext of ["d.ts", "card.html", "prompt.md"])
-      if (!existsSync(join(ROOT, m[1], `${m[2]}.${ext}`)))
-        err(m[1], `missing ${m[2]}.${ext}`);
-  }
-
   // ── G. every *.card.html declares @dsCard on line 1 ──────────────────────
   for (const f of files) {
     if (!f.endsWith(".card.html")) continue;
