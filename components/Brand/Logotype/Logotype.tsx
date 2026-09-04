@@ -10,8 +10,8 @@ export interface LogotypeProps extends React.ImgHTMLAttributes<HTMLImageElement>
   width?: number;
   /** Reserve the guideline safety zone as padding. */
   safety?: boolean;
-  /** Path to the copied `assets/` directory, relative to the consuming page. Defaults to `Logotype.assetBase`. */
-  assetBase?: string;
+  /** Full path/URL to the SVG asset. Defaults to `assets/logo/<variant>-<tone>.svg`, resolved relative to the consuming page — pass the exact path when that default doesn't resolve (e.g. Storybook's `/foundations/assets`, or a component that composes `Logotype` from a different page depth, like `SiteHeader`/`SiteFooter`). */
+  src?: string;
   alt?: string;
   style?: React.CSSProperties;
 }
@@ -21,17 +21,17 @@ export function Logotype({
   variant = "wordmark",
   width,
   safety = false,
-  assetBase = Logotype.assetBase,
+  src,
   alt = "Lumenis",
   style,
   ...rest
 }: LogotypeProps) {
   const base = variant === "symbol" ? "symbol" : "wordmark";
-  const src = assetBase + "/logo/" + base + "-" + tone + ".svg";
+  const resolvedSrc = src ?? `assets/logo/${base}-${tone}.svg`;
   const w = width || (variant === "symbol" ? 48 : 180);
   return (
     <img
-      src={src}
+      src={resolvedSrc}
       alt={alt}
       style={{
         display: "block",
@@ -43,9 +43,4 @@ export function Logotype({
       {...rest}
     />
   );
-}
-
-export namespace Logotype {
-  /* Consumers point this at wherever they copied assets/ to. */
-  export let assetBase = "assets";
 }

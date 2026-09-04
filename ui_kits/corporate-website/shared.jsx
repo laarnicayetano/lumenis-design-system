@@ -1,6 +1,5 @@
 import React from "react";
-import { Headline, TextLink, Logotype } from "../../components";
-Logotype.assetBase = "../../assets";
+import { Headline, TextLink } from "../../components";
 export const NAV = [
   { id: "aesthetics", label: "Aesthetics" },
   { id: "vision", label: "Vision" },

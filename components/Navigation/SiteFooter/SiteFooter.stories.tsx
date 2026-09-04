@@ -19,6 +19,8 @@ const meta = {
     columns: [{ title: "Aesthetics", links: ["Hair Removal", "Body", "Skin"] }],
     social: ["facebook-logo", "instagram-logo", "linkedin-logo"],
     policies: ["Privacy Statement", "Terms of Use"],
+    // Storybook serves assets/ under /foundations/assets, see .storybook/main.ts staticDirs.
+    logoSrc: "/foundations/assets/logo/wordmark-white.svg",
   },
 } satisfies Meta<typeof SiteFooter>;
 
