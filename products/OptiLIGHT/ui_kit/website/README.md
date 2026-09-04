@@ -6,9 +6,9 @@ Migrated from the standalone `OptiLight Lumenis Design System/ui_kits/optilight-
 
 **Screens** — single scrolling page: frost-on-scroll `Nav`, rays `Hero`, `ValueProps` (four icon cards), full-bleed prism `PrismBand` quote, `ProductShowcase` with a Professionals/Patients tab switch, `HowItWorks` (three numbered steps), a blue rays `Testimonial` band, an `FAQ` accordion, a dark rays `ProviderCTA`, `Footer`, and a `BookModal` "find a provider" dialog with a form → success state.
 
-**Sub-brand scoping** — the whole page sits inside `<div data-subbrand="optilight">` (`OptiLightApp.jsx`), so `--accent`/`--accent-contrast` resolve to OptiLIGHT Blue everywhere `variant="accent"` is used, per `tokens/subbrands.css`.
+**Sub-brand scoping** — the whole page sits inside `<div data-subbrand="optilight">` (`OptiLightApp.tsx`), so `--accent`/`--accent-contrast` resolve to OptiLIGHT Blue everywhere `variant="accent"` is used, per `tokens/subbrands.css`.
 
-**Kit-local, not promoted to shared components**: the FAQ accordion (`Sectionsb.jsx`) and the booking modal (`OptiLightFooter.jsx`) are one-off implementations local to this kit, not new design-system components — this repo doesn't have a generic `Accordion` or `Modal` yet. If a second use case needs either, that's the trigger to promote them, following the same reasoning that got `Rays` promoted.
+**Kit-local, not promoted to shared components**: the FAQ accordion (`Sectionsb.tsx`) and the booking modal (`OptiLightFooter.tsx`) are one-off implementations local to this kit, not new design-system components — this repo doesn't have a generic `Accordion` or `Modal` yet. If a second use case needs either, that's the trigger to promote them, following the same reasoning that got `Rays` promoted.
 
 **Photography/renders** are real OptiLIGHT assets (`assets/photography/`, `assets/optilight/product/`), not placeholder grey plates.
 

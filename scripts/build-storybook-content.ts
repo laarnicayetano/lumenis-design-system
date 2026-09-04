@@ -264,7 +264,6 @@ async function compileInteractiveKit({
   if (!(await dirExists(dir))) return 0;
   const relDir = path.relative(root, dir).split(path.sep).join("/");
   const outDirForKit = path.join(bundlesDir, relDir);
-  const shim = path.join(root, "build/react-global-shim.js");
 
   await esbuild.build({
     bundle: true,
@@ -273,7 +272,12 @@ async function compileInteractiveKit({
     jsxFactory: "React.createElement",
     jsxFragment: "React.Fragment",
     logLevel: "silent",
-    alias: { react: shim },
+    // React/ReactDOM bundle in from node_modules (each kit is a fully
+    // isolated standalone page, so there's no shared-instance concern the
+    // way there is for the .dc.html canvas runtime) — define NODE_ENV since
+    // react's own package.js branches on it and nothing else polyfills
+    // `process` for a browser bundle.
+    define: { "process.env.NODE_ENV": '"production"' },
     entryPoints: [path.join(dir, entry)],
     outfile: path.join(outDirForKit, "bundle.js"),
     format: "iife",
@@ -281,11 +285,9 @@ async function compileInteractiveKit({
 
   const rawHtml = await fs.readFile(path.join(dir, "index.html"), "utf8");
   const html = rawHtml
-    .replace(
-      /<script[^>]*src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[\s\S]*?><\/script>\n?/,
-      "",
-    )
-    .replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, "")
+    // `type="text/babel"` is just an inert marker on the raw file's mount
+    // placeholder now — no babel-standalone script loads anywhere anymore,
+    // JSX is fully precompiled above. Swap the placeholder for the bundle.
     .replace(
       /<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/,
       '<script src="./bundle.js"></script>',
