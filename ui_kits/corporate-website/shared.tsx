@@ -46,30 +46,38 @@ export const INSIGHTS = [
   },
   { title: "Redefining Dry Eye Care: A Boutique Practice Case Study", topics: ["Blog", "Dry Eye"] },
 ];
+interface SectionProps extends React.ComponentPropsWithoutRef<"section"> {
+  tone?: "page" | "inverse" | "image" | "accent";
+  pad?: string;
+}
 export function Section({
   children,
   tone = "page",
   pad = "var(--space-10) var(--page-gutter)",
   style,
   ...rest
-}) {
-  const tones = {
+}: SectionProps) {
+  const tones: Record<NonNullable<SectionProps["tone"]>, React.CSSProperties> = {
     page: { background: "var(--surface-page)", color: "var(--text-primary)" },
     inverse: { background: "var(--surface-inverse)", color: "var(--text-inverse)" },
     image: { background: "var(--surface-image)", color: "var(--text-primary)" },
     accent: { background: "var(--accent)", color: "var(--accent-contrast)" },
   };
-  return React.createElement(
-    "section",
-    { style: { padding: pad, ...tones[tone], ...style }, ...rest },
-    children,
+  return (
+    <section style={{ padding: pad, ...tones[tone], ...style }} {...rest}>
+      {children}
+    </section>
   );
 }
-export function SectionHead({ children, action, tone }) {
-  return React.createElement(
-    "div",
-    {
-      style: {
+interface SectionHeadProps {
+  children: React.ReactNode;
+  action?: string;
+  tone?: "inverse" | "page";
+}
+export function SectionHead({ children, action, tone }: SectionHeadProps) {
+  return (
+    <div
+      style={{
         display: "flex",
         alignItems: "flex-end",
         justifyContent: "space-between",
@@ -79,38 +87,52 @@ export function SectionHead({ children, action, tone }) {
         borderBottom:
           "var(--border-width-hairline) solid " +
           (tone === "inverse" ? "rgba(255,255,255,.25)" : "var(--border-subtle)"),
-      },
-    },
-    React.createElement(Headline, { as: "h2", size: "small" }, children),
-    action
-      ? React.createElement(TextLink, { href: "#", caps: true, size: "caption" }, action)
-      : null,
+      }}
+    >
+      <Headline as="h2" size="small">
+        {children}
+      </Headline>
+      {action ? (
+        <TextLink href="#" caps size="caption">
+          {action}
+        </TextLink>
+      ) : null}
+    </div>
   );
 }
-export function ImagePlate({ label = "Photography", ratio = "4 / 3", tone = "image", style }) {
-  return React.createElement(
-    "div",
-    {
-      style: {
+interface ImagePlateProps {
+  label?: string;
+  ratio?: string;
+  tone?: "image" | "dark";
+  style?: React.CSSProperties;
+}
+export function ImagePlate({
+  label = "Photography",
+  ratio = "4 / 3",
+  tone = "image",
+  style,
+}: ImagePlateProps) {
+  return (
+    <div
+      style={{
         aspectRatio: ratio,
         background: tone === "dark" ? "var(--lum-shine-grey)" : "var(--surface-image)",
         display: "grid",
         placeItems: "center",
         ...style,
-      },
-    },
-    React.createElement(
-      "span",
-      {
-        style: {
+      }}
+    >
+      <span
+        style={{
           fontSize: "var(--text-caption)",
           letterSpacing: "var(--tracking-caption)",
           textTransform: "uppercase",
           color: tone === "dark" ? "rgba(255,255,255,.6)" : "var(--text-muted)",
           opacity: 0.7,
-        },
-      },
-      label,
-    ),
+        }}
+      >
+        {label}
+      </span>
+    </div>
   );
 }

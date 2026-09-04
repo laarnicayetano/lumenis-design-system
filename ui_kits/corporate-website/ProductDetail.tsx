@@ -11,7 +11,18 @@ import {
   InsightCard,
 } from "../../components";
 import { Section, SectionHead, ImagePlate, INSIGHTS } from "./shared";
-export const PRODUCT_DATA = {
+interface ProductEntry {
+  name: string;
+  market: string;
+  kicker: string;
+  headline: string;
+  mix: string;
+  lede: string;
+  treatments: string[];
+  specs: [string, string][];
+  claim: string;
+}
+export const PRODUCT_DATA: Record<string, ProductEntry> = {
   "stellar-m22": {
     name: "Stellar M22\u2122",
     market: "Aesthetics \xB7 Multi-application IPL platform",
@@ -90,183 +101,147 @@ export const PRODUCT_DATA = {
     claim: "No needles, no downtime, no topical regimen to maintain.",
   },
 };
-export function ProductDetail({ id = "stellar-m22", onBack }) {
+interface ProductDetailProps {
+  id?: string;
+  onBack: () => void;
+}
+export function ProductDetail({ id = "stellar-m22", onBack }: ProductDetailProps) {
   const p = PRODUCT_DATA[id] || PRODUCT_DATA["stellar-m22"];
-  return React.createElement(
-    "div",
-    { "data-subbrand": id },
-    React.createElement(
-      SplitLayout,
-      { ratio: "6fr 6fr", minHeight: "520px" },
-      React.createElement(
-        SplitPanel,
-        { align: "space-between", pad: "var(--space-9) var(--page-gutter)" },
-        React.createElement(
-          "div",
-          { style: { display: "flex", flexDirection: "column", gap: "var(--space-3)" } },
-          React.createElement(
-            TextLink,
-            {
-              href: "#",
-              caps: true,
-              size: "caption",
-              onClick: (e) => {
+  return (
+    <div data-subbrand={id}>
+      <SplitLayout ratio="6fr 6fr" minHeight="520px">
+        <SplitPanel align="space-between" pad="var(--space-9) var(--page-gutter)">
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-3)" }}>
+            <TextLink
+              href="#"
+              caps
+              size="caption"
+              onClick={(e) => {
                 e.preventDefault();
                 onBack();
-              },
-            },
-            "\u2190 All products",
-          ),
-          React.createElement(Eyebrow, { style: { color: "var(--accent)" } }, p.kicker),
-        ),
-        React.createElement(
-          "div",
-          { style: { display: "flex", flexDirection: "column", gap: "var(--space-6)" } },
-          React.createElement(Headline, { size: "title", mix: p.mix }, p.headline),
-          React.createElement(Prose, null, p.lede),
-          React.createElement(
-            "div",
-            { style: { display: "flex", gap: "var(--space-4)" } },
-            React.createElement(Button, { variant: "accent" }, "Book a demo"),
-            React.createElement(Button, { variant: "secondary" }, "Download kit"),
-          ),
-        ),
-      ),
-      React.createElement(
-        SplitPanel,
-        { tone: "image", pad: "0" },
-        React.createElement(ImagePlate, {
-          label: p.name + " \u2014 device photography",
-          ratio: "auto",
-          style: { height: "100%" },
-        }),
-      ),
-    ),
-    React.createElement(
-      Section,
-      { pad: "var(--space-9) var(--page-gutter)" },
-      React.createElement(
-        "div",
-        { style: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-10)" } },
-        React.createElement(
-          "div",
-          null,
-          React.createElement(SectionHead, null, "Treatments"),
-          React.createElement(
-            "ul",
-            {
-              style: {
+              }}
+            >
+              ← All products
+            </TextLink>
+            <Eyebrow style={{ color: "var(--accent)" }}>{p.kicker}</Eyebrow>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-6)" }}>
+            <Headline size="title" mix={p.mix}>
+              {p.headline}
+            </Headline>
+            <Prose>{p.lede}</Prose>
+            <div style={{ display: "flex", gap: "var(--space-4)" }}>
+              <Button variant="accent">Book a demo</Button>
+              <Button variant="secondary">Download kit</Button>
+            </div>
+          </div>
+        </SplitPanel>
+        <SplitPanel tone="image" pad="0">
+          <ImagePlate
+            label={p.name + " \u2014 device photography"}
+            ratio="auto"
+            style={{ height: "100%" }}
+          />
+        </SplitPanel>
+      </SplitLayout>
+      <Section pad="var(--space-9) var(--page-gutter)">
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-10)" }}>
+          <div>
+            <SectionHead>Treatments</SectionHead>
+            <ul
+              style={{
                 margin: 0,
                 padding: 0,
                 listStyle: "none",
                 display: "flex",
                 flexDirection: "column",
-              },
-            },
-            p.treatments.map((t) =>
-              React.createElement(
-                "li",
-                {
-                  key: t,
-                  style: {
+              }}
+            >
+              {p.treatments.map((t) => (
+                <li
+                  key={t}
+                  style={{
                     display: "flex",
                     alignItems: "center",
                     gap: "var(--space-4)",
                     padding: "var(--space-4) 0",
                     borderBottom: "var(--border-width-hairline) solid var(--border-subtle)",
                     fontSize: "var(--text-body)",
-                  },
-                },
-                React.createElement(Icon, { name: "sparkle", size: 20, tone: "var(--accent)" }),
-                t,
-              ),
-            ),
-          ),
-        ),
-        React.createElement(
-          "div",
-          null,
-          React.createElement(SectionHead, null, "At a glance"),
-          React.createElement(
-            "dl",
-            {
-              style: {
+                  }}
+                >
+                  <Icon name="sparkle" size={20} tone="var(--accent)" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <SectionHead>At a glance</SectionHead>
+            <dl
+              style={{
                 margin: 0,
                 display: "grid",
                 gridTemplateColumns: "auto 1fr",
                 columnGap: "var(--space-6)",
-              },
-            },
-            p.specs.map(([k, v]) =>
-              React.createElement(
-                React.Fragment,
-                { key: k },
-                React.createElement(
-                  "dt",
-                  {
-                    style: {
+              }}
+            >
+              {p.specs.map(([k, v]) => (
+                <React.Fragment key={k}>
+                  <dt
+                    style={{
                       padding: "var(--space-4) 0",
                       borderBottom: "var(--border-width-hairline) solid var(--border-subtle)",
                       fontSize: "var(--text-caption)",
                       letterSpacing: "var(--tracking-caption)",
                       textTransform: "uppercase",
                       color: "var(--text-muted)",
-                    },
-                  },
-                  k,
-                ),
-                React.createElement(
-                  "dd",
-                  {
-                    style: {
+                    }}
+                  >
+                    {k}
+                  </dt>
+                  <dd
+                    style={{
                       margin: 0,
                       padding: "var(--space-4) 0",
                       borderBottom: "var(--border-width-hairline) solid var(--border-subtle)",
                       fontSize: "var(--text-form)",
-                    },
-                  },
-                  v,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    ),
-    React.createElement(
-      Section,
-      { tone: "accent", pad: "var(--space-9) var(--page-gutter)" },
-      React.createElement(
-        "div",
-        {
-          style: {
+                    }}
+                  >
+                    {v}
+                  </dd>
+                </React.Fragment>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </Section>
+      <Section tone="accent" pad="var(--space-9) var(--page-gutter)">
+        <div
+          style={{
             display: "grid",
             gridTemplateColumns: "1.4fr 1fr",
             gap: "var(--space-9)",
             alignItems: "end",
-          },
-        },
-        React.createElement(Headline, { size: "small", tone: "var(--accent-contrast)" }, p.claim),
-        React.createElement(
-          Button,
-          { variant: "inverse", size: "sm", style: { justifySelf: "end" } },
-          "See clinical studies",
-        ),
-      ),
-    ),
-    React.createElement(
-      Section,
-      null,
-      React.createElement(SectionHead, { action: "View all" }, "Practitioner stories"),
-      React.createElement(
-        "div",
-        {
-          style: { display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-7)" },
-        },
-        INSIGHTS.map((i) =>
-          React.createElement(InsightCard, { key: i.title, title: i.title, topics: i.topics }),
-        ),
-      ),
-    ),
+          }}
+        >
+          <Headline size="small" tone="var(--accent-contrast)">
+            {p.claim}
+          </Headline>
+          <Button variant="inverse" size="sm" style={{ justifySelf: "end" }}>
+            See clinical studies
+          </Button>
+        </div>
+      </Section>
+      <Section>
+        <SectionHead action="View all">Practitioner stories</SectionHead>
+        <div
+          style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-7)" }}
+        >
+          {INSIGHTS.map((i) => (
+            <InsightCard key={i.title} title={i.title} topics={i.topics} />
+          ))}
+        </div>
+      </Section>
+    </div>
   );
 }

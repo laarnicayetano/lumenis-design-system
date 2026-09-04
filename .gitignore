@@ -7,7 +7,7 @@ assets/fonts/
 *.woff2
 
 # Raw source material — not system material. Distilled into tokens/ and
-# guidelines/ instead; keep the originals in Drive, not in a public repo.
+# guidelines/ instead.
 uploads/
 research/
 *.pdf
@@ -32,14 +32,17 @@ storybook-static
 
 # Generated Storybook docs pages mirroring guidelines/ui_kits — regenerated
 # by scripts/build-storybook-content.ts before `storybook`/
-# `build-storybook` run. Never hand-edited, never version controlled.
+# `build-storybook` run.
 stories/generated/
 stories/
 
 # One-off codemods (see .claude/skills/code-mods/SKILL.md) — already run,
-# kept locally for reference, not meant to live in version control once
-# their result is committed.
+# kept locally for reference
 scripts/migrations/
+
+# Finished one-off outputs (e.g.  presentations from the design-slides
+# skill) — not reusable templates
+output/
 
 # design-sync (claude.ai/design) — build artifact, transient scratch,
 # verification working state, staged scripts. Never version controlled.
