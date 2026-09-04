@@ -1,55 +1,65 @@
 // Renders every @dsCard page and checks it fits its declared viewport.
 // Needs: npm i -D playwright && npx playwright install chromium
-// Run:   node scripts/check-cards.mjs
+// Run:   node scripts/check-cards.ts
 //
 // Cards load ../../../_ds_bundle.js, which Claude Design generates and
 // .gitignore excludes. Point BUNDLE at a built copy to run this in CI:
-//   BUNDLE=dist/lumenis.js node scripts/check-cards.mjs
-//
-// Same shape rule as validate.mjs: this file is swept into _ds_bundle.js, so
-// no shebang, no top-level await, no top-level static imports. See that file.
-async function main() {
-  const { readFileSync, readdirSync, existsSync, copyFileSync, unlinkSync } =
-    await import("node:fs");
-  const { createServer } = await import("node:http");
-  const { join, relative, extname } = await import("node:path");
-  const { chromium } = await import("playwright");
+//   BUNDLE=dist/lumenis.js node scripts/check-cards.ts
+import {
+  readFileSync,
+  readdirSync,
+  existsSync,
+  copyFileSync,
+  unlinkSync,
+} from "node:fs";
+import { createServer } from "node:http";
+import { join, relative, extname } from "node:path";
+import { chromium } from "playwright";
 
-  const ROOT = process.cwd();
-  const PORT = 4319;
-  const SLACK = 8; // px of overflow tolerated before it counts as clipping
-  const WASTE = 0.4; // warn when a card uses less than this share of its height
+const ROOT = process.cwd();
+const PORT = 4319;
+const SLACK = 8; // px of overflow tolerated before it counts as clipping
+const WASTE = 0.4; // warn when a card uses less than this share of its height
 
-  const MIME = {
-    ".html": "text/html",
-    ".js": "text/javascript",
-    ".mjs": "text/javascript",
-    ".jsx": "text/javascript",
-    ".css": "text/css",
-    ".json": "application/json",
-    ".svg": "image/svg+xml",
-    ".png": "image/png",
-    ".jpg": "image/jpeg",
-    ".jpeg": "image/jpeg",
-    ".webp": "image/webp",
-    ".woff2": "font/woff2",
-  };
+const MIME: Record<string, string> = {
+  ".html": "text/html",
+  ".js": "text/javascript",
+  ".mjs": "text/javascript",
+  ".jsx": "text/javascript",
+  ".css": "text/css",
+  ".json": "application/json",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".woff2": "font/woff2",
+};
 
-  function walk(dir, out = []) {
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-      if (
-        e.name.startsWith(".") ||
-        ["node_modules", "dist", "storybook-static", "generated"].includes(e.name)
-      )
-        continue;
-      const p = join(dir, e.name);
-      if (e.isDirectory()) walk(p, out);
-      else if (e.name.endsWith(".html"))
-        out.push(relative(ROOT, p).split("\\").join("/"));
-    }
-    return out;
+// Directories that never hold real @dsCard source: build output, and
+// ds-bundle/ — a local, gitignored /design-sync build artifact whose
+// per-component .html files aren't real cards and have no viewport, so
+// scanning them just produces noise.
+const SKIP_DIRS = new Set([
+  "node_modules",
+  "dist",
+  "storybook-static",
+  "generated",
+  "ds-bundle",
+]);
+
+function walk(dir: string, out: string[] = []): string[] {
+  for (const e of readdirSync(dir, { withFileTypes: true })) {
+    if (e.name.startsWith(".") || SKIP_DIRS.has(e.name)) continue;
+    const p = join(dir, e.name);
+    if (e.isDirectory()) walk(p, out);
+    else if (e.name.endsWith(".html"))
+      out.push(relative(ROOT, p).split("\\").join("/"));
   }
+  return out;
+}
 
+async function main() {
   const bundle = join(ROOT, "_ds_bundle.js");
   let borrowed = false;
   if (!existsSync(bundle)) {
@@ -75,8 +85,8 @@ async function main() {
   );
 
   const server = createServer((req, res) => {
-    const p = join(ROOT, decodeURIComponent(req.url.split("?")[0]));
-    if (!p.startsWith(ROOT) || !existsSync(p)) return res.writeHead(404).end();
+    const p = join(ROOT, decodeURIComponent((req.url ?? "").split("?")[0]));
+    if (!p.startsWith(ROOT) || !existsSync(p)) return void res.writeHead(404).end();
     res.writeHead(200, {
       "content-type": MIME[extname(p)] ?? "application/octet-stream",
     });
@@ -85,8 +95,8 @@ async function main() {
   server.listen(PORT);
 
   const browser = await chromium.launch();
-  const errors = [];
-  const warnings = [];
+  const errors: string[] = [];
+  const warnings: string[] = [];
 
   for (const card of cards) {
     const head = readFileSync(join(ROOT, card), "utf8").split("\n", 1)[0];
@@ -98,7 +108,7 @@ async function main() {
     const w = +vp[1];
     const h = +vp[2];
     const page = await browser.newPage({ viewport: { width: w, height: h } });
-    const logged = [];
+    const logged: string[] = [];
     page.on("console", (m) => m.type() === "error" && logged.push(m.text()));
     page.on("pageerror", (e) => logged.push(String(e)));
 
@@ -143,10 +153,4 @@ async function main() {
   if (errors.length) process.exitCode = 1;
 }
 
-if (
-  typeof window === "undefined" &&
-  typeof process !== "undefined" &&
-  process.versions?.node
-) {
-  main();
-}
+main();
