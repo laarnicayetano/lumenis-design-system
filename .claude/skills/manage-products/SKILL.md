@@ -8,7 +8,7 @@ description: Add a new product/sub-brand to this design system, or update an exi
 Everything specific to one product lives under `products/<Name>/` —
 `README.md` (brand overrides), `assets/`, `guidelines/` (its own specimen
 cards), `ui_kit/` (its marketing site, if it has one).
-`scripts/generate-storybook-foundations.mjs` already discovers any
+`scripts/generate-storybook-foundations.ts` already discovers any
 `products/*/guidelines/*.card.html` automatically, so this skill's job is
 just getting the right files into that folder — it never touches
 `storybook-static/`, `scripts/`, or git. The one exception: if the new
@@ -122,7 +122,7 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
    that clause if there isn't one yet.
 
 8. **Verify**: `npm run build` (must succeed) and
-   `node scripts/validate.mjs` (must report 0 errors).
+   `node scripts/validate.ts` (must report 0 errors).
 
 9. **Report** what was created (including whether the color-ramp card is
    confirmed or sampled/unconfirmed) and what was deliberately left open (no

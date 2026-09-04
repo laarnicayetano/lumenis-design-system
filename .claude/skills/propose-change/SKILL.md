@@ -62,7 +62,7 @@ straight to `master`.
    - **major** — a component/skill removed or renamed in a way that breaks
      existing references, restructured layout
    If truly ambiguous, ask the user in one short sentence rather than
-   guessing on a major bump. Don't run `scripts/bump-version.mjs` yourself
+   guessing on a major bump. Don't run `scripts/bump-version.ts` yourself
    here or touch `.claude-plugin/plugin.json`/`package.json`'s version —
    the merge-triggered workflow does that (see step 9's note on why it's
    CI's job, not this skill's).

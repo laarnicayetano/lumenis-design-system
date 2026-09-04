@@ -1,7 +1,7 @@
 name: Build and deploy to GitHub Pages
 
 # Builds Storybook (npm run build-storybook, see .storybook/main.ts and
-# scripts/generate-storybook-foundations.mjs) and publishes storybook-static/
+# scripts/generate-storybook-foundations.ts) and publishes storybook-static/
 # to GitHub Pages. storybook-static/ is gitignored — this is the only place
 # the built output is produced.
 

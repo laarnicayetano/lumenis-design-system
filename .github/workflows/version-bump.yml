@@ -2,13 +2,13 @@ name: Bump and tag version on merge
 
 # Runs after a PR merges into master. Reads the merged PR's bump:* label
 # and, if it's not "none", bumps .claude-plugin/plugin.json + package.json
-# via scripts/bump-version.mjs, commits that straight to master, and tags
+# via scripts/bump-version.ts, commits that straight to master, and tags
 # the result vX.Y.Z.
 #
 # The bump happens here — in CI, after merge — rather than inside the PR
 # itself, on purpose: a bump:* label can be attached to a PR by hand
 # (GitHub's UI, `gh pr edit`, or a human just clicking it) without anyone
-# ever running scripts/bump-version.mjs. If the bump lived only in the
+# ever running scripts/bump-version.ts. If the bump lived only in the
 # skill/PR, a label attached any other way would produce a PR that merges
 # fine but never actually bumps the version — and this job would then tag
 # whatever stale version happened to already be in plugin.json, which is
@@ -61,7 +61,7 @@ jobs:
         if: steps.level.outputs.level != 'none'
         id: bumped
         run: |
-          node scripts/bump-version.mjs "${{ steps.level.outputs.level }}"
+          node scripts/bump-version.ts "${{ steps.level.outputs.level }}"
           version=$(node -p "require('./.claude-plugin/plugin.json').version")
           echo "version=$version" >> "$GITHUB_OUTPUT"
 

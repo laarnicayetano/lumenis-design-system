@@ -23,7 +23,7 @@ why, separate from the diff it produced.
   skill's `helpers.mjs`, does the specific transform, and is meant to be run
   once (or re-run if the input changes before it's applied) — not wired
   into `npm run build-storybook` or CI like
-  `scripts/generate-storybook-foundations.mjs` is. This folder is
+  `scripts/generate-storybook-foundations.ts` is. This folder is
   gitignored: once a mod's result is committed, the mod script itself is
   disposable — kept locally for reference, not in version control. Write
   new mods as plain `.mjs` (no TypeScript) — see "No TypeScript" below.
@@ -37,11 +37,11 @@ why, separate from the diff it produced.
 2. Write the mod as a script in `scripts/`, pulling shared logic from
    `helpers.mjs` rather than re-deriving it (several of these helpers were
    first extracted from the old `scripts/build.mjs`, since replaced by
-   `scripts/generate-storybook-foundations.mjs` — check that file too for
+   `scripts/generate-storybook-foundations.ts` — check that file too for
    similar directory-scanning/marker-parsing patterns).
 3. Run it, then verify: `npm run build-storybook` (or whatever the affected
    area's equivalent check is) to catch regressions the mod introduced.
-4. If the mod touches how `scripts/generate-storybook-foundations.mjs` reads
+4. If the mod touches how `scripts/generate-storybook-foundations.ts` reads
    a directory (e.g. changing what file extension a folder's source lives
    in), that's a separate decision from the mod itself — flag it rather
    than silently patching that file as a side effect of an unrelated
