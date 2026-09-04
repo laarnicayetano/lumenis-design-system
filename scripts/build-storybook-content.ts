@@ -285,11 +285,9 @@ async function compileInteractiveKit({
 
   const rawHtml = await fs.readFile(path.join(dir, "index.html"), "utf8");
   const html = rawHtml
-    .replace(
-      /<script[^>]*src="https:\/\/unpkg\.com\/@babel\/standalone[^"]*"[\s\S]*?><\/script>\n?/,
-      "",
-    )
-    .replace(/<script type="text\/babel" src="[^"]*"><\/script>\n?/g, "")
+    // `type="text/babel"` is just an inert marker on the raw file's mount
+    // placeholder now — no babel-standalone script loads anywhere anymore,
+    // JSX is fully precompiled above. Swap the placeholder for the bundle.
     .replace(
       /<script type="text\/babel"[^>]*>[\s\S]*?<\/script>/,
       '<script src="./bundle.js"></script>',
