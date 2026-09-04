@@ -31,7 +31,7 @@ _adherence.oxlintrc.json
 storybook-static
 
 # Generated Storybook docs pages mirroring guidelines/ui_kits — regenerated
-# by scripts/generate-storybook-foundations.ts before `storybook`/
+# by scripts/build-storybook-content.ts before `storybook`/
 # `build-storybook` run. Never hand-edited, never version controlled.
 stories/generated/
 

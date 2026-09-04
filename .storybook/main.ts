@@ -12,7 +12,7 @@ const config: StorybookConfig = {
   ],
   "framework": "@storybook/react-vite",
   // Lets the generated guidelines/ui_kit docs pages (stories/generated/, see
-  // scripts/generate-storybook-foundations.ts) iframe the real, unmodified
+  // scripts/build-storybook-content.ts) iframe the real, unmodified
   // .card.html / ui_kits/*.html / products/**/* files straight off disk,
   // same relative-path scheme (`../styles.css`) those files already use
   // today. Served under /foundations rather than at the root so it doesn't
@@ -52,7 +52,7 @@ const config: StorybookConfig = {
     // Destination slugged (real folder names have spaces — "Stellar M22",
     // "triLIFT 2.0") — Storybook's static file serving silently 404s on any
     // served path containing a literal space, confirmed empirically. Must
-    // match scripts/generate-storybook-foundations.ts's slug() exactly.
+    // match scripts/build-storybook-content.ts's slug() exactly.
     { from: "../products/Stellar M22", to: "/foundations/products/Stellar-M22" },
     { from: "../products/triLIFT 2.0", to: "/foundations/products/triLIFT-2.0" }
   ]

@@ -8,7 +8,7 @@ description: Add a new product/sub-brand to this design system, or update an exi
 Everything specific to one product lives under `products/<Name>/` —
 `README.md` (brand overrides), `assets/`, `guidelines/` (its own specimen
 cards), `ui_kit/` (its marketing site, if it has one).
-`scripts/generate-storybook-foundations.ts` already discovers any
+`scripts/build-storybook-content.ts` already discovers any
 `products/*/guidelines/*.card.html` automatically, so this skill's job is
 just getting the right files into that folder — it never touches
 `storybook-static/`, `scripts/`, or git. The one exception: if the new

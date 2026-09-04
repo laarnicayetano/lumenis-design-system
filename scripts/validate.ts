@@ -42,7 +42,7 @@ const read = (f: string) => readFileSync(join(ROOT, f), "utf8");
 // Real, browser-bundled component/app source (checks D/E/J below reason
 // about a single flattened `window.<Global>` namespace and real esbuild
 // bundling — both still apply to .tsx since the components repo bundle
-// and generate-storybook-foundations.ts's interactive-kit compile both
+// and build-storybook-content.ts's interactive-kit compile both
 // follow real imports across this exact file set).
 // Excludes .stories.tsx: story modules are Storybook-only dev artifacts,
 // never part of the real components bundle (design-sync's converter builds
@@ -68,7 +68,7 @@ const isTooling = (f: string) => f.startsWith("scripts/") || f.startsWith("build
 // ── B. no unresolvable bare imports in real-bundled source ────────────────
 // components/, ui_kits/, gamma/, and products/<Name>/ui_kit/ all end up in
 // a real bundle (the components repo bundle design-sync builds, or
-// generate-storybook-foundations.ts's esbuild compile of each interactive
+// build-storybook-content.ts's esbuild compile of each interactive
 // kit) — a bare import that isn't `react` can't resolve there.
 for (const f of files) {
   if (!componentSrc(f) || inTemplates(f)) continue;

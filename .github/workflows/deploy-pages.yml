@@ -1,7 +1,7 @@
 name: Build and deploy to GitHub Pages
 
-# Builds Storybook (npm run build-storybook, see .storybook/main.ts and
-# scripts/generate-storybook-foundations.ts) and publishes storybook-static/
+# Builds Storybook (npm run build, see .storybook/main.ts and
+# scripts/build-storybook-content.ts) and publishes storybook-static/
 # to GitHub Pages. storybook-static/ is gitignored — this is the only place
 # the built output is produced.
 
@@ -31,7 +31,7 @@ jobs:
           node-version: 26
           cache: npm
       - run: npm ci
-      - run: npm run build-storybook
+      - run: npm run build
       - uses: actions/upload-pages-artifact@v5
         with:
           path: storybook-static
