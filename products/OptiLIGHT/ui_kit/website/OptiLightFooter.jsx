@@ -123,7 +123,12 @@ export function OptiLightFooter() {
         React.createElement(
           "div",
           null,
-          React.createElement(Logotype, { variant: "wordmark", tone: "black", width: 100 }),
+          React.createElement(Logotype, {
+            variant: "wordmark",
+            tone: "black",
+            width: 100,
+            src: "../../../../assets/logo/wordmark-black.svg",
+          }),
           React.createElement(
             "p",
             {

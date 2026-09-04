@@ -1,6 +1,5 @@
 import React from "react";
 import { Logotype, Icon, Button } from "../../../../components";
-Logotype.assetBase = "../../../../assets";
 const NAV_LINKS = ["The Treatment", "Technology", "For Professionals", "Results"];
 export function Nav({ onBook }) {
   const [scrolled, setScrolled] = React.useState(false);
@@ -71,7 +70,12 @@ export function Nav({ onBook }) {
         React.createElement("span", {
           style: { width: 1, height: 20, background: "var(--border-subtle)" },
         }),
-        React.createElement(Logotype, { variant: "wordmark", tone: "black", width: 90 }),
+        React.createElement(Logotype, {
+          variant: "wordmark",
+          tone: "black",
+          width: 90,
+          src: "../../../../assets/logo/wordmark-black.svg",
+        }),
       ),
       React.createElement(
         "nav",
