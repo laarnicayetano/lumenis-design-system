@@ -2,9 +2,9 @@
 
 Non-invasive, in-office optical energy device for facial and neck skin tightening/contouring — a premium capital device sold to aesthetic and dermatology practices, with matching patient-facing marketing materials. OptiLIFT is one of Lumenis' Vision-adjacent\* device lines; materials always tie back to the parent brand via a "by Lumenis" endorsement lockup.
 
-_(Lumenis groups its product families as Aesthetics/Vision — see the root [README.md](README.md#company--product-context). OptiLIFT ships facial-contouring copy closer to Aesthetics positioning; treat it as its own line rather than assuming either family's defaults.)_
+_(Lumenis groups its product families as Aesthetics/Vision — see the root [BRAND_GUIDELINES.md](../../BRAND_GUIDELINES.md#company--product-context). OptiLIFT ships facial-contouring copy closer to Aesthetics positioning; treat it as its own line rather than assuming either family's defaults.)_
 
-Read this file for what's specific to OptiLIFT. Everything not overridden here inherits from the root [SKILL.md](SKILL.md) / [README.md](README.md) — casing rules, the split-layout system, motion, build/publish mechanics.
+Read this file for what's specific to OptiLIFT. Everything not overridden here inherits from the root [SKILL.md](../../SKILL.md) / [BRAND_GUIDELINES.md](../../BRAND_GUIDELINES.md) — casing rules, the split-layout system, motion, build/publish mechanics.
 
 ## Non-negotiables
 
@@ -25,7 +25,7 @@ Read this file for what's specific to OptiLIFT. Everything not overridden here i
 - **Type**: ABC Arizona Mix (serif) for headlines/pull-quotes, set large and tight, italic for softer sub-headlines. ABC Arizona Sans Light is the default body weight (airy, editorial feel) rather than Regular.
 - **Photography**: two modes — warm greige-backdrop studio portraits of patients, and clean neutral-grey/black-background product renders (isolated cutouts). No color grading/grain — bright, clean, true-to-life.
 - **Sunburst motif**: the accent stroke that forms the dot of the "i" in the wordmark, reused decoratively (see `products/OptiLIFT/guidelines/brand-optilift-sunburst.card.html`). This is the one recurring graphic device — no functional icon set exists in the source material.
-- Otherwise inherits the root system's digital-surface radius/shadow tokens (`--radius-sm/md/lg`, `--shadow-sm/md/lg/accent` — see README.md "Surfaces, borders, radii") and split-layout composition — no OptiLIFT-specific deviation there.
+- Otherwise inherits the root system's digital-surface radius/shadow tokens (`--radius-sm/md/lg`, `--shadow-sm/md/lg/accent` — see BRAND_GUIDELINES.md "Surfaces, borders, radii") and split-layout composition — no OptiLIFT-specific deviation there.
 
 ## In this repo
 

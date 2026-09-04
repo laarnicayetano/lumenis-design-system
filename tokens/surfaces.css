@@ -1,7 +1,7 @@
 :root {
   /* Radius: modest and soft — enough to read as approachable web UI without
    becoming a "bubbly app" look. This is a deliberate departure from the
-   printed guideline's squared/architectural rule (see README.md "Surfaces,
+   printed guideline's squared/architectural rule (see BRAND_GUIDELINES.md "Surfaces,
    borders, radii" and SKILL.md "Surfaces" for the reasoning) — the corporate
    print/brand language stays squared; digital surfaces round softly.
    --radius-none is kept for genuinely flat cases (hairline dividers,

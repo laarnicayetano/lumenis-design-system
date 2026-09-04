@@ -27,7 +27,7 @@ Primary palette is **black and white only** — it carries every corporate surfa
 
 ## Typography
 
-ABC Arizona (Dinamo) throughout — **not bundled in this repo** (licensed). `--font-sans` (Arizona Sans Regular) is the workhorse; `--font-mix` (Arizona Mix) highlights 1–2 words only, never a whole line. Falls back to Arial/Georgia if the fonts aren't installed — see README.md "Fonts".
+ABC Arizona (Dinamo) throughout — **not bundled in this repo** (licensed). `--font-sans` (Arizona Sans Regular) is the workhorse; `--font-mix` (Arizona Mix) highlights 1–2 words only, never a whole line. Falls back to Arial/Georgia if the fonts aren't installed — see BRAND_GUIDELINES.md "Fonts".
 
 - Titles: ALL CAPS, "as big as can be", leading 88–92%, tracking 0
 - Subtitle: 20–40% of title size, leading 106–116%
@@ -52,11 +52,11 @@ Print/photography stays squared and flat (`--radius-none`, no shadow) — but di
 2. Never more than one accent colour on screen at once.
 3. Never Arizona Mix for a whole sentence — highlight only, 1–2 words.
 4. No emoji, anywhere, ever.
-5. Never redistribute the Arizona font files — reference by family name only (see README.md "Fonts").
+5. Never redistribute the Arizona font files — reference by family name only (see BRAND_GUIDELINES.md "Fonts").
 
 ## Depth (Claude Code / repo access)
 
-- `README.md` — full brand voice, content rules, imagery principles, trademark usage
+- `BRAND_GUIDELINES.md` — full brand voice, content rules, imagery principles, trademark usage
 - `tokens/` — all CSS custom properties (colors, typography, spacing, motion, surfaces, subbrands)
 - `components/` — buttons, cards, forms, layout, navigation primitives
 - `guidelines/*.tsx` — visual specimen cards (React source; built to `dist/guidelines/*.card.html`)

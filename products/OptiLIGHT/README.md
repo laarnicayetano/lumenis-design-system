@@ -2,7 +2,7 @@
 
 An IPL (Intense Pulsed Light) device — the first and only IPL FDA-cleared for the management of dry eye disease (DED/MGD), built on Lumenis' patented Optimal Pulse Technology (OPT™). Positioned both as a precise medical device for eye-care professionals and as an elegant, desirable aesthetic experience for patients. Brand idea: **"Establishing light as a healing energy."**
 
-Read this file for what's specific to OptiLIGHT. Everything not overridden here inherits from the root [SKILL.md](SKILL.md) / [README.md](README.md) — casing rules, the split-layout system, motion, build/publish mechanics.
+Read this file for what's specific to OptiLIGHT. Everything not overridden here inherits from the root [SKILL.md](../../SKILL.md) / [BRAND_GUIDELINES.md](../../BRAND_GUIDELINES.md) — casing rules, the split-layout system, motion, build/publish mechanics.
 
 ## Non-negotiables
 
