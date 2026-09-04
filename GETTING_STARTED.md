@@ -24,7 +24,7 @@ Once you have them, you have two options:
    assets/fonts/ABCArizonaMix-RegularItalic.otf
    assets/fonts/Arial.ttf
    ```
-2. **Install them as system fonts** (double-click each `.otf`/`.ttf` → Font Book on Mac, or your OS's font install). `tokens/fonts.css` tries `local("ABC Arizona Sans Regular")` etc. _before_ the file path — an installed system font is picked up even when previewing through `npm run dev`.
+2. **Install them as system fonts** (double-click each `.otf`/`.ttf` → Font Book on Mac, or your OS's font install). `tokens/fonts.css` tries `local("ABC Arizona Sans Regular")` etc. _before_ the file path — an installed system font is picked up even when previewing through `npm run storybook`.
 
 ## Publishing changes
 
@@ -34,7 +34,7 @@ When changes are approved the repo rebuilds the [Lumenis Design System](https://
 
 ```
 npm install
-npm run dev
+npm run storybook
 ```
 
 This opens a local server that lists every UI kit, guideline, and component with a live preview.

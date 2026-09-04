@@ -2,14 +2,14 @@ name: Check markdown links
 
 # Fails the PR if any skill's markdown links to a relative path that
 # doesn't exist — catches renames/removals (like a deleted skill) that
-# leave other skills pointing at nothing. See scripts/check-markdown-links.mjs.
+# leave other skills pointing at nothing. See scripts/check-markdown-links.ts.
 
 on:
   pull_request:
     paths:
       - "plugins/**/*.md"
       - ".claude/skills/**/*.md"
-      - "scripts/check-markdown-links.mjs"
+      - "scripts/check-markdown-links.ts"
 
 jobs:
   check:
@@ -19,4 +19,4 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version: latest
-      - run: node scripts/check-markdown-links.mjs
+      - run: node scripts/check-markdown-links.ts

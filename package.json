@@ -4,33 +4,32 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "format": "prettier --write \"**/*.{js,jsx,mjs}\" --print-width 100",
+    "format": "prettier --write \"**/*.{js,jsx,mjs,ts,tsx}\" --print-width 100",
     "check": "npm run validate && npm run typecheck && npm run check:cards && npm run check:links",
-    "validate": "node scripts/validate.mjs",
+    "validate": "node scripts/validate.ts",
     "typecheck": "tsc --noEmit",
-    "check:cards": "node scripts/check-cards.mjs",
-    "check:links": "node scripts/check-markdown-links.mjs",
-    "generate:storybook-foundations": "node scripts/generate-storybook-foundations.mjs",
-    "dev": "npm run storybook",
-    "storybook": "npm run generate:storybook-foundations && storybook dev -p 6006",
-    "build": "npm run build-storybook",
-    "build-storybook": "npm run generate:storybook-foundations && storybook build"
+    "check:cards": "node scripts/check-cards.ts",
+    "check:links": "node scripts/check-markdown-links.ts",
+    "build:storybook-content": "node scripts/build-storybook-content.ts",
+    "storybook": "npm run build:storybook-content && storybook dev -p 6006",
+    "build": "npm run build:storybook-content && storybook build"
   },
   "dependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "^10.6.0",
+    "@storybook/addon-docs": "^10.6.0",
+    "@storybook/addon-mcp": "^10.6.0",
+    "@storybook/react-vite": "^10.6.0",
+    "@types/node": "^26.4.1",
     "@types/react": "^18.3.12",
     "esbuild": "^0.24.0",
     "playwright": "^1.62.0",
     "prettier": "^3.9.6",
-    "typescript": "^5.6.3",
     "storybook": "^10.6.0",
-    "@storybook/react-vite": "^10.6.0",
-    "@storybook/addon-a11y": "^10.6.0",
-    "@storybook/addon-docs": "^10.6.0",
-    "@storybook/addon-mcp": "^10.6.0",
+    "typescript": "^5.6.3",
     "vite": "^6.0.0"
   }
 }
