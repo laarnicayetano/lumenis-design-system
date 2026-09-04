@@ -15,7 +15,7 @@ No provider or root wrapper is required — components read CSS custom propertie
 
 **Sub-brand accent scoping.** Wrap any container in `<div data-subbrand="optilight">` (or `corporate`, `stellar-m22`, `trilift`, `legendpro`, `nuera`, etc. — see `tokens/subbrands.css` for the full list) to scope `--accent`/`--accent-contrast`/`--accent-soft` to that product's palette. `Button`'s `accent`/`accent-outline` variants and similar accent-driven props read these scoped tokens — never hardcode a sub-brand color directly. Never show two sub-brand accent scopes at once in the same view, and keep the accent to roughly 20% of the composition.
 
-**Where the truth lives.** Read `styles.css` (it `@import`s tokens, fonts, and `_ds_bundle.css`) and the token files under `tokens/*.css` before styling anything — token names are preserved verbatim from the source repo. Each component's `components/<group>/<Name>/<Name>.prompt.md` has real usage examples; its `.d.ts` has the exact prop contract.
+**Where the truth lives.** Read `styles.css` (it `@import`s tokens, fonts, and `_ds_bundle.css`) and the token files under `tokens/*.css` before styling anything — token names are preserved verbatim from the source repo. Each component's `components/<Group>/<Name>/<Name>.tsx` has the exact prop contract and real usage lives in its `<Name>.stories.tsx`.
 
 **Example — a CTA row using the button component and the token system for its own spacing:**
 

@@ -5,7 +5,7 @@ import { Logotype } from "lumenis-design-system";
 // own staticDirs mapping serves (.storybook/main.ts), but that path doesn't
 // exist relative to a shipped design-system project. There, Logotype's own
 // default (assetBase="assets", a RELATIVE path) resolves relative to the
-// consuming page's own URL — which for this card is components/brand/Logotype/
+// consuming page's own URL — which for this card is components/Brand/Logotype/
 // Logotype.html, three levels below the project root where assets/logo/*.svg
 // actually lives. Set the static default to the correct relative depth so the
 // preview (and every other design that composes this component from this

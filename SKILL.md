@@ -44,7 +44,7 @@ Full scale (sizes, weights, leading): `tokens/typography.css`.
 
 ## Surfaces
 
-Print/photography stays squared and flat (`--radius-none`, no shadow) — but digital UI deliberately departs from that: buttons, form controls, chips, and cards round softly (`--radius-sm/md/lg/pill`) and carry light diffuse shadows (`--shadow-sm/md/lg`), tinted from the corporate ink. `--shadow-accent` is a colored glow reserved for the one primary/accent CTA on screen — echoes the one-accent rule instead of breaking it. Use `Card` (`components/content/Card/`) for a generic bordered/rounded surface. No blur/frosted-glass devices elsewhere — use a plain black scrim over photography for legibility. Full reasoning: `tokens/surfaces.css`.
+Print/photography stays squared and flat (`--radius-none`, no shadow) — but digital UI deliberately departs from that: buttons, form controls, chips, and cards round softly (`--radius-sm/md/lg/pill`) and carry light diffuse shadows (`--shadow-sm/md/lg`), tinted from the corporate ink. `--shadow-accent` is a colored glow reserved for the one primary/accent CTA on screen — echoes the one-accent rule instead of breaking it. Use `Card` (`components/Content/Card/`) for a generic bordered/rounded surface. No blur/frosted-glass devices elsewhere — use a plain black scrim over photography for legibility. Full reasoning: `tokens/surfaces.css`.
 
 ## The five rules that break things if missed
 

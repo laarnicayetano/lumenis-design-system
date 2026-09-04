@@ -58,15 +58,4 @@ why, separate from the diff it produced.
   conventions under `guidelines/`/`components/`, the `_ds_manifest.json`
   schema) fall under this repo's `CLAUDE.md` guidance: ask before assuming
   how the scanner will react, rather than inferring it from source alone.
-- **Component source is TypeScript now** (`components/**/*.tsx` +
-  `*.stories.tsx`, migrated off `.jsx`/hand-written `.d.ts` — see
-  `Migration-to-storybook.md`). The mod *scripts* themselves (the files
-  living in `scripts/`) should still stay plain `.mjs`, no TypeScript — that
-  part hasn't changed, it's just Node tooling and doesn't need a build step.
-  The old blanket "no TypeScript anywhere, it breaks Claude Design's
-  concatenated `_ds_bundle.js` scan" restriction no longer applies: that
-  scan is specific to `.design-sync/config.json`'s `"package"` shape, which
-  this repo is moving off of as part of the Storybook migration (once
-  stories exist for everything, `/design-sync` switches to `"storybook"`
-  shape, which reads real `.tsx` types directly instead of concatenating
-  plain JS). `scripts/validate.mjs` no longer flags `.tsx` component source.
+- When building out migrations we should consider moving useful functions into the helpers.mjs file. Any functions that could be useful in the future should be built in. The idea being that the more often code mods are run the more helper functions we have.

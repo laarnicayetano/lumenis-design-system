@@ -51,7 +51,7 @@ Near icon-free. The one logo-native element is the **"sun" mark** beside the wor
 ## In this repo
 
 - `tokens/subbrands.css` → `[data-subbrand="optilight"]`, `tokens/colors.css` → `--lum-blue`, `guidelines/colors-vision.tsx` already documents the accent alongside OptiLIFT's.
-- `components/brand/Rays/` — the rays-of-light system as a real shared component (not inline SVG), carrying the "never cross live text" masking rule (`clear="center"/"left"/"right"`).
+- `components/Brand/Rays/` — the rays-of-light system as a real shared component (not inline SVG), carrying the "never cross live text" masking rule (`clear="center"/"left"/"right"`).
 - `products/OptiLIGHT/guidelines/brand-optilight-rays.card.html`, `-prism.card.html` — migrated specimen cards; `guidelines/brand-photography.card.html` (shared, stays at repo root) covers photography for both OptiLIFT and OptiLIGHT together.
 - `assets/photography/` — prism-on-eye portraits, warm close-ups, nature/sky imagery (shared with OptiLIFT's photography, no per-subbrand split).
 - `products/OptiLIGHT/assets/product/` — device renders (cart, tabletop, handpiece).
