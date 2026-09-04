@@ -1,6 +1,6 @@
 import React from "react";
 import { Headline, Prose, Tabs } from "../../../../components";
-const FAQS = {
+const FAQS: Record<string, string> = {
   "What to expect":
     "Sessions take about 30 minutes with no anesthesia required. Most patients describe a warm, comfortable sensation.",
   Downtime:
@@ -10,18 +10,16 @@ const FAQS = {
 };
 export function OptiLiftFAQ() {
   const [tab, setTab] = React.useState("What to expect");
-  return React.createElement(
-    "section",
-    {
-      id: "faq",
-      style: { padding: "var(--space-9) var(--page-gutter)", maxWidth: 720, margin: "0 auto" },
-    },
-    React.createElement(
-      Headline,
-      { as: "h2", size: "small", style: { marginBottom: "var(--space-6)" } },
-      "Common questions",
-    ),
-    React.createElement(Tabs, { tabs: Object.keys(FAQS), active: tab, onChange: setTab }),
-    React.createElement(Prose, { style: { marginTop: "var(--space-6)" } }, FAQS[tab]),
+  return (
+    <section
+      id="faq"
+      style={{ padding: "var(--space-9) var(--page-gutter)", maxWidth: 720, margin: "0 auto" }}
+    >
+      <Headline as="h2" size="small" style={{ marginBottom: "var(--space-6)" }}>
+        Common questions
+      </Headline>
+      <Tabs tabs={Object.keys(FAQS)} active={tab} onChange={setTab} />
+      <Prose style={{ marginTop: "var(--space-6)" }}>{FAQS[tab]}</Prose>
+    </section>
   );
 }
