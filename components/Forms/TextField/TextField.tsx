@@ -1,5 +1,4 @@
 import React from "react";
-
 /**
  * Bordered, softly-rounded text or textarea field.
  */
@@ -14,10 +13,9 @@ export interface TextFieldProps {
   /** Render a textarea instead of an input. */
   multiline?: boolean;
   rows?: number;
-  tone?: 'page' | 'inverse';
+  tone?: "page" | "inverse";
   style?: React.CSSProperties;
 }
-
 export function TextField({
   label,
   value,
@@ -49,46 +47,44 @@ export function TextField({
       "border-color var(--dur-fast) var(--ease-brand), box-shadow var(--dur-fast) var(--ease-brand)",
   };
   const Tag = multiline ? "textarea" : "input";
-  return React.createElement(
-    "label",
-    {
-      style: {
+  return (
+    <label
+      style={{
         display: "flex",
         flexDirection: "column",
         gap: "var(--space-2)",
         color: inverse ? "var(--text-inverse)" : "var(--text-primary)",
         ...style,
-      },
-    },
-    React.createElement(
-      "span",
-      {
-        style: {
+      }}
+    >
+      <span
+        style={{
           fontSize: "var(--text-caption)",
           letterSpacing: "var(--tracking-caption)",
           textTransform: "uppercase",
           opacity: 0.6,
-        },
-      },
-      label,
-      required ? " *" : "",
-    ),
-    React.createElement(Tag, {
-      type: multiline ? void 0 : type,
-      rows: multiline ? rows : void 0,
-      value,
-      placeholder,
-      onChange,
-      onFocus: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        e.target.style.borderColor = "var(--accent)";
-        e.target.style.boxShadow = "var(--shadow-accent)";
-      },
-      onBlur: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        e.target.style.borderColor = line;
-        e.target.style.boxShadow = "none";
-      },
-      style: { ...shared, resize: multiline ? "vertical" : void 0 },
-      ...rest,
-    }),
+        }}
+      >
+        {label}
+        {required ? " *" : ""}
+      </span>
+      <Tag
+        type={multiline ? void 0 : type}
+        rows={multiline ? rows : void 0}
+        value={value}
+        placeholder={placeholder}
+        onChange={onChange}
+        onFocus={(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+          e.target.style.borderColor = "var(--accent)";
+          e.target.style.boxShadow = "var(--shadow-accent)";
+        }}
+        onBlur={(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+          e.target.style.borderColor = line;
+          e.target.style.boxShadow = "none";
+        }}
+        style={{ ...shared, resize: multiline ? "vertical" : void 0 }}
+        {...rest}
+      />
+    </label>
   );
 }

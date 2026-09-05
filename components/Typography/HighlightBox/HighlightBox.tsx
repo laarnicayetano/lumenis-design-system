@@ -1,5 +1,4 @@
 import React from "react";
-
 /** Squared box highlight around 1–2 words of a headline. */
 export interface HighlightBoxProps {
   children?: React.ReactNode;
@@ -7,13 +6,17 @@ export interface HighlightBoxProps {
   filled?: boolean;
   style?: React.CSSProperties;
 }
-
-export function HighlightBox({ children, tone, filled = false, style, ...rest }: HighlightBoxProps) {
+export function HighlightBox({
+  children,
+  tone,
+  filled = false,
+  style,
+  ...rest
+}: HighlightBoxProps) {
   const c = tone || "var(--accent)";
-  return React.createElement(
-    "span",
-    {
-      style: {
+  return (
+    <span
+      style={{
         display: "inline-block",
         padding: "0.02em 0.16em 0.06em",
         border: "var(--border-width-hairline) solid " + c,
@@ -21,9 +24,10 @@ export function HighlightBox({ children, tone, filled = false, style, ...rest }:
         background: filled ? c : "transparent",
         color: filled ? "var(--accent-contrast)" : "inherit",
         ...style,
-      },
-      ...rest,
-    },
-    children,
+      }}
+      {...rest}
+    >
+      {children}
+    </span>
   );
 }
