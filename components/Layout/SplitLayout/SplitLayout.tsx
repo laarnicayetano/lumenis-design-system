@@ -1,5 +1,4 @@
 import React from "react";
-
 /**
  * The split composition every Lumenis format is built from.
  */
@@ -14,7 +13,6 @@ export interface SplitLayoutProps {
   minHeight?: number | string;
   style?: React.CSSProperties;
 }
-
 export interface SplitPanelProps {
   children?: React.ReactNode;
   /** Background treatment for this half. */
@@ -25,7 +23,6 @@ export interface SplitPanelProps {
   image?: string;
   style?: React.CSSProperties;
 }
-
 export function SplitLayout({
   children,
   direction = "row",
@@ -37,20 +34,20 @@ export function SplitLayout({
   ...rest
 }: SplitLayoutProps) {
   const tracks = reverse ? ratio.split(" ").reverse().join(" ") : ratio;
-  return React.createElement(
-    "div",
-    {
-      style: {
+  return (
+    <div
+      style={{
         display: "grid",
         gridTemplateColumns: direction === "row" ? tracks : "1fr",
         gridTemplateRows: direction === "column" ? tracks : "auto",
         gap,
         minHeight,
         ...style,
-      },
-      ...rest,
-    },
-    children,
+      }}
+      {...rest}
+    >
+      {children}
+    </div>
   );
 }
 const PANEL_TONES = {
@@ -68,10 +65,9 @@ export function SplitPanel({
   style,
   ...rest
 }: SplitPanelProps) {
-  return React.createElement(
-    "div",
-    {
-      style: {
+  return (
+    <div
+      style={{
         display: "flex",
         flexDirection: "column",
         justifyContent: align,
@@ -82,9 +78,10 @@ export function SplitPanel({
         backgroundPosition: "center",
         ...PANEL_TONES[tone],
         ...style,
-      },
-      ...rest,
-    },
-    children,
+      }}
+      {...rest}
+    >
+      {children}
+    </div>
   );
 }

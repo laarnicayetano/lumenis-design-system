@@ -1,5 +1,4 @@
 import React from "react";
-
 /**
  * Email sign-up block with consent line.
  */
@@ -7,11 +6,10 @@ export interface NewsletterSignupProps {
   heading?: string;
   cta?: string;
   consent?: string;
-  tone?: 'page' | 'inverse';
+  tone?: "page" | "inverse";
   onSubmit?: (email: string) => void;
   style?: React.CSSProperties;
 }
-
 import { TextField } from "../TextField/TextField";
 import { Button } from "../../Actions/Button/Button";
 import { Headline } from "../../Typography/Headline/Headline";
@@ -27,15 +25,14 @@ export function NewsletterSignup({
   const [email, setEmail] = React.useState("");
   const [sent, setSent] = React.useState(false);
   const inverse = tone === "inverse";
-  return React.createElement(
-    "form",
-    {
-      onSubmit: (e) => {
+  return (
+    <form
+      onSubmit={(e) => {
         e.preventDefault();
         setSent(true);
         if (onSubmit) onSubmit(email);
-      },
-      style: {
+      }}
+      style={{
         display: "flex",
         flexDirection: "column",
         gap: "var(--space-5)",
@@ -43,53 +40,49 @@ export function NewsletterSignup({
         color: inverse ? "var(--text-inverse)" : "var(--text-primary)",
         padding: "var(--space-8)",
         ...style,
-      },
-      ...rest,
-    },
-    React.createElement(Headline, { as: "h2", size: "small" }, heading),
-    sent
-      ? React.createElement(
-          "p",
-          { style: { margin: 0, fontSize: "var(--text-body)" } },
-          "Thank you \u2014 check your inbox to confirm.",
-        )
-      : React.createElement(
-          "div",
-          {
-            style: {
-              display: "flex",
-              alignItems: "flex-end",
-              gap: "var(--space-5)",
-              flexWrap: "wrap",
-            },
-          },
-          React.createElement(TextField, {
-            label: "Email",
-            type: "email",
-            required: true,
-            tone,
-            value: email,
-            onChange: (e) => setEmail(e.target.value),
-            style: { flex: "1 1 280px" },
-          }),
-          React.createElement(
-            Button,
-            { variant: inverse ? "inverse" : "primary", size: "sm" },
-            cta,
-          ),
-        ),
-    React.createElement(
-      "span",
-      {
-        style: {
+      }}
+      {...rest}
+    >
+      <Headline as="h2" size="small">
+        {heading}
+      </Headline>
+      {sent ? (
+        <p style={{ margin: 0, fontSize: "var(--text-body)" }}>
+          Thank you — check your inbox to confirm.
+        </p>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            gap: "var(--space-5)",
+            flexWrap: "wrap",
+          }}
+        >
+          <TextField
+            label="Email"
+            type="email"
+            required
+            tone={tone}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={{ flex: "1 1 280px" }}
+          />
+          <Button variant={inverse ? "inverse" : "primary"} size="sm">
+            {cta}
+          </Button>
+        </div>
+      )}
+      <span
+        style={{
           fontSize: "var(--text-caption)",
           letterSpacing: "var(--tracking-caption)",
           textTransform: "uppercase",
           opacity: 0.55,
-        },
-      },
-      "*",
-      consent,
-    ),
+        }}
+      >
+        *{consent}
+      </span>
+    </form>
   );
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import { HeroL } from "../../Brand/HeroL/HeroL";
-
 /**
  * All-caps Lumenis headline with one optional emphasis treatment.
  */
@@ -17,7 +16,6 @@ export interface HeadlineProps {
   tone?: string;
   style?: React.CSSProperties;
 }
-
 const HEADLINE_SIZES: Record<NonNullable<HeadlineProps["size"]>, React.CSSProperties> = {
   display: { fontSize: "var(--text-display)", lineHeight: "var(--leading-display)" },
   title: { fontSize: "var(--text-title)", lineHeight: "var(--leading-title)" },
@@ -44,28 +42,25 @@ export function Headline({
   let content = children;
   if (text && target && text.indexOf(target) !== -1) {
     const i = text.indexOf(target);
-    const emphasised = heroL
-      ? target
-          .split("L")
-          .map((chunk, n) =>
-            React.createElement(
-              React.Fragment,
-              { key: n },
-              n > 0 ? React.createElement(HeroL, null) : null,
-              chunk,
-            ),
-          )
-      : React.createElement("span", { style: { fontFamily: "var(--font-mix)" } }, target);
+    const emphasised = heroL ? (
+      target.split("L").map((chunk, n) => (
+        <React.Fragment key={n}>
+          {n > 0 ? <HeroL /> : null}
+          {chunk}
+        </React.Fragment>
+      ))
+    ) : (
+      <span style={{ fontFamily: "var(--font-mix)" }}>{target}</span>
+    );
     content = [
       text.slice(0, i),
-      React.createElement(React.Fragment, { key: "e" }, emphasised),
+      <React.Fragment key="e">{emphasised}</React.Fragment>,
       text.slice(i + target.length),
     ];
   }
-  return React.createElement(
-    Tag,
-    {
-      style: {
+  return (
+    <Tag
+      style={{
         margin: 0,
         fontFamily: "var(--font-sans)",
         fontWeight: "var(--weight-regular)",
@@ -76,9 +71,10 @@ export function Headline({
         textWrap: "balance",
         ...HEADLINE_SIZES[size],
         ...style,
-      },
-      ...rest,
-    },
-    content,
+      }}
+      {...rest}
+    >
+      {content}
+    </Tag>
   );
 }

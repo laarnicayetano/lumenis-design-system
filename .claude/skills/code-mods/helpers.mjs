@@ -26,7 +26,10 @@ export function gitLsFiles(pattern, { cwd = getRepoRoot() } = {}) {
 // Files whose content matches an extended regex, via `git grep` (fast,
 // respects .gitignore). `excludePathspecs` are pathspec exclusions, e.g.
 // ["node_modules", "package-lock.json"].
-export function gitGrepFiles(pattern, { cwd = getRepoRoot(), excludePathspecs = [] } = {}) {
+export function gitGrepFiles(
+  pattern,
+  { cwd = getRepoRoot(), excludePathspecs = [] } = {},
+) {
   const excludes = excludePathspecs.map((p) => `':!${p}'`).join(" ");
   try {
     return execSync(`git grep -lIE "${pattern}" -- . ${excludes}`, { cwd })
@@ -178,6 +181,154 @@ export function inlineClassesToStyle(html, classCss) {
 export function escapeAttr(s) {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 }
+// AST-based React.createElement(...) call-tree -> real JSX converter.
+// Shared by any mod that needs to turn createElement-authored source into
+// plain JSX tags (first used to convert the interactive ui_kit apps, then
+// the remaining components/**/*.tsx files still written this way).
+function isIdent(node, text) {
+  return ts.isIdentifier(node) && node.text === text;
+}
+
+function isReactCreateElementCall(node) {
+  if (!ts.isCallExpression(node)) return false;
+  const expr = node.expression;
+  return (
+    ts.isPropertyAccessExpression(expr) &&
+    isIdent(expr.expression, "React") &&
+    isIdent(expr.name, "createElement")
+  );
+}
+
+function isReactFragmentRef(node) {
+  return (
+    ts.isPropertyAccessExpression(node) &&
+    isIdent(node.expression, "React") &&
+    isIdent(node.name, "Fragment")
+  );
+}
+
+// The `type` argument -> a JSX tag name expression.
+function tagNameFromType(typeArg) {
+  if (ts.isStringLiteral(typeArg)) return ts.factory.createIdentifier(typeArg.text);
+  if (isReactFragmentRef(typeArg))
+    return ts.factory.createPropertyAccessExpression(
+      ts.factory.createIdentifier("React"),
+      "Fragment",
+    );
+  if (ts.isIdentifier(typeArg)) return ts.factory.createIdentifier(typeArg.text);
+  throw new Error("Unsupported createElement type argument: " + typeArg.getText());
+}
+
+const JSX_UNSAFE_CHARS = /[<>{}]/;
+
+function jsxAttributesFromProps(propsArg) {
+  if (!propsArg || propsArg.kind === ts.SyntaxKind.NullKeyword) {
+    return ts.factory.createJsxAttributes([]);
+  }
+  if (!ts.isObjectLiteralExpression(propsArg)) {
+    // Non-literal props (none observed in these files, but stay correct):
+    // spread the whole expression onto the element.
+    return ts.factory.createJsxAttributes([
+      ts.factory.createJsxSpreadAttribute(propsArg),
+    ]);
+  }
+  const attrs = propsArg.properties.map((prop) => {
+    if (ts.isSpreadAssignment(prop)) {
+      return ts.factory.createJsxSpreadAttribute(prop.expression);
+    }
+    if (ts.isShorthandPropertyAssignment(prop)) {
+      return ts.factory.createJsxAttribute(
+        ts.factory.createIdentifier(prop.name.text),
+        ts.factory.createJsxExpression(undefined, ts.factory.createIdentifier(prop.name.text)),
+      );
+    }
+    if (!ts.isPropertyAssignment(prop)) {
+      throw new Error("Unsupported prop kind: " + ts.SyntaxKind[prop.kind]);
+    }
+    const name = ts.isStringLiteral(prop.name) ? prop.name.text : prop.name.getText();
+    const value = prop.initializer;
+    if (value.kind === ts.SyntaxKind.TrueKeyword) {
+      return ts.factory.createJsxAttribute(ts.factory.createIdentifier(name), undefined);
+    }
+    if (ts.isStringLiteral(value)) {
+      return ts.factory.createJsxAttribute(
+        ts.factory.createIdentifier(name),
+        ts.factory.createStringLiteral(value.text),
+      );
+    }
+    return ts.factory.createJsxAttribute(
+      ts.factory.createIdentifier(name),
+      ts.factory.createJsxExpression(undefined, value),
+    );
+  });
+  return ts.factory.createJsxAttributes(attrs);
+}
+
+function isJsxNode(node) {
+  return ts.isJsxElement(node) || ts.isJsxSelfClosingElement(node) || ts.isJsxFragment(node);
+}
+
+function jsxChildFromArg(arg) {
+  if (isJsxNode(arg)) return arg;
+  if (ts.isStringLiteral(arg) && !JSX_UNSAFE_CHARS.test(arg.text)) {
+    return ts.factory.createJsxText(arg.text, false);
+  }
+  return ts.factory.createJsxExpression(undefined, arg);
+}
+
+function createElementCallToJsx(call) {
+  const [typeArg, propsArg, ...childArgs] = call.arguments;
+  const tagName = tagNameFromType(typeArg);
+  const isFragment = ts.isPropertyAccessExpression(tagName) && tagName.name.text === "Fragment";
+  const attributes = jsxAttributesFromProps(propsArg);
+  const children = childArgs.map(jsxChildFromArg);
+
+  if (isFragment && attributes.properties.length === 0) {
+    return ts.factory.createJsxFragment(
+      ts.factory.createJsxOpeningFragment(),
+      children,
+      ts.factory.createJsxClosingFragment(),
+    );
+  }
+  if (children.length === 0) {
+    return ts.factory.createJsxSelfClosingElement(tagName, undefined, attributes);
+  }
+  return ts.factory.createJsxElement(
+    ts.factory.createJsxOpeningElement(tagName, undefined, attributes),
+    children,
+    ts.factory.createJsxClosingElement(tagName),
+  );
+}
+
+function makeCreateElementToJsxTransformer(context) {
+  const visit = (node) => {
+    const visited = ts.visitEachChild(node, visit, context);
+    if (isReactCreateElementCall(visited)) {
+      return createElementCallToJsx(visited);
+    }
+    return visited;
+  };
+  return (sourceFile) => ts.visitNode(sourceFile, visit);
+}
+
+// Parses `source` as TSX, rewrites every React.createElement(...) call tree
+// into real JSX, and returns the printed result. Pure - no file I/O, so
+// callers decide whether to write in place or to a renamed/new path.
+export function createElementToJsx(source, fileName) {
+  const sourceFile = ts.createSourceFile(
+    fileName,
+    source,
+    ts.ScriptTarget.Latest,
+    true,
+    ts.ScriptKind.TSX,
+  );
+  const result = ts.transform(sourceFile, [makeCreateElementToJsxTransformer]);
+  const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
+  const printed = printer.printFile(result.transformed[0]);
+  result.dispose();
+  return printed;
+}
+
 export async function toJsx(source, fileName) {
   const result = await esbuild.transform(source, {
     loader: "tsx",

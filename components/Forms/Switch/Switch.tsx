@@ -1,5 +1,4 @@
 import React from "react";
-
 /**
  * On/off toggle with a sentence-case inline label.
  */
@@ -8,10 +7,9 @@ export interface SwitchProps {
   onChange?: (checked: boolean) => void;
   label?: React.ReactNode;
   disabled?: boolean;
-  tone?: 'page' | 'inverse';
+  tone?: "page" | "inverse";
   style?: React.CSSProperties;
 }
-
 export function Switch({
   checked = false,
   onChange,
@@ -26,10 +24,9 @@ export function Switch({
   const toggle = () => {
     if (!disabled && onChange) onChange(!checked);
   };
-  return React.createElement(
-    "label",
-    {
-      style: {
+  return (
+    <label
+      style={{
         display: "inline-flex",
         alignItems: "center",
         gap: "var(--space-3)",
@@ -40,22 +37,20 @@ export function Switch({
         cursor: disabled ? "not-allowed" : "pointer",
         opacity: disabled ? 0.4 : 1,
         ...style,
-      },
-    },
-    React.createElement(
-      "span",
-      {
-        role: "switch",
-        "aria-checked": checked,
-        tabIndex: disabled ? -1 : 0,
-        onClick: toggle,
-        onKeyDown: (e: React.KeyboardEvent<HTMLSpanElement>) => {
+      }}
+    >
+      <span
+        role="switch"
+        aria-checked={checked}
+        tabIndex={disabled ? -1 : 0}
+        onClick={toggle}
+        onKeyDown={(e: React.KeyboardEvent<HTMLSpanElement>) => {
           if (e.key === " " || e.key === "Enter") {
             e.preventDefault();
             toggle();
           }
-        },
-        style: {
+        }}
+        style={{
           width: 36,
           height: 20,
           borderRadius: "var(--radius-pill)",
@@ -65,26 +60,27 @@ export function Switch({
           background: checked ? "var(--accent)" : "transparent",
           transition:
             "background var(--dur-fast) var(--ease-brand), border-color var(--dur-fast) var(--ease-brand)",
-        },
-        ...rest,
-      },
-      React.createElement("span", {
-        style: {
-          position: "absolute",
-          top: 1,
-          left: checked ? 17 : 1,
-          width: 16,
-          height: 16,
-          borderRadius: "50%",
-          background: checked
-            ? "var(--accent-contrast)"
-            : inverse
-              ? "var(--lum-white)"
-              : "var(--lum-black)",
-          transition: "left var(--dur-fast) var(--ease-brand)",
-        },
-      }),
-    ),
-    label,
+        }}
+        {...rest}
+      >
+        <span
+          style={{
+            position: "absolute",
+            top: 1,
+            left: checked ? 17 : 1,
+            width: 16,
+            height: 16,
+            borderRadius: "50%",
+            background: checked
+              ? "var(--accent-contrast)"
+              : inverse
+                ? "var(--lum-white)"
+                : "var(--lum-black)",
+            transition: "left var(--dur-fast) var(--ease-brand)",
+          }}
+        />
+      </span>
+      {label}
+    </label>
   );
 }
