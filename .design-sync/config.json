@@ -2,7 +2,7 @@
   "pkg": "lumenis-design-system",
   "globalName": "LumenisDesignSystem",
   "shape": "storybook",
-  "entry": "components/index.js",
+  "entry": "components/index.ts",
   "projectId": "f2c14a45-2fb3-46d5-8a2c-8ad811f1012d",
   "cssEntry": "styles.css",
   "storybookConfigDir": ".storybook",

@@ -60,12 +60,7 @@ export function Nav({ onBook }: NavProps) {
           </span>
           <Icon name="sun" size={18} tone="var(--lum-blue)" />
           <span style={{ width: 1, height: 20, background: "var(--border-subtle)" }} />
-          <Logotype
-            variant="wordmark"
-            tone="black"
-            width={90}
-            src="../../../../assets/logo/wordmark-black.svg"
-          />
+          <Logotype variant="wordmark" tone="black" width={90} />
         </a>
         <nav style={{ display: "flex", alignItems: "center", gap: "var(--space-6)" }}>
           {NAV_LINKS.map((l) => (

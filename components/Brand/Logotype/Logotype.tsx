@@ -1,7 +1,11 @@
 import React from "react";
+import wordmarkBlack from "../../../assets/logo/wordmark-black.svg";
+import wordmarkWhite from "../../../assets/logo/wordmark-white.svg";
+import symbolBlack from "../../../assets/logo/symbol-black.svg";
+import symbolWhite from "../../../assets/logo/symbol-white.svg";
 
-/** The Lumenis wordmark or Hero "L" symbol, as a supplied SVG asset. */
-export interface LogotypeProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+/** The Lumenis wordmark or Hero "L" symbol — real SVG assets, bundled in. */
+export interface LogotypeProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, "src"> {
   /** Positive (black) or negative (white) version. */
   tone?: "black" | "white";
   /** Full wordmark, or the Hero "L" symbol alone. */
@@ -10,28 +14,28 @@ export interface LogotypeProps extends React.ImgHTMLAttributes<HTMLImageElement>
   width?: number;
   /** Reserve the guideline safety zone as padding. */
   safety?: boolean;
-  /** Full path/URL to the SVG asset. Defaults to `assets/logo/<variant>-<tone>.svg`, resolved relative to the consuming page — pass the exact path when that default doesn't resolve (e.g. Storybook's `/foundations/assets`, or a component that composes `Logotype` from a different page depth, like `SiteHeader`/`SiteFooter`). */
-  src?: string;
   alt?: string;
   style?: React.CSSProperties;
 }
+
+const MARKS: Record<"wordmark" | "symbol", Record<"black" | "white", string>> = {
+  wordmark: { black: wordmarkBlack, white: wordmarkWhite },
+  symbol: { black: symbolBlack, white: symbolWhite },
+};
 
 export function Logotype({
   tone = "black",
   variant = "wordmark",
   width,
   safety = false,
-  src,
   alt = "Lumenis",
   style,
   ...rest
 }: LogotypeProps) {
-  const base = variant === "symbol" ? "symbol" : "wordmark";
-  const resolvedSrc = src ?? `assets/logo/${base}-${tone}.svg`;
   const w = width || (variant === "symbol" ? 48 : 180);
   return (
     <img
-      src={resolvedSrc}
+      src={MARKS[variant][tone]}
       alt={alt}
       style={{
         display: "block",

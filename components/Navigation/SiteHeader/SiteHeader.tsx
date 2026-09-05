@@ -17,8 +17,6 @@ export interface SiteHeaderProps {
   onNavigate?: (id: string) => void;
   /** `inverse` for the black header used over dark hero sections. */
   tone?: 'page' | 'inverse';
-  /** Passed straight to the internal `Logotype`'s `src` — override when this component's default relative asset path doesn't resolve from wherever it's rendered. */
-  logoSrc?: string;
   style?: React.CSSProperties;
 }
 
@@ -30,7 +28,6 @@ export function SiteHeader({
   locale = "Global, English",
   onNavigate,
   tone = "page",
-  logoSrc,
   style,
   ...rest
 }: SiteHeaderProps) {
@@ -63,7 +60,7 @@ export function SiteHeader({
         },
         style: { display: "block", flex: "0 0 auto" },
       },
-      React.createElement(Logotype, { tone: inverse ? "white" : "black", width: 132, src: logoSrc }),
+      React.createElement(Logotype, { tone: inverse ? "white" : "black", width: 132 }),
     ),
     React.createElement(
       "nav",
