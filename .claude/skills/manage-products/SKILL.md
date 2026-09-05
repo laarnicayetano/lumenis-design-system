@@ -168,13 +168,6 @@ If the folder `products/<Name>/` already exists, this is Flow B, not Flow A.
 5. **Verify** (build + validate) and hand off to `propose-change`, same as
    Flow A.
 
-## Flow C — Generate a per-product slide deck
-
-Moved to the `design-slides` skill (`.claude/skills/design-slides/SKILL.md`) — it's
-medium-output work, not product onboarding. Use it once the product's
-accent is wired (Flow A step 4); never generate a deck proactively as part
-of Flow A/B here.
-
 ## Notes
 
 - This skill is intentionally scoped to files, not publishing — it mirrors

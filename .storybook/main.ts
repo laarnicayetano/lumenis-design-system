@@ -43,11 +43,9 @@ const config: StorybookConfig = {
     { from: "../stories/generated/ui-kit-bundles/ui_kits/corporate-website", to: "/foundations/ui_kits/corporate-website" },
     { from: "../products/OptiLIFT/assets", to: "/foundations/products/OptiLIFT/assets" },
     { from: "../products/OptiLIFT/guidelines", to: "/foundations/products/OptiLIFT/guidelines" },
-    { from: "../products/OptiLIFT/templates", to: "/foundations/products/OptiLIFT/templates" },
     { from: "../stories/generated/ui-kit-bundles/products/OptiLIFT/ui_kit/website", to: "/foundations/products/OptiLIFT/ui_kit/website" },
     { from: "../products/OptiLIGHT/assets", to: "/foundations/products/OptiLIGHT/assets" },
     { from: "../products/OptiLIGHT/guidelines", to: "/foundations/products/OptiLIGHT/guidelines" },
-    { from: "../products/OptiLIGHT/templates", to: "/foundations/products/OptiLIGHT/templates" },
     { from: "../stories/generated/ui-kit-bundles/products/OptiLIGHT/ui_kit/website", to: "/foundations/products/OptiLIGHT/ui_kit/website" },
     // Destination slugged (real folder names have spaces — "Stellar M22",
     // "triLIFT 2.0") — Storybook's static file serving silently 404s on any
