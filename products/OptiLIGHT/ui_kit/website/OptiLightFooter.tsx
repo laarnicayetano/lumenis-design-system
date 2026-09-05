@@ -109,12 +109,7 @@ export function OptiLightFooter() {
           }}
         >
           <div>
-            <Logotype
-              variant="wordmark"
-              tone="black"
-              width={100}
-              src="../../../../assets/logo/wordmark-black.svg"
-            />
+            <Logotype variant="wordmark" tone="black" width={100} />
             <p
               style={{
                 fontFamily: "var(--font-sans)",

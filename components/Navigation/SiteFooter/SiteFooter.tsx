@@ -14,8 +14,6 @@ export interface SiteFooterProps {
   social?: string[];
   legal?: string;
   policies?: string[];
-  /** Passed straight to the internal `Logotype`'s `src` — override when this component's default relative asset path doesn't resolve from wherever it's rendered. */
-  logoSrc?: string;
   style?: React.CSSProperties;
 }
 
@@ -27,7 +25,6 @@ export function SiteFooter({
   social = [],
   legal = "Copyright \xA9 2010- Lumenis Be Ltd. All Rights Reserved",
   policies = [],
-  logoSrc,
   style,
   ...rest
 }: SiteFooterProps) {
@@ -54,7 +51,7 @@ export function SiteFooter({
           gap: "var(--space-8)",
         },
       },
-      React.createElement(Logotype, { tone: "white", width: 168, src: logoSrc }),
+      React.createElement(Logotype, { tone: "white", width: 168 }),
       columns.map((col) =>
         React.createElement(
           "div",

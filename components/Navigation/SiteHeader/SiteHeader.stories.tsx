@@ -24,8 +24,6 @@ const meta = {
       { id: "vision", label: "Vision" },
     ],
     active: "aesthetics",
-    // Storybook serves assets/ under /foundations/assets, see .storybook/main.ts staticDirs.
-    logoSrc: "/foundations/assets/logo/wordmark-black.svg",
   },
 } satisfies Meta<typeof SiteHeader>;
 
