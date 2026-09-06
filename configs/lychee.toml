@@ -6,6 +6,12 @@ exclude_all_private = true
 exclude = [
   "^https://localhost",
   "^http://localhost",
+  # Licensed fonts (see .gitignore: assets/fonts/, *.otf/*.ttf/*.woff*) are
+  # never committed — tokens/fonts.css's @font-face src links resolve fine
+  # on a machine that has local copies but always 404 on a fresh checkout
+  # (e.g. CI). README.md documents the graceful fallback; this isn't a
+  # real broken link.
+  "assets/fonts/",
 ]
 
 # Skill templates/ skeletons (e.g. .claude/skills/manage-products/templates/)
