@@ -30,10 +30,12 @@ straight to `master`.
 2. **See what changed.** Run `git status` and `git diff` (or `git diff --staged`
    if things are already staged) to see which files changed.
 
-3. **Check for sensitive content.** This repo is public — read the actual
-   diff content (not just filenames) and look for:
-   - API keys, tokens, passwords, or credentials (e.g. `sk-`, `AKIA`, `-----BEGIN
-PRIVATE KEY-----`, bearer tokens, `.env`-style `KEY=value` secrets)
+3. **Check for sensitive content.** This repo is public. Run `npm run
+   scan-secrets` (backed by `gitleaks` via `@laarnicayetano/preflight-cli` —
+   see `configs/gitleaks.toml`) to catch API keys, tokens, passwords, and
+   credentials automatically. It only scans for literal secret patterns
+   though, so also read the actual diff content (not just filenames) for
+   what it can't: 
    - Real customer/personal data (names + emails, phone numbers, addresses,
      account IDs) rather than placeholder/example data
    - Internal-only material that reads as confidential (unreleased pricing,

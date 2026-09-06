@@ -1,0 +1,13 @@
+# Shared lychee config for markdown link checking across Lumenis repos.
+# https://lychee.cli.rs/#/usage/config
+# Source: https://github.com/laarnicayetano/lumenis-repo-preflight
+
+exclude_all_private = true
+exclude = [
+  "^https://localhost",
+  "^http://localhost",
+]
+
+accept = [200, 429]
+timeout = 20
+max_retries = 3
