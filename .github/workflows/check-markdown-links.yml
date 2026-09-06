@@ -1,28 +1,22 @@
 name: Check markdown links
 
 # Fails the PR if any markdown file links to a relative path that doesn't
-# exist, or an external URL that's dead — via `preflight check-links`
-# (lychee) against configs/lychee.toml. Catches renames/removals (like a
-# deleted skill) that leave other docs pointing at nothing.
+# exist, or an external URL that's dead. Calls the reusable workflow from
+# laarnicayetano/lumenis-repo-preflight (the shared CLI wrapping lychee)
+# instead of reimplementing the install-and-run steps here.
+#
+# Pinned to v0.2.0, not the `v1` tag the preflight repo's own README
+# documents — that tag doesn't exist yet there (latest release is 0.2.0,
+# pre-1.0). Re-pin once a v1 moving tag actually exists.
 
 on:
   pull_request:
     paths:
       - "**/*.md"
       - "configs/lychee.toml"
-      - "package.json"
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: latest
-      - name: Install lychee
-        uses: taiki-e/install-action@v2
-        with:
-          tool: lychee
-      - run: npm ci
-      - run: npm run check:links
+  check-links:
+    uses: laarnicayetano/lumenis-repo-preflight/.github/workflows/check-links.yml@v0.2.0
+    with:
+      config: configs/lychee.toml
