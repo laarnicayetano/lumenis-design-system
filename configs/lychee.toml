@@ -1,0 +1,28 @@
+# Shared lychee config for markdown link checking across Lumenis repos.
+# https://lychee.cli.rs/#/usage/config
+# Source: https://github.com/laarnicayetano/lumenis-repo-preflight
+
+exclude_all_private = true
+exclude = [
+  "^https://localhost",
+  "^http://localhost",
+  # Licensed fonts (see .gitignore: assets/fonts/, *.otf/*.ttf/*.woff*) are
+  # never committed — tokens/fonts.css's @font-face src links resolve fine
+  # on a machine that has local copies but always 404 on a fresh checkout
+  # (e.g. CI). README.md documents the graceful fallback; this isn't a
+  # real broken link.
+  "assets/fonts/",
+]
+
+# Skill templates/ skeletons (e.g. .claude/skills/manage-products/templates/)
+# are fill-in-the-blanks files authored with links relative to their future
+# copied-to location, not where they currently sit — checking them in place
+# produces false positives. Mirrors the exclusion the old
+# scripts/check-markdown-links.ts used to apply.
+exclude_path = [
+  "\\.claude/skills/.*/templates/",
+]
+
+accept = [200, 429]
+timeout = 20
+max_retries = 3

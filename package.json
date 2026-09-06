@@ -9,7 +9,8 @@
     "validate": "node scripts/validate.ts",
     "typecheck": "tsc --noEmit",
     "check:cards": "node scripts/check-cards.ts",
-    "check:links": "node scripts/check-markdown-links.ts",
+    "check:links": "preflight check-links --config configs/lychee.toml",
+    "scan-secrets": "preflight scan-secrets --config configs/gitleaks.toml",
     "build:storybook-content": "node scripts/build-storybook-content.ts",
     "storybook": "npm run build:storybook-content && storybook dev -p 6006",
     "build": "npm run build:storybook-content && storybook build"
@@ -19,6 +20,7 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@laarnicayetano/preflight-cli": "^0.2.0",
     "@storybook/addon-a11y": "^10.6.0",
     "@storybook/addon-docs": "^10.6.0",
     "@storybook/addon-mcp": "^10.6.0",

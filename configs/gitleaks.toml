@@ -1,0 +1,26 @@
+# Shared gitleaks config for secret scanning across Lumenis repos.
+# Source: https://github.com/laarnicayetano/lumenis-repo-preflight
+
+title = "Lumenis shared gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''(.*?)(jpg|gif|doc|pdf|bin|svg|socket)$''',
+  '''node_modules''',
+  # `--no-git` mode (what preflight's scan-secrets runs) scans the whole
+  # filesystem with no awareness of .gitignore, so build/cache output never
+  # committed to git still gets scanned directly — these directories are
+  # regenerated, gitignored, and full of hash-like strings that misfire the
+  # entropy-based generic-api-key rule. Keep in sync with .gitignore.
+  '''^storybook-static''',
+  '''^ds-bundle''',
+  '''^stories/generated''',
+  '''^dist''',
+  '''^\.build-tmp''',
+  '''^\.design-sync/(sb-reference|\.cache|node_modules)''',
+  '''^\.ds-sync''',
+]
